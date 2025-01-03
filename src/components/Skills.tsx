@@ -1,31 +1,42 @@
 import { motion } from "framer-motion";
-import { Code2, Cpu, Palette, Terminal } from "lucide-react";
+import { Code2, Database, Target, Users, Cpu } from "lucide-react";
 import { Progress } from "./ui/progress";
 
 const skills = [
   {
     icon: <Code2 className="w-8 h-8 text-cyberpink" />,
-    title: "Frontend Development",
-    description: "React, TypeScript, Tailwind CSS",
+    title: "SEO & Digital Growth",
+    description: "Tools: Ahrefs, SEMrush, Screaming Frog, Google Search Console",
+    focus: "Advanced SEO strategies, programmatic SEO, technical audits, and content optimization",
     proficiency: 90
   },
   {
-    icon: <Terminal className="w-8 h-8 text-cybercyan" />,
-    title: "Backend Development",
-    description: "Node.js, Python, SQL",
-    proficiency: 85
+    icon: <Database className="w-8 h-8 text-cybercyan" />,
+    title: "Analytics & Data",
+    description: "Tools: Google Analytics (GA4), Adobe Analytics, SQL, Looker, Tableau",
+    focus: "Data-driven decision-making, KPI tracking, and performance reporting",
+    proficiency: 80
   },
   {
     icon: <Cpu className="w-8 h-8 text-cyberamber" />,
-    title: "DevOps",
-    description: "Docker, AWS, CI/CD",
+    title: "AI & Programmatic Automation",
+    description: "Tools: OpenAI API, Zapier, Make, programmatic content generation",
+    focus: "Leveraging AI for scalable content production and improving operational efficiencies",
     proficiency: 75
   },
   {
-    icon: <Palette className="w-8 h-8 text-cyberblue" />,
-    title: "UI/UX Design",
-    description: "Figma, Adobe XD, Prototyping",
-    proficiency: 80
+    icon: <Target className="w-8 h-8 text-cyberblue" />,
+    title: "Digital Advertising & Growth",
+    description: "Channels: Google Ads, Facebook Business Manager, Paid Search & Social",
+    focus: "Demand generation, lowering CAC, and optimizing ad campaigns",
+    proficiency: 85
+  },
+  {
+    icon: <Users className="w-8 h-8 text-cyberpink" />,
+    title: "Leadership & Strategy",
+    description: "Skills: Cross-functional collaboration, team mentorship, project management",
+    focus: "Building and leading high-performing teams, aligning strategies with organizational goals",
+    proficiency: 90
   },
 ];
 
@@ -46,20 +57,21 @@ export const Skills = () => {
           </span>
         </motion.h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills.map((skill, index) => (
             <motion.div
               key={index}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-card p-6 hover-glow"
+              className="glass-card p-6 hover-glow h-full"
             >
-              <div className="flex flex-col items-center text-center">
+              <div className="flex flex-col items-center text-center h-full">
                 {skill.icon}
                 <h3 className="mt-4 text-xl font-semibold text-white">{skill.title}</h3>
-                <p className="mt-2 text-gray-400 mb-4">{skill.description}</p>
-                <div className="w-full space-y-2">
+                <p className="mt-2 text-gray-400">{skill.description}</p>
+                <p className="mt-2 text-sm text-gray-500 flex-grow">{skill.focus}</p>
+                <div className="w-full space-y-2 mt-4">
                   <div className="flex justify-between text-sm">
                     <span className="text-gray-400">Proficiency</span>
                     <span className="text-cyberpink">{skill.proficiency}%</span>
