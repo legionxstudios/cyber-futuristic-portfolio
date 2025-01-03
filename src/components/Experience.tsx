@@ -70,15 +70,25 @@ export const Experience = () => {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
+                className="relative grid grid-cols-1 md:grid-cols-2 gap-8"
               >
                 {/* Date on the opposite side */}
-                <div className={`hidden md:block text-cyberpink font-medium ${index % 2 === 0 ? 'md:col-start-2 text-left pl-8' : 'text-right pr-8'}`}>
+                <div 
+                  className={`hidden md:block text-cyberpink font-medium absolute top-2 ${
+                    index % 2 === 0 
+                      ? 'left-[52%] pl-8' 
+                      : 'right-[52%] pr-8 text-right'
+                  }`}
+                >
                   {exp.date}
                 </div>
 
                 {/* Card */}
-                <div className={`glass-card p-6 hover-glow ${index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'}`}>
+                <div className={`glass-card p-6 hover-glow ${
+                  index % 2 === 0 
+                    ? 'md:col-start-1 md:mr-auto' 
+                    : 'md:col-start-2 md:ml-auto'
+                }`}>
                   {/* Mobile date display */}
                   <div className="md:hidden text-cyberpink font-medium mb-4">
                     {exp.date}
@@ -108,7 +118,7 @@ export const Experience = () => {
                 </div>
 
                 {/* Timeline dot */}
-                <div className="absolute left-1/2 top-8 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyberpink" />
+                <div className="absolute left-1/2 top-2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyberpink" />
               </motion.div>
             ))}
           </div>
