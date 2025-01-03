@@ -7,6 +7,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { CursorTrail } from "./CursorTrail";
 
 export const Hero = () => {
   const [displayText, setDisplayText] = useState("");
@@ -39,11 +40,13 @@ export const Hero = () => {
 
   return (
     <motion.div 
+      id="hero-section"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark"
     >
+      <CursorTrail />
       <div className="absolute inset-0 bg-[url('/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png')] bg-cover bg-center opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
