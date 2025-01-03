@@ -139,7 +139,7 @@ export const Hero = () => {
           transition={{ delay: 0.5 }}
           className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto bg-black/30 p-4 rounded-lg"
         >
-          Over a Decade of Driving Growth with Data-Driven Marketing, Advanced SEO, and Proven CRO Techniques
+          Over a decade of driving growth with data-driven marketing, advanced SEO, and proven CRO techniques
         </motion.p>
 
         <motion.div
