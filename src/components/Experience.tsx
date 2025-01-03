@@ -105,7 +105,7 @@ export const Experience = () => {
                       className="hover:text-cyberpink transition-colors flex items-center gap-1"
                     >
                       {exp.company}
-                      <ExternalLink className="w-3.5 h-3.5 -rotate-45" />
+                      <ExternalLink className="w-3.5 h-3.5" />
                     </a>
                   </div>
                   
