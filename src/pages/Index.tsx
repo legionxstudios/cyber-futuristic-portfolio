@@ -1,6 +1,7 @@
 import { Hero } from "@/components/Hero";
 import { Skills } from "@/components/Skills";
 import { Projects } from "@/components/Projects";
+import { Contact } from "@/components/Contact";
 import { motion } from "framer-motion";
 
 const Index = () => {
@@ -9,6 +10,7 @@ const Index = () => {
       <Hero />
       <Skills />
       <Projects />
+      <Contact />
     </div>
   );
 };
