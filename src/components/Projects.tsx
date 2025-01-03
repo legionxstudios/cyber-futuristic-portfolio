@@ -6,7 +6,7 @@ const projects = [
     title: "Project Alpha",
     description: "A cutting-edge AI-powered analytics platform",
     tags: ["React", "Python", "TensorFlow"],
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/65beb88c-53d8-4358-bf9c-63ad59a6d340.png",
     githubUrl: "#",
     liveUrl: "#",
   },
@@ -14,7 +14,7 @@ const projects = [
     title: "Project Beta",
     description: "Real-time data visualization dashboard",
     tags: ["TypeScript", "D3.js", "Node.js"],
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png",
     githubUrl: "#",
     liveUrl: "#",
   },
@@ -22,7 +22,7 @@ const projects = [
     title: "Project Gamma",
     description: "Blockchain-based secure messaging system",
     tags: ["Solidity", "Web3.js", "React"],
-    image: "/placeholder.svg",
+    image: "/lovable-uploads/65beb88c-53d8-4358-bf9c-63ad59a6d340.png",
     githubUrl: "#",
     liveUrl: "#",
   },
@@ -52,13 +52,16 @@ export const Projects = () => {
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="glass-card overflow-hidden hover-glow"
+              className="glass-card overflow-hidden group hover-glow"
             >
-              <img
-                src={project.image}
-                alt={project.title}
-                className="w-full h-48 object-cover object-center"
-              />
+              <div className="relative overflow-hidden">
+                <img
+                  src={project.image}
+                  alt={project.title}
+                  className="w-full h-48 object-cover object-center transform transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
+              </div>
               <div className="p-6">
                 <h3 className="text-xl font-semibold text-white mb-2">{project.title}</h3>
                 <p className="text-gray-400 mb-4">{project.description}</p>

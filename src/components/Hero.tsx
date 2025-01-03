@@ -34,7 +34,7 @@ export const Hero = () => {
       transition={{ duration: 0.5 }}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark"
     >
-      <div className="absolute inset-0 bg-[url('/lovable-uploads/5a132fef-5327-488e-b601-4dc0bd6e6255.png')] bg-cover bg-center opacity-20" />
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png')] bg-cover bg-center opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
       <div className="relative z-10 text-center px-4">
@@ -74,12 +74,12 @@ export const Hero = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-8 flex justify-center gap-4"
+          className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
         >
-          <button className="px-8 py-3 rounded-lg bg-cyberpink text-white font-medium hover:bg-cyberpink/90 transition-colors">
+          <button className="px-8 py-3 rounded-lg bg-cyberpink text-white font-medium hover:bg-cyberpink/90 transition-colors hover:shadow-lg hover:shadow-cyberpink/20">
             View Projects
           </button>
-          <button className="px-8 py-3 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white font-medium hover:bg-white/10 transition-colors">
+          <button className="px-8 py-3 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white font-medium hover:bg-white/10 transition-colors hover:shadow-lg hover:shadow-white/20">
             Contact Me
           </button>
         </motion.div>
