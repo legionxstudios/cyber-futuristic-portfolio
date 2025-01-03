@@ -45,7 +45,7 @@ export const TestimonialCarousel = () => {
                 <Quote className="text-cyberpink w-8 h-8" />
                 <p className="text-gray-300 flex-grow">{testimonial.text}</p>
                 <div>
-                  <div className="flex items-center gap-2">
+                  <div className="flex items-center justify-center gap-2">
                     <p className="text-cyberpink font-semibold">{testimonial.author}</p>
                     <a 
                       href={testimonial.linkedin}
