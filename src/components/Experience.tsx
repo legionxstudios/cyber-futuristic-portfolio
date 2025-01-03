@@ -3,22 +3,39 @@ import { Calendar, Building2 } from "lucide-react";
 
 const experiences = [
   {
-    date: "2023 - Present",
-    company: "Tech Innovators Inc.",
-    role: "Senior Full Stack Developer",
-    description: "Leading development of cloud-native applications and microservices architecture."
+    date: "April 2024 - Current",
+    company: "ABC Fitness",
+    location: "Sherwood, Arkansas, United States (Remote)",
+    role: "Senior Manager of Website, CRO and SEO",
+    description: [
+      "Increased MQLs by 35% and reduced CAC by 20% through experimentation and paid media optimizations.",
+      "Launched conversion-focused campaigns generating 18% higher ROI using AI-driven content tools.",
+      "Collaborated with product and sales teams to align growth strategies with revenue targets."
+    ]
   },
   {
-    date: "2021 - 2023",
-    company: "Digital Solutions Co.",
-    role: "Frontend Developer",
-    description: "Developed responsive web applications using React and TypeScript."
+    date: "November 2020 – April 2024",
+    company: "Vendasta Technologies Inc.",
+    location: "Saskatoon, SK (Remote)",
+    role: "Director of Web, CRO and SEO",
+    description: [
+      "Contributed to Vendasta's growth from $30M to $100M ARR by optimizing on-page SEO and targeting high-value keywords.",
+      "Implemented a programmatic SEO initiative, generating 10K organic monthly visitors by leveraging AI to create over 300 dynamic content pages.",
+      "Led a 250+ article project increasing organic traffic by 50% month-over-month.",
+      "Reduced SEM CAC by 75% through the creation of a video ad program, outperforming previous ad creatives.",
+      "Re-optimized decayed content, improving regaining traffic to those pages anywhere between by 40-100%."
+    ]
   },
   {
-    date: "2019 - 2021",
-    company: "StartUp Labs",
-    role: "Junior Developer",
-    description: "Built and maintained various client-side applications."
+    date: "April 2018 – June 2020",
+    company: "Format",
+    location: "Toronto, ON",
+    role: "SEO Manager",
+    description: [
+      "Grew organic traffic by 300% and increased leads by 31% through the \"SEO Taskforce\" initiative.",
+      "Created SEO-optimized landing pages that ranked in the top 1–5 positions for competitive keywords.",
+      "Delivered 34% growth in new paying customers by optimizing niche landing pages."
+    ]
   }
 ];
 
@@ -57,12 +74,17 @@ export const Experience = () => {
                     <Calendar className="w-4 h-4" />
                     <span>{exp.date}</span>
                   </div>
-                  <div className="flex items-center gap-2 mb-3 text-cybercyan">
+                  <div className="flex items-center gap-2 mb-1 text-cybercyan">
                     <Building2 className="w-4 h-4" />
                     <span>{exp.company}</span>
                   </div>
-                  <h3 className="text-xl font-semibold text-white mb-2">{exp.role}</h3>
-                  <p className="text-gray-400">{exp.description}</p>
+                  <div className="text-gray-400 text-sm mb-3">{exp.location}</div>
+                  <h3 className="text-xl font-semibold text-white mb-3">{exp.role}</h3>
+                  <ul className="text-gray-400 space-y-2">
+                    {exp.description.map((item, i) => (
+                      <li key={i} className="list-disc ml-4">{item}</li>
+                    ))}
+                  </ul>
                 </div>
 
                 {/* Timeline dot */}
