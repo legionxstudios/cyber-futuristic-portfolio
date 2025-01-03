@@ -138,7 +138,7 @@ export const Hero = () => {
           transition={{ delay: 0.5 }}
           className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto"
         >
-          10+ years of experience crafting digital experiences in the cyberpunk era
+          Over a Decade of Driving Growth with Data-Driven Marketing, Advanced SEO, and Proven CRO Techniques
         </motion.p>
 
         <motion.div
@@ -166,9 +166,12 @@ export const Hero = () => {
             </DialogContent>
           </Dialog>
 
-          <button className="px-8 py-3 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white font-medium hover:bg-white/10 transition-colors hover:shadow-lg hover:shadow-white/20">
+          <a 
+            href="#contact"
+            className="px-8 py-3 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white font-medium hover:bg-white/10 transition-colors hover:shadow-lg hover:shadow-white/20 inline-block"
+          >
             Contact Me
-          </button>
+          </a>
         </motion.div>
 
         <TestimonialCarousel />

@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
 import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { InlineWidget } from "react-calendly";
 
 export const Contact = () => {
   return (
-    <section className="py-20 relative">
+    <section id="contact" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyberblue/5 to-transparent" />
       
       <div className="container mx-auto px-4">
@@ -23,11 +24,15 @@ export const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="glass-card p-8 text-center"
+            className="glass-card p-8"
           >
-            <p className="text-lg text-gray-300 mb-8">
+            <p className="text-lg text-gray-300 mb-8 text-center">
               Ready to collaborate? Let's create something amazing together.
             </p>
+            
+            <div className="mb-12">
+              <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '700px' }} />
+            </div>
             
             <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
               <a
