@@ -14,7 +14,7 @@ export const ParticlesBackground = () => {
 
   return (
     <Particles
-      className="absolute inset-0 -z-10"
+      className="fixed inset-0 -z-20"
       id="tsparticles"
       init={particlesInit}
       loaded={particlesLoaded}
