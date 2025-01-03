@@ -107,13 +107,15 @@
   border-color: transparent transparent transparent white !important;
 }
 
-/* Snake-like dot pattern with connecting lines */
+/* Tron-like grid pattern with light trails */
 .dot-pattern {
   position: fixed;
   inset: 0;
-  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
-  background-size: 50px 50px;
-  background-position: -25px -25px;
+  background-image: 
+    radial-gradient(rgba(14, 165, 233, 0.15) 1px, transparent 1px),
+    linear-gradient(to bottom, transparent 49px, rgba(14, 165, 233, 0.3) 50px, transparent 51px);
+  background-size: 50px 50px, 50px 200px;
+  background-position: -25px -25px, 0 0;
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.2));
   pointer-events: none;
 }
@@ -122,23 +124,23 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: repeating-linear-gradient(
-    transparent,
-    transparent 49px,
-    rgba(255, 255, 255, 0.05) 49px,
-    rgba(255, 255, 255, 0.05) 50px
+  background: linear-gradient(90deg,
+    transparent 24px,
+    rgba(14, 165, 233, 0.5) 25px,
+    transparent 26px
   );
-  background-size: 50px 200%;
-  animation: snakeMove 5s linear infinite;
+  background-size: 50px 100%;
+  opacity: 0.5;
+  animation: tronTrail 3s linear infinite;
   transform-origin: 50% 0%;
   mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.2));
 }
 
-@keyframes snakeMove {
-  0% {
-    background-position: 0 -200%;
+@keyframes tronTrail {
+  from {
+    transform: translateX(-50px);
   }
-  100% {
-    background-position: 0 0;
+  to {
+    transform: translateX(0);
   }
 }
