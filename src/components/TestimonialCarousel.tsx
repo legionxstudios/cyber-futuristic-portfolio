@@ -5,23 +5,26 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Quote } from "lucide-react";
+import { Quote, Linkedin } from "lucide-react";
 
 const testimonials = [
   {
     text: "Tudor's ability to blend technical expertise with thoughtful leadership is inspiring. A systems builder at heart, he's always innovating, leading his team to success, and staying ahead of SEO and website trends. His consistently high leadership scores say it all.",
     author: "Solange Messier",
     role: "former colleague @Vendasta",
+    linkedin: "https://www.linkedin.com/in/solange-messier/",
   },
   {
     text: "Tudor was a pivotal leader at Vendasta, driving website management and SEO strategy. He built a high-performing team of developers, SEO experts, and designers, consistently delivering innovative results. His servant leadership style fostered exceptional team engagement and satisfaction.",
     author: "Brittany Wong",
     role: "former manager @Vendasta",
+    linkedin: "https://www.linkedin.com/in/brittanywong/",
   },
   {
     text: "Tudor is a rare SEO & Web Director who combines technical expertise, design acumen, and content strategy insight. He bridges technical SEO with broader marketing seamlessly, identifying pipeline issues and delivering clear, actionable solutions. His data-driven approach fosters trust, collaboration, and alignment with brand goals, making him a game-changer for any team.",
     author: "Brandon Moore",
     role: "former colleague @Vendasta",
+    linkedin: "https://www.linkedin.com/in/brandon-moore-616b1336/",
   },
 ];
 
@@ -42,7 +45,17 @@ export const TestimonialCarousel = () => {
                 <Quote className="text-cyberpink w-8 h-8" />
                 <p className="text-gray-300 flex-grow">{testimonial.text}</p>
                 <div>
-                  <p className="text-cyberpink font-semibold">{testimonial.author}</p>
+                  <div className="flex items-center gap-2">
+                    <p className="text-cyberpink font-semibold">{testimonial.author}</p>
+                    <a 
+                      href={testimonial.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-cyberpink transition-colors"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                    </a>
+                  </div>
                   <p className="text-sm text-gray-400">{testimonial.role}</p>
                 </div>
               </div>
