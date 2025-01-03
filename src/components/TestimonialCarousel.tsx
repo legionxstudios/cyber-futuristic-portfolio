@@ -9,19 +9,19 @@ import { Quote } from "lucide-react";
 
 const testimonials = [
   {
-    text: "One of the most innovative SEO professionals I've worked with. Their approach to technical SEO transformed our online presence.",
-    author: "Sarah Chen",
-    role: "CTO, TechCorp",
+    text: "Tudor's ability to blend technical expertise with thoughtful leadership is inspiring. A systems builder at heart, he's always innovating, leading his team to success, and staying ahead of SEO and website trends. His consistently high leadership scores say it all.",
+    author: "Solange Messier",
+    role: "former colleague @Vendasta",
   },
   {
-    text: "Their deep understanding of content strategy and user experience helped us achieve a 300% increase in organic traffic.",
-    author: "Michael Rodriguez",
-    role: "Marketing Director, GrowthCo",
+    text: "Tudor was a pivotal leader at Vendasta, driving website management and SEO strategy. He built a high-performing team of developers, SEO experts, and designers, consistently delivering innovative results. His servant leadership style fostered exceptional team engagement and satisfaction.",
+    author: "Brittany Wong",
+    role: "former manager @Vendasta",
   },
   {
-    text: "A true expert in conversion rate optimization. They have a unique ability to turn data into actionable insights.",
-    author: "Emily Watson",
-    role: "Head of Digital, OptimizeNow",
+    text: "Tudor is a rare SEO & Web Director who combines technical expertise, design acumen, and content strategy insight. He bridges technical SEO with broader marketing seamlessly, identifying pipeline issues and delivering clear, actionable solutions. His data-driven approach fosters trust, collaboration, and alignment with brand goals, making him a game-changer for any team.",
+    author: "Brandon Moore",
+    role: "former colleague @Vendasta",
   },
 ];
 
