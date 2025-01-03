@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { Calendar, Building2 } from "lucide-react";
+import { Building2 } from "lucide-react";
 
 const experiences = [
   {
     date: "April 2024 - Current",
     company: "ABC Fitness",
+    website: "https://www.abcfitness.com",
     location: "Sherwood, Arkansas, United States (Remote)",
     role: "Senior Manager of Website, CRO and SEO",
     description: [
@@ -16,6 +17,7 @@ const experiences = [
   {
     date: "November 2020 – April 2024",
     company: "Vendasta Technologies Inc.",
+    website: "https://www.vendasta.com",
     location: "Saskatoon, SK (Remote)",
     role: "Director of Web, CRO and SEO",
     description: [
@@ -29,6 +31,7 @@ const experiences = [
   {
     date: "April 2018 – June 2020",
     company: "Format",
+    website: "https://www.format.com",
     location: "Toronto, ON",
     role: "SEO Manager",
     description: [
@@ -67,19 +70,36 @@ export const Experience = () => {
                 initial={{ opacity: 0, x: index % 2 === 0 ? -50 : 50 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.5, delay: index * 0.2 }}
-                className="relative grid grid-cols-1 md:grid-cols-2 gap-8"
+                className="relative grid grid-cols-1 md:grid-cols-2 gap-8 items-center"
               >
-                <div className={`glass-card p-6 hover-glow text-left ${index % 2 === 0 ? 'md:text-left' : 'md:col-start-2 md:text-left'}`}>
-                  <div className="flex items-center gap-2 mb-2 text-cyberpink">
-                    <Calendar className="w-4 h-4" />
-                    <span>{exp.date}</span>
+                {/* Date on the opposite side */}
+                <div className={`hidden md:block text-cyberpink font-medium ${index % 2 === 0 ? 'md:col-start-2 text-left pl-8' : 'text-right pr-8'}`}>
+                  {exp.date}
+                </div>
+
+                {/* Card */}
+                <div className={`glass-card p-6 hover-glow ${index % 2 === 0 ? 'md:col-start-1' : 'md:col-start-2'}`}>
+                  {/* Mobile date display */}
+                  <div className="md:hidden text-cyberpink font-medium mb-4">
+                    {exp.date}
                   </div>
+                  
+                  <h3 className="text-xl font-semibold text-white mb-2">{exp.role}</h3>
+                  
                   <div className="flex items-center gap-2 mb-1 text-cybercyan">
                     <Building2 className="w-4 h-4" />
-                    <span>{exp.company}</span>
+                    <a 
+                      href={exp.website}
+                      target="_blank"
+                      rel="nofollow noopener noreferrer"
+                      className="hover:text-cyberpink transition-colors"
+                    >
+                      {exp.company}
+                    </a>
                   </div>
-                  <div className="text-gray-400 text-sm mb-3">{exp.location}</div>
-                  <h3 className="text-xl font-semibold text-white mb-4">{exp.role}</h3>
+                  
+                  <div className="text-gray-400 text-sm mb-4">{exp.location}</div>
+                  
                   <div className="text-gray-400 space-y-4">
                     {exp.description.map((item, i) => (
                       <p key={i} className="text-left">{item}</p>
