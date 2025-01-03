@@ -19,7 +19,7 @@ export const Contact = () => {
           </span>
         </motion.h2>
         
-        <div className="max-w-3xl mx-auto">
+        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -30,11 +30,7 @@ export const Contact = () => {
               Ready to collaborate? Let's create something amazing together.
             </p>
             
-            <div className="mb-12">
-              <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '700px' }} />
-            </div>
-            
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
               <a
                 href="mailto:your.email@example.com"
                 className="flex flex-col items-center gap-2 text-gray-400 hover:text-cyberpink transition-colors group"
@@ -81,6 +77,15 @@ export const Contact = () => {
                 <span>Twitter</span>
               </a>
             </div>
+          </motion.div>
+
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="glass-card p-8"
+          >
+            <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '500px' }} />
           </motion.div>
         </div>
       </div>
