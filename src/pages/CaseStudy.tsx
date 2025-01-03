@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { ArrowUpRight, Users, Target, Lightbulb, TrendingUp, DollarSign, CheckCircle2 } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import ToolsSection from "@/components/case-study/ToolsSection";
 
 const CaseStudy = () => {
   return (
@@ -220,6 +221,9 @@ const CaseStudy = () => {
           </div>
         </div>
       </section>
+
+      {/* Tools Section */}
+      <ToolsSection />
 
       {/* Results Graph */}
       <section className="py-16">
