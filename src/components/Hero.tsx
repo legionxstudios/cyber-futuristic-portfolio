@@ -1,6 +1,32 @@
 import { motion } from "framer-motion";
+import { useEffect, useState } from "react";
 
 export const Hero = () => {
+  const [displayText, setDisplayText] = useState("");
+  const fullText = "#HireMeHuman";
+  const [showCursor, setShowCursor] = useState(true);
+
+  useEffect(() => {
+    let currentIndex = 0;
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= fullText.length) {
+        setDisplayText(fullText.slice(0, currentIndex));
+        currentIndex++;
+      } else {
+        clearInterval(typingInterval);
+      }
+    }, 100);
+
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 530);
+
+    return () => {
+      clearInterval(typingInterval);
+      clearInterval(cursorInterval);
+    };
+  }, []);
+
   return (
     <motion.div 
       initial={{ opacity: 0 }}
@@ -27,10 +53,11 @@ export const Hero = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-8 text-4xl md:text-6xl font-bold text-white"
+          className="mt-8 text-4xl md:text-6xl font-bold text-white font-mono"
         >
           <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
-            #HireMeHuman
+            {">_"} {displayText}
+            <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} ml-1`}>|</span>
           </span>
         </motion.h1>
         
