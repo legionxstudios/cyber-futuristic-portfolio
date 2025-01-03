@@ -7,16 +7,23 @@ import { useEffect } from "react";
 
 const Index = () => {
   useEffect(() => {
+    const updateScroll = () => {
+      document.documentElement.style.setProperty('--scroll', `${window.scrollY}px`);
+    };
+
     document.documentElement.style.scrollBehavior = 'smooth';
+    window.addEventListener('scroll', updateScroll);
+    
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
+      window.removeEventListener('scroll', updateScroll);
     };
   }, []);
 
   return (
     <main className="bg-cyberdark min-h-screen relative">
-      {/* Dot pattern overlay */}
-      <div className="fixed inset-0 dot-pattern pointer-events-none" />
+      {/* Light trail effect */}
+      <div className="light-trail" />
       
       <Hero />
       <Skills />
