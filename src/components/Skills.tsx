@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Code2, Database, Target, Users, Cpu } from "lucide-react";
+import { Code2, Database, Target, Users, Cpu, LineChart } from "lucide-react";
 import { Progress } from "./ui/progress";
 
 const skills = [
@@ -25,6 +25,13 @@ const skills = [
     proficiency: 75
   },
   {
+    icon: <LineChart className="w-8 h-8 text-cyberpink" />,
+    title: "Conversion Rate Optimization (CRO)",
+    description: "Tools: A/B Testing, Google Optimize, Hotjar, Crazy Egg, Optimizely",
+    focus: "Enhancing user experience, improving conversion rates through experimentation frameworks, and reducing friction along the user journey",
+    proficiency: 85
+  },
+  {
     icon: <Target className="w-8 h-8 text-cyberblue" />,
     title: "Digital Advertising & Growth",
     description: "Channels: Google Ads, Facebook Business Manager, Paid Search & Social",
@@ -32,7 +39,7 @@ const skills = [
     proficiency: 85
   },
   {
-    icon: <Users className="w-8 h-8 text-cyberpink" />,
+    icon: <Users className="w-8 h-8 text-cybercyan" />,
     title: "Leadership & Strategy",
     description: "Skills: Cross-functional collaboration, team mentorship, project management",
     focus: "Building and leading high-performing teams, aligning strategies with organizational goals",
