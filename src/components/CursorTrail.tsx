@@ -9,6 +9,7 @@ interface Position {
 export const CursorTrail = () => {
   const [mousePosition, setMousePosition] = useState<Position>({ x: 0, y: 0 });
   const [trail, setTrail] = useState<Position[]>([]);
+  const [isInHero, setIsInHero] = useState(false);
 
   useEffect(() => {
     const updateMousePosition = (e: MouseEvent) => {
@@ -17,19 +18,22 @@ export const CursorTrail = () => {
 
       const rect = heroElement.getBoundingClientRect();
       
-      // Only track mouse position when it's within the hero section
-      if (
+      // Check if mouse is within hero section
+      const isWithinHero = 
         e.clientX >= rect.left &&
         e.clientX <= rect.right &&
         e.clientY >= rect.top &&
-        e.clientY <= rect.bottom
-      ) {
+        e.clientY <= rect.bottom;
+
+      setIsInHero(isWithinHero);
+      
+      if (isWithinHero) {
         const newPosition = {
           x: e.clientX,
           y: e.clientY
         };
         setMousePosition(newPosition);
-        setTrail(prev => [...prev, newPosition].slice(-10)); // Keep last 10 positions
+        setTrail(prev => [...prev, newPosition].slice(-20)); // Keep last 20 positions
       }
     };
 
@@ -37,16 +41,18 @@ export const CursorTrail = () => {
     return () => window.removeEventListener('mousemove', updateMousePosition);
   }, []);
 
+  if (!isInHero) return null;
+
   return (
     <div className="pointer-events-none fixed inset-0 z-50">
       <AnimatePresence>
         {trail.map((position, index) => (
           <motion.div
-            key={index}
-            initial={{ scale: 0.8, opacity: 0.8 }}
+            key={`${position.x}-${position.y}-${index}`}
+            initial={{ scale: 1, opacity: 0.7 }}
             animate={{ scale: 0, opacity: 0 }}
             exit={{ scale: 0, opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
             style={{
               position: 'fixed',
               left: position.x - 8,
