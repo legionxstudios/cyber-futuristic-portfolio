@@ -34,6 +34,41 @@
   body {
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
+    background-image: 
+      radial-gradient(circle at 50% 0%, rgba(14, 165, 233, 0.15), transparent 50%),
+      radial-gradient(circle at 0% 50%, rgba(255, 113, 154, 0.1), transparent 50%),
+      radial-gradient(circle at 100% 50%, rgba(249, 115, 22, 0.1), transparent 50%),
+      linear-gradient(180deg, rgba(10, 10, 11, 0.8) 0%, rgba(10, 10, 11, 0.95) 100%);
+    background-attachment: fixed;
+  }
+
+  /* Section transitions */
+  section {
+    position: relative;
+  }
+
+  section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(180deg, transparent, rgba(10, 10, 11, 0.8));
+    pointer-events: none;
+    z-index: -1;
+  }
+
+  section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 200px;
+    background: linear-gradient(0deg, transparent, rgba(10, 10, 11, 0.8));
+    pointer-events: none;
+    z-index: -1;
   }
 }
 
@@ -70,4 +105,12 @@
 
 .yt-lite > .lty-playbtn:before {
   border-color: transparent transparent transparent white !important;
+}
+
+/* Dot pattern overlay */
+.dot-pattern {
+  background-image: radial-gradient(rgba(255, 255, 255, 0.1) 1px, transparent 1px);
+  background-size: 50px 50px;
+  background-position: -25px -25px;
+  mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0.2));
 }

@@ -7,7 +7,6 @@ import { useEffect } from "react";
 
 const Index = () => {
   useEffect(() => {
-    // Add smooth scroll behavior
     document.documentElement.style.scrollBehavior = 'smooth';
     return () => {
       document.documentElement.style.scrollBehavior = 'auto';
@@ -16,6 +15,9 @@ const Index = () => {
 
   return (
     <main className="bg-cyberdark min-h-screen relative">
+      {/* Dot pattern overlay */}
+      <div className="fixed inset-0 dot-pattern pointer-events-none" />
+      
       <Hero />
       <Skills />
       <Experience />
