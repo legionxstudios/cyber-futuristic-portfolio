@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Building2 } from "lucide-react";
+import { Building2, ExternalLink } from "lucide-react";
 
 const experiences = [
   {
@@ -102,9 +102,10 @@ export const Experience = () => {
                       href={exp.website}
                       target="_blank"
                       rel="nofollow noopener noreferrer"
-                      className="hover:text-cyberpink transition-colors"
+                      className="hover:text-cyberpink transition-colors flex items-center gap-1"
                     >
                       {exp.company}
+                      <ExternalLink className="w-3.5 h-3.5 -rotate-45" />
                     </a>
                   </div>
                   
