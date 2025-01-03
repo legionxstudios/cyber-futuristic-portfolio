@@ -1,10 +1,20 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { ChevronDown } from "lucide-react";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export const Hero = () => {
   const [displayText, setDisplayText] = useState("");
   const fullText = "#HireMeHuman";
   const [showCursor, setShowCursor] = useState(true);
+  const [selectedTitle, setSelectedTitle] = useState("SEO");
+
+  const titles = ["SEO", "Web", "Content", "Growth", "CRO"];
 
   useEffect(() => {
     let currentIndex = 0;
@@ -60,20 +70,46 @@ export const Hero = () => {
             <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} ml-1`}>|</span>
           </span>
         </motion.h1>
+
+        <motion.div
+          initial={{ y: 20, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ delay: 0.4 }}
+          className="mt-4 text-2xl md:text-3xl text-white flex items-center justify-center gap-2 flex-wrap"
+        >
+          <span className="text-cybercyan">Director of</span>
+          <DropdownMenu>
+            <DropdownMenuTrigger className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink hover:border-cyberpink/40 transition-colors">
+              {selectedTitle}
+              <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent className="bg-cyberdark border border-cyberpink/20">
+              {titles.map((title) => (
+                <DropdownMenuItem
+                  key={title}
+                  onClick={() => setSelectedTitle(title)}
+                  className="text-white hover:text-cyberpink hover:bg-white/5 cursor-pointer"
+                >
+                  {title}
+                </DropdownMenuItem>
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        </motion.div>
         
         <motion.p
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.4 }}
+          transition={{ delay: 0.5 }}
           className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto"
         >
-          Full-stack developer crafting digital experiences in the cyberpunk era
+          10+ years of experience crafting digital experiences in the cyberpunk era
         </motion.p>
         
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
-          transition={{ delay: 0.5 }}
+          transition={{ delay: 0.6 }}
           className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
         >
           <button className="px-8 py-3 rounded-lg bg-cyberpink text-white font-medium hover:bg-cyberpink/90 transition-colors hover:shadow-lg hover:shadow-cyberpink/20">
