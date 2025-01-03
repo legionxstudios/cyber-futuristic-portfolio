@@ -5,7 +5,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from "@/components/ui/carousel";
-import { Quote, Linkedin } from "lucide-react";
+import { Quote, Linkedin, ArrowUpRight } from "lucide-react";
 
 const testimonials = [
   {
@@ -51,9 +51,10 @@ export const TestimonialCarousel = () => {
                       href={testimonial.linkedin}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-cyberpink transition-colors"
+                      className="text-gray-400 hover:text-cyberpink transition-colors inline-flex items-center gap-0.5"
                     >
                       <Linkedin className="w-4 h-4" />
+                      <ArrowUpRight className="w-3 h-3" />
                     </a>
                   </div>
                   <p className="text-sm text-gray-400">{testimonial.role}</p>
