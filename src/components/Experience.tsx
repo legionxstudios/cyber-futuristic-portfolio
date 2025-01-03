@@ -69,7 +69,7 @@ export const Experience = () => {
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className="relative grid grid-cols-1 md:grid-cols-2 gap-8"
               >
-                <div className={`glass-card p-6 hover-glow ${index % 2 === 0 ? 'md:text-right' : 'md:col-start-2'}`}>
+                <div className={`glass-card p-6 hover-glow text-left ${index % 2 === 0 ? 'md:text-left' : 'md:col-start-2 md:text-left'}`}>
                   <div className="flex items-center gap-2 mb-2 text-cyberpink">
                     <Calendar className="w-4 h-4" />
                     <span>{exp.date}</span>
@@ -79,12 +79,12 @@ export const Experience = () => {
                     <span>{exp.company}</span>
                   </div>
                   <div className="text-gray-400 text-sm mb-3">{exp.location}</div>
-                  <h3 className="text-xl font-semibold text-white mb-3">{exp.role}</h3>
-                  <ul className="text-gray-400 space-y-2">
+                  <h3 className="text-xl font-semibold text-white mb-4">{exp.role}</h3>
+                  <div className="text-gray-400 space-y-4">
                     {exp.description.map((item, i) => (
-                      <li key={i} className="list-disc ml-4">{item}</li>
+                      <p key={i} className="text-left">{item}</p>
                     ))}
-                  </ul>
+                  </div>
                 </div>
 
                 {/* Timeline dot */}
