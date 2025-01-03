@@ -1,12 +1,21 @@
 import { motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { ChevronDown } from "lucide-react";
+import { Play } from "lucide-react";
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import {
+  Dialog,
+  DialogContent,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+import { TestimonialCarousel } from "./TestimonialCarousel";
+import { ScrollIndicator } from "./ScrollIndicator";
 
 export const Hero = () => {
   const [displayText, setDisplayText] = useState("");
@@ -39,11 +48,13 @@ export const Hero = () => {
 
   return (
     <motion.div 
+      id="hero"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark"
     >
+      <ScrollIndicator />
       <div className="absolute inset-0 bg-[url('/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png')] bg-cover bg-center opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
@@ -105,20 +116,38 @@ export const Hero = () => {
         >
           10+ years of experience crafting digital experiences in the cyberpunk era
         </motion.p>
-        
+
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.6 }}
-          className="mt-8 flex flex-col sm:flex-row justify-center gap-4"
+          className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-8"
         >
-          <button className="px-8 py-3 rounded-lg bg-cyberpink text-white font-medium hover:bg-cyberpink/90 transition-colors hover:shadow-lg hover:shadow-cyberpink/20">
-            View Projects
-          </button>
+          <Dialog>
+            <DialogTrigger asChild>
+              <button className="group relative flex items-center gap-3 px-6 py-3 rounded-full bg-cyberpink text-white font-medium hover:bg-cyberpink/90 transition-all hover:shadow-lg hover:shadow-cyberpink/20">
+                <div className="absolute inset-0 rounded-full bg-cyberpink blur-md opacity-50 group-hover:opacity-75 transition-opacity" />
+                <Play className="relative z-10" />
+                <span className="relative z-10">Watch the #HireMeHuman movie</span>
+              </button>
+            </DialogTrigger>
+            <DialogContent className="max-w-3xl bg-cyberdark p-0 border-cyberpink/20">
+              <div className="aspect-video">
+                <LiteYouTubeEmbed 
+                  id="dQw4w9WgXcQ"
+                  title="#HireMeHuman Movie"
+                  poster="maxresdefault"
+                />
+              </div>
+            </DialogContent>
+          </Dialog>
+
           <button className="px-8 py-3 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white font-medium hover:bg-white/10 transition-colors hover:shadow-lg hover:shadow-white/20">
             Contact Me
           </button>
         </motion.div>
+
+        <TestimonialCarousel />
       </div>
     </motion.div>
   );

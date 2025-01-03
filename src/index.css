@@ -48,3 +48,26 @@
 .hover-glow {
   @apply transition-all duration-300 hover:shadow-lg hover:shadow-cyberpink/20;
 }
+
+/* YouTube Embed Styles */
+.yt-lite {
+  @apply rounded-lg overflow-hidden;
+}
+
+.yt-lite::before {
+  content: none !important;
+}
+
+.yt-lite > .lty-playbtn {
+  @apply border-none bg-cyberpink/80 rounded-full transition-transform duration-300 !important;
+  width: 70px !important;
+  height: 70px !important;
+}
+
+.yt-lite:hover > .lty-playbtn {
+  @apply scale-110 bg-cyberpink !important;
+}
+
+.yt-lite > .lty-playbtn:before {
+  border-color: transparent transparent transparent white !important;
+}
