@@ -112,9 +112,10 @@ export const Hero = () => {
           transition={{ delay: 0.4 }}
           className="mt-4 text-2xl md:text-3xl text-white flex items-center justify-center gap-2 flex-wrap"
         >
-          <span className="text-cybercyan font-semibold drop-shadow-lg">Director of</span>
+
+          <span className="text-cybercyan font-medium">Director of</span>
           <DropdownMenu>
-            <DropdownMenuTrigger className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink hover:border-cyberpink/40 transition-colors font-semibold drop-shadow-lg">
+            <DropdownMenuTrigger className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink hover:border-cyberpink/40 transition-colors">
               {selectedTitle}
               <ChevronDown className="h-4 w-4" />
             </DropdownMenuTrigger>
@@ -136,7 +137,7 @@ export const Hero = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto font-medium drop-shadow-lg bg-cyberdark/50 p-4 rounded-lg backdrop-blur-sm"
+          className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto bg-black/30 p-4 rounded-lg"
         >
           Over a Decade of Driving Growth with Data-Driven Marketing, Advanced SEO, and Proven CRO Techniques
         </motion.p>
