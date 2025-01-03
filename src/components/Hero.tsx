@@ -19,32 +19,56 @@ import { ScrollIndicator } from "./ScrollIndicator";
 
 export const Hero = () => {
   const [displayText, setDisplayText] = useState("");
-  const fullText = "#HireMeHuman";
+  const texts = ["#HireMeHuman", "Tudor Stanescu"];
+  const [currentTextIndex, setCurrentTextIndex] = useState(0);
+  const [isDeleting, setIsDeleting] = useState(false);
   const [showCursor, setShowCursor] = useState(true);
   const [selectedTitle, setSelectedTitle] = useState("SEO");
 
   const titles = ["SEO", "Web", "Content", "Growth", "CRO"];
 
   useEffect(() => {
-    let currentIndex = 0;
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= fullText.length) {
-        setDisplayText(fullText.slice(0, currentIndex));
-        currentIndex++;
-      } else {
-        clearInterval(typingInterval);
-      }
-    }, 100);
-
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 530);
 
-    return () => {
-      clearInterval(typingInterval);
-      clearInterval(cursorInterval);
-    };
+    return () => clearInterval(cursorInterval);
   }, []);
+
+  useEffect(() => {
+    let timeout: NodeJS.Timeout;
+    
+    const animateText = () => {
+      const currentText = texts[currentTextIndex];
+      
+      if (!isDeleting) {
+        if (displayText === currentText) {
+          // Wait 3 seconds before starting to delete
+          timeout = setTimeout(() => {
+            setIsDeleting(true);
+          }, 3000);
+          return;
+        }
+        
+        setDisplayText(currentText.slice(0, displayText.length + 1));
+        timeout = setTimeout(animateText, 100);
+      } else {
+        if (displayText === "") {
+          setIsDeleting(false);
+          setCurrentTextIndex((prev) => (prev + 1) % texts.length);
+          timeout = setTimeout(animateText, 100);
+          return;
+        }
+        
+        setDisplayText(displayText.slice(0, -1));
+        timeout = setTimeout(animateText, 50);
+      }
+    };
+
+    timeout = setTimeout(animateText, 100);
+
+    return () => clearTimeout(timeout);
+  }, [displayText, currentTextIndex, isDeleting]);
 
   return (
     <motion.div 
