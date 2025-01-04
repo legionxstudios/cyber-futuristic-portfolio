@@ -12,6 +12,7 @@ export type Database = {
       case_studies: {
         Row: {
           budget_efficiency: string | null
+          budget_heading: string | null
           challenge: string[] | null
           cover_image: string | null
           created_at: string | null
@@ -20,18 +21,22 @@ export type Database = {
           id: string
           key_takeaways: Json | null
           lead_generation: string | null
+          leads_heading: string | null
           slug: string
           solution: Json | null
           subtitle: string | null
           title: string
           tools_used: Json | null
           traffic_final: number | null
+          traffic_heading: string | null
           traffic_initial: number | null
           unique_visitors: string | null
           updated_at: string | null
+          visitors_heading: string | null
         }
         Insert: {
           budget_efficiency?: string | null
+          budget_heading?: string | null
           challenge?: string[] | null
           cover_image?: string | null
           created_at?: string | null
@@ -40,18 +45,22 @@ export type Database = {
           id?: string
           key_takeaways?: Json | null
           lead_generation?: string | null
+          leads_heading?: string | null
           slug: string
           solution?: Json | null
           subtitle?: string | null
           title: string
           tools_used?: Json | null
           traffic_final?: number | null
+          traffic_heading?: string | null
           traffic_initial?: number | null
           unique_visitors?: string | null
           updated_at?: string | null
+          visitors_heading?: string | null
         }
         Update: {
           budget_efficiency?: string | null
+          budget_heading?: string | null
           challenge?: string[] | null
           cover_image?: string | null
           created_at?: string | null
@@ -60,15 +69,18 @@ export type Database = {
           id?: string
           key_takeaways?: Json | null
           lead_generation?: string | null
+          leads_heading?: string | null
           slug?: string
           solution?: Json | null
           subtitle?: string | null
           title?: string
           tools_used?: Json | null
           traffic_final?: number | null
+          traffic_heading?: string | null
           traffic_initial?: number | null
           unique_visitors?: string | null
           updated_at?: string | null
+          visitors_heading?: string | null
         }
         Relationships: []
       }

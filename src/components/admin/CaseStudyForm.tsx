@@ -32,6 +32,10 @@ export const CaseStudyForm = ({ initialData, onSuccess }: CaseStudyFormProps) =>
       budget_efficiency: "",
       cover_image: "",
       graph_image: "",
+      traffic_heading: "Traffic Growth",
+      visitors_heading: "Visitor Engagement",
+      leads_heading: "Lead Generation",
+      budget_heading: "Budget Efficiency",
     },
   });
 

@@ -12,6 +12,82 @@ export const MetricsFields = ({ form }: MetricsFieldsProps) => {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         <FormField
           control={form.control}
+          name="traffic_heading"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Traffic Section Heading</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Traffic Growth"
+                  className="bg-cyberdark border-cyberblue"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="visitors_heading"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Visitors Section Heading</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Visitor Engagement"
+                  className="bg-cyberdark border-cyberblue"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
+          name="leads_heading"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Leads Section Heading</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Lead Generation"
+                  className="bg-cyberdark border-cyberblue"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+        <FormField
+          control={form.control}
+          name="budget_heading"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Budget Section Heading</FormLabel>
+              <FormControl>
+                <Input
+                  {...field}
+                  placeholder="Budget Efficiency"
+                  className="bg-cyberdark border-cyberblue"
+                />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <FormField
+          control={form.control}
           name="traffic_initial"
           render={({ field }) => (
             <FormItem>
