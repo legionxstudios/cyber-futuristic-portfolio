@@ -43,7 +43,7 @@ const experiences = [
   {
     date: "May 2016 - April 2018",
     company: "Metroland Media Group",
-    website: "#",
+    website: "https://metroland.com",
     location: "Toronto, ON",
     role: "Senior Search Marketing Strategist",
     description: []
@@ -51,7 +51,7 @@ const experiences = [
   {
     date: "October 2014 - May 2016",
     company: "80 Proof Digital",
-    website: "#",
+    website: "https://80proofdigital.com",
     location: "Toronto, ON",
     role: "SEO Specialist",
     description: []
@@ -100,7 +100,7 @@ export const Experience = () => {
                 </div>
 
                 {/* Card */}
-                <div className={`glass-card p-6 hover-glow ${
+                <div className={`glass-card p-6 hover-glow w-full ${
                   index % 2 === 0 
                     ? 'md:col-start-1 md:mr-auto' 
                     : 'md:col-start-2 md:ml-auto'
