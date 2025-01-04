@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { useEffect } from "react";
 import CaseStudyHero from "@/components/case-study/CaseStudyHero";
 import ResultsOverview from "@/components/case-study/ResultsOverview";
 import MainContent from "@/components/case-study/MainContent";
@@ -9,6 +10,10 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { InlineWidget } from "react-calendly";
 
 const CaseStudy = () => {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="min-h-screen bg-cyberdark text-white pb-20">
       <CaseStudyHero />
