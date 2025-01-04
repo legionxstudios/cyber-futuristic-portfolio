@@ -3,6 +3,7 @@ import CaseStudyHero from "@/components/case-study/CaseStudyHero";
 import ResultsOverview from "@/components/case-study/ResultsOverview";
 import MainContent from "@/components/case-study/MainContent";
 import ToolsSection from "@/components/case-study/ToolsSection";
+import { TrendingUp } from "lucide-react";
 
 const CaseStudy = () => {
   return (
@@ -20,7 +21,10 @@ const CaseStudy = () => {
             viewport={{ once: true }}
             className="glass-card p-8"
           >
-            <h2 className="text-2xl font-bold mb-6">Results & Impact</h2>
+            <div className="flex items-center gap-3 mb-6">
+              <TrendingUp className="w-6 h-6 text-cyberpink" />
+              <h2 className="text-2xl font-bold">Results & Impact</h2>
+            </div>
             <div className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
@@ -44,11 +48,11 @@ const CaseStudy = () => {
                   </div>
                 </div>
               </div>
-              <div className="aspect-video relative overflow-hidden rounded-lg">
+              <div className="w-full h-[400px] relative rounded-lg overflow-hidden">
                 <img 
                   src="/lovable-uploads/6afca98e-94f3-4d18-a044-2b884c4f57a4.png"
                   alt="Traffic growth graph showing increase from 100K to 450K monthly visits"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain bg-white/5"
                 />
               </div>
             </div>
