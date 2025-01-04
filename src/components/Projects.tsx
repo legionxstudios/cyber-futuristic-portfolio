@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { ExternalLink, Github } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
@@ -53,11 +53,11 @@ export const Projects = () => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
                 className="glass-card overflow-hidden group hover-glow"
               >
-                <div className="relative overflow-hidden">
+                <div className="relative h-48 overflow-hidden">
                   <img
                     src={study.cover_image}
                     alt={study.title}
-                    className="w-full h-48 object-cover object-center transform transition-transform duration-500 group-hover:scale-110"
+                    className="w-full h-48 object-cover object-top transform transition-transform duration-500 group-hover:scale-110"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
                 </div>
