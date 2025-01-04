@@ -39,6 +39,22 @@ const experiences = [
       "Created SEO-optimized landing pages that ranked in the top 1–5 positions for competitive keywords.",
       "Delivered 34% growth in new paying customers by optimizing niche landing pages."
     ]
+  },
+  {
+    date: "May 2016 - April 2018",
+    company: "Metroland Media Group",
+    website: "#",
+    location: "Toronto, ON",
+    role: "Senior Search Marketing Strategist",
+    description: []
+  },
+  {
+    date: "October 2014 - May 2016",
+    company: "80 Proof Digital",
+    website: "#",
+    location: "Toronto, ON",
+    role: "SEO Specialist",
+    description: []
   }
 ];
 
