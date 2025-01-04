@@ -2,12 +2,12 @@ import { useEffect, useState } from "react";
 
 export const ScrollIndicator = () => {
   const [activeSection, setActiveSection] = useState(0);
-  const sections = ["Hero", "Skills", "Experience", "Projects", "Contact"];
+  const sections = ["hero", "skills", "experience", "projects", "contact"];
 
   useEffect(() => {
     const handleScroll = () => {
       const sectionElements = sections.map(section => 
-        document.getElementById(section.toLowerCase())
+        document.getElementById(section)
       );
       
       const currentPosition = window.scrollY + window.innerHeight / 3;
@@ -29,7 +29,7 @@ export const ScrollIndicator = () => {
   }, []);
 
   const scrollToSection = (index: number) => {
-    const section = document.getElementById(sections[index].toLowerCase());
+    const section = document.getElementById(sections[index]);
     section?.scrollIntoView({ behavior: "smooth" });
   };
 
