@@ -30,7 +30,7 @@ const projects = [
 
 export const Projects = () => {
   return (
-    <section className="py-20 relative">
+    <section id="featured-projects" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cybercyan/5 to-transparent" />
       
       <div className="container mx-auto px-4">
