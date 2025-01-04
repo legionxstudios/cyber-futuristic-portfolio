@@ -6,7 +6,7 @@ const CaseStudyHero = () => {
     <motion.section 
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      className="relative min-h-[90vh] flex items-center justify-center"
+      className="relative min-h-[90vh] flex items-center justify-center py-20"
     >
       <div className="absolute inset-0 bg-gradient-to-b from-cyberpink/10 to-transparent" />
       
@@ -16,7 +16,7 @@ const CaseStudyHero = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.2 }}
-          className="text-left max-w-4xl"
+          className="max-w-6xl mx-auto"
         >
           {/* Format Badge */}
           <Badge 
@@ -27,9 +27,9 @@ const CaseStudyHero = () => {
           </Badge>
 
           {/* Image and Title Box Container */}
-          <div className="relative mt-8">
+          <div className="relative">
             {/* Main Image */}
-            <div className="w-full aspect-[16/9] rounded-lg overflow-hidden">
+            <div className="w-full aspect-[21/9] rounded-lg overflow-hidden">
               <img 
                 src="/lovable-uploads/ab75de39-3ba3-4352-b67c-fbd6c00decae.png"
                 alt="Format portfolio builder showcase"
@@ -37,9 +37,9 @@ const CaseStudyHero = () => {
               />
             </div>
 
-            {/* Title Box Overlay */}
-            <div className="absolute left-8 bottom-8 max-w-xl glass-card p-8 backdrop-blur-md">
-              <h1 className="text-4xl font-bold mb-4">
+            {/* Title Box Overlay - Now spans across image and background */}
+            <div className="absolute -bottom-16 left-1/2 -translate-x-1/2 w-[90%] max-w-4xl glass-card p-8 backdrop-blur-md">
+              <h1 className="text-4xl md:text-5xl font-bold mb-4">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
                   Growing Organic Traffic from 100K to 450K Monthly Visits
                 </span>
