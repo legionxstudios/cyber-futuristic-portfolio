@@ -1,103 +1,66 @@
 import { useEffect, useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
 import { useToast } from "@/hooks/use-toast";
 
 export const CookieConsent = () => {
-  const [open, setOpen] = useState(false);
-  const [analytics, setAnalytics] = useState(true);
-  const [functional, setFunctional] = useState(true);
+  const [show, setShow] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => {
     const consent = localStorage.getItem("cookieConsent");
     if (!consent) {
-      setOpen(true);
+      setShow(true);
     }
   }, []);
 
-  const handleSave = () => {
+  const handleAccept = () => {
     const preferences = {
-      analytics,
-      functional,
+      analytics: true,
+      functional: true,
       timestamp: new Date().toISOString(),
     };
     localStorage.setItem("cookieConsent", JSON.stringify(preferences));
-    setOpen(false);
+    setShow(false);
     toast({
       title: "Preferences saved",
-      description: "Your cookie preferences have been updated.",
+      description: "Your cookie preferences have been saved.",
     });
 
-    // Here you would typically initialize/disable analytics based on preferences
+    // Here you would typically initialize analytics
     console.log("Cookie preferences saved:", preferences);
   };
 
-  const handleAcceptAll = () => {
-    setAnalytics(true);
-    setFunctional(true);
-    handleSave();
+  const handleDecline = () => {
+    const preferences = {
+      analytics: false,
+      functional: false,
+      timestamp: new Date().toISOString(),
+    };
+    localStorage.setItem("cookieConsent", JSON.stringify(preferences));
+    setShow(false);
+    toast({
+      title: "Preferences saved",
+      description: "Your cookie preferences have been saved.",
+    });
   };
 
+  if (!show) return null;
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent className="sm:max-w-[425px]">
-        <DialogHeader>
-          <DialogTitle>Cookie Preferences</DialogTitle>
-          <DialogDescription>
-            We use cookies to enhance your browsing experience and analyze our traffic. Please
-            choose your preferences below.
-          </DialogDescription>
-        </DialogHeader>
-        <div className="grid gap-4 py-4">
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="functional"
-              checked={functional}
-              onCheckedChange={(checked) => setFunctional(checked as boolean)}
-            />
-            <label
-              htmlFor="functional"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Functional Cookies
-              <p className="text-sm text-muted-foreground mt-1">
-                Essential for the website to function properly.
-              </p>
-            </label>
-          </div>
-          <div className="flex items-center space-x-2">
-            <Checkbox
-              id="analytics"
-              checked={analytics}
-              onCheckedChange={(checked) => setAnalytics(checked as boolean)}
-            />
-            <label
-              htmlFor="analytics"
-              className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Analytics Cookies
-              <p className="text-sm text-muted-foreground mt-1">
-                Help us understand how visitors interact with our website.
-              </p>
-            </label>
-          </div>
-        </div>
-        <DialogFooter className="flex-col sm:flex-row gap-2">
-          <Button variant="outline" onClick={() => handleSave()}>
-            Save Preferences
+    <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t border-border z-50">
+      <div className="container flex flex-col sm:flex-row items-center justify-between gap-4 py-4 text-center sm:text-left">
+        <p className="text-sm text-muted-foreground">
+          We use cookies to enhance your browsing experience and analyze site traffic.
+        </p>
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button variant="outline" size="sm" onClick={handleDecline}>
+            Decline
           </Button>
-          <Button onClick={handleAcceptAll}>Accept All</Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+          <Button size="sm" onClick={handleAccept}>
+            Accept All
+          </Button>
+        </div>
+      </div>
+    </div>
   );
 };
