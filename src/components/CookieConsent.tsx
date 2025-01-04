@@ -53,16 +53,16 @@ export const CookieConsent = () => {
         <Button
           variant="ghost"
           size="icon"
-          className="absolute -top-2 -right-2 sm:top-4 sm:right-4"
+          className="absolute -top-2 -right-2 sm:top-4 sm:right-8 text-white hover:text-white/80"
           onClick={() => setShow(false)}
         >
-          <X className="h-4 w-4" />
+          <X className="h-5 w-5" />
           <span className="sr-only">Close</span>
         </Button>
-        <p className="text-sm text-muted-foreground pr-12">
+        <p className="text-sm text-muted-foreground pr-16">
           We use cookies to enhance your browsing experience and analyze site traffic.
         </p>
-        <div className="flex flex-col sm:flex-row gap-2">
+        <div className="flex flex-col sm:flex-row gap-2 sm:mr-16">
           <Button variant="outline" size="sm" onClick={handleDecline}>
             Decline
           </Button>
