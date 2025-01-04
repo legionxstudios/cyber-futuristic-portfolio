@@ -8,6 +8,7 @@ import { AuthGuard } from "@/components/auth/AuthGuard";
 import Index from "./pages/Index";
 import CaseStudy from "./pages/CaseStudy";
 import Auth from "./pages/Auth";
+import AdminDashboard from "./pages/AdminDashboard";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +34,14 @@ const App = () => (
             element={
               <AuthGuard>
                 <CaseStudy />
+              </AuthGuard>
+            }
+          />
+          <Route
+            path="/admin"
+            element={
+              <AuthGuard requireAdmin>
+                <AdminDashboard />
               </AuthGuard>
             }
           />
