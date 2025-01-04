@@ -21,6 +21,9 @@ export const CaseStudyForm = ({ initialData, onSuccess }: CaseStudyFormProps) =>
       title: "",
       subtitle: "",
       challenge: [],
+      solution: [],
+      key_takeaways: [],
+      tools_used: [],
       traffic_initial: "",
       traffic_final: "",
       unique_visitors: "",
@@ -34,12 +37,20 @@ export const CaseStudyForm = ({ initialData, onSuccess }: CaseStudyFormProps) =>
   const onSubmit = async (values: any) => {
     setIsLoading(true);
     try {
+      // Convert array-like strings to actual arrays for JSON fields
+      const formattedValues = {
+        ...values,
+        solution: Array.isArray(values.solution) ? values.solution : values.solution.split("\n"),
+        key_takeaways: Array.isArray(values.key_takeaways) ? values.key_takeaways : values.key_takeaways.split("\n"),
+        tools_used: Array.isArray(values.tools_used) ? values.tools_used : values.tools_used.split("\n"),
+      };
+
       const { error } = initialData
         ? await supabase
             .from("case_studies")
-            .update(values)
+            .update(formattedValues)
             .eq("id", initialData.id)
-        : await supabase.from("case_studies").insert([values]);
+        : await supabase.from("case_studies").insert([formattedValues]);
 
       if (error) throw error;
 
