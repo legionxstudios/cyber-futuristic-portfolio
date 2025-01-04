@@ -49,14 +49,16 @@ const CaseStudyHero = () => {
               {/* Title Box - Overlays the image */}
               <div className="w-[90%] max-w-4xl mx-auto -mt-16 relative z-20">
                 <div className="glass-card p-8 backdrop-blur-lg bg-cyberdark/90">
-                  <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                    <span className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent drop-shadow-lg">
-                      Growing Organic Traffic from 100K to 450K Monthly Visits
-                    </span>
-                  </h1>
-                  <p className="text-lg text-gray-200">
-                    An in-depth exploration of strategic SEO implementation and its impact on Format's digital presence
-                  </p>
+                  <div className="bg-black/30 p-4 rounded-lg">
+                    <h1 className="text-4xl md:text-5xl font-bold mb-4">
+                      <span className="bg-gradient-to-r from-cyberpink to-cybercyan bg-clip-text text-transparent drop-shadow-lg">
+                        Growing Organic Traffic from 100K to 450K Monthly Visits
+                      </span>
+                    </h1>
+                    <p className="text-lg text-gray-200">
+                      An in-depth exploration of strategic SEO implementation and its impact on Format's digital presence
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
