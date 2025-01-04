@@ -9,7 +9,7 @@ const CaseStudyHero = () => {
       <motion.section 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="relative min-h-[90vh] flex items-center justify-center"
+        className="relative min-h-[80vh] flex items-center justify-center"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-cyberpink/10 to-transparent" />
         
@@ -48,13 +48,13 @@ const CaseStudyHero = () => {
 
               {/* Title Box - Overlays the image */}
               <div className="w-[90%] max-w-4xl mx-auto -mt-16 relative z-20">
-                <div className="glass-card p-8 backdrop-blur-md">
+                <div className="glass-card p-8 backdrop-blur-lg bg-cyberdark/90">
                   <h1 className="text-4xl md:text-5xl font-bold mb-4">
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
+                    <span className="bg-gradient-to-r from-white to-white/90 bg-clip-text text-transparent drop-shadow-lg">
                       Growing Organic Traffic from 100K to 450K Monthly Visits
                     </span>
                   </h1>
-                  <p className="text-lg text-gray-300">
+                  <p className="text-lg text-gray-200">
                     An in-depth exploration of strategic SEO implementation and its impact on Format's digital presence
                   </p>
                 </div>
