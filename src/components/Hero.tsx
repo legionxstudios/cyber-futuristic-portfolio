@@ -176,7 +176,6 @@ export const Hero = () => {
 
         <TestimonialCarousel />
 
-        {/* Flashing down arrow */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: [0.4, 1, 0.4], y: [0, 10, 0] }}
@@ -185,7 +184,7 @@ export const Hero = () => {
             repeat: Infinity,
             ease: "easeInOut"
           }}
-          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/80"
+          className="mt-12 flex flex-col items-center gap-2 text-white/80"
         >
           <span className="text-sm font-medium">See work experience below</span>
           <ChevronDown className="w-6 h-6" />

@@ -30,7 +30,7 @@ const testimonials = [
 
 export const TestimonialCarousel = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto mt-20 px-4">
+    <div className="w-full max-w-6xl mx-auto mt-20 px-4">
       <Carousel
         opts={{
           align: "start",
@@ -40,7 +40,7 @@ export const TestimonialCarousel = () => {
       >
         <CarouselContent>
           {testimonials.map((testimonial, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 lg:basis-1/3">
+            <CarouselItem key={index} className="md:basis-1/2">
               <div className="glass-card p-6 h-full flex flex-col gap-4">
                 <Quote className="text-cyberpink w-8 h-8" />
                 <p className="text-gray-300 flex-grow">{testimonial.text}</p>
