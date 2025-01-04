@@ -46,7 +46,9 @@ const experiences = [
     website: "https://metroland.com",
     location: "Toronto, ON",
     role: "Senior Search Marketing Strategist",
-    description: []
+    description: [
+      "Manage all SEO and SEM initiatives for a portfolio of 50 web properties owned by Metroland Media Group, which grew by 40% YOY through extensive technical SEO improvements"
+    ]
   },
   {
     date: "October 2014 - May 2016",
@@ -54,7 +56,9 @@ const experiences = [
     website: "https://80proofdigital.com",
     location: "Toronto, ON",
     role: "SEO Specialist",
-    description: []
+    description: [
+      "Developed and executed tailored SEO campaigns across diverse industries, including photography, financial services, real estate, transportation, and legal, achieving page-one rankings for all clients' target keywords through strategic link-building, content development, and SEO optimization."
+    ]
   }
 ];
 
