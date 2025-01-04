@@ -9,7 +9,84 @@ export type Json =
 export type Database = {
   public: {
     Tables: {
-      [_ in never]: never
+      case_studies: {
+        Row: {
+          budget_efficiency: string | null
+          challenge: string[] | null
+          cover_image: string | null
+          created_at: string | null
+          created_by: string | null
+          graph_image: string | null
+          id: string
+          key_takeaways: Json | null
+          lead_generation: string | null
+          solution: Json | null
+          subtitle: string | null
+          title: string
+          tools_used: Json | null
+          traffic_final: number | null
+          traffic_initial: number | null
+          unique_visitors: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          budget_efficiency?: string | null
+          challenge?: string[] | null
+          cover_image?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          graph_image?: string | null
+          id?: string
+          key_takeaways?: Json | null
+          lead_generation?: string | null
+          solution?: Json | null
+          subtitle?: string | null
+          title: string
+          tools_used?: Json | null
+          traffic_final?: number | null
+          traffic_initial?: number | null
+          unique_visitors?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          budget_efficiency?: string | null
+          challenge?: string[] | null
+          cover_image?: string | null
+          created_at?: string | null
+          created_by?: string | null
+          graph_image?: string | null
+          id?: string
+          key_takeaways?: Json | null
+          lead_generation?: string | null
+          solution?: Json | null
+          subtitle?: string | null
+          title?: string
+          tools_used?: Json | null
+          traffic_final?: number | null
+          traffic_initial?: number | null
+          unique_visitors?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      profiles: {
+        Row: {
+          created_at: string | null
+          id: string
+          role: Database["public"]["Enums"]["user_role"] | null
+        }
+        Insert: {
+          created_at?: string | null
+          id: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          role?: Database["public"]["Enums"]["user_role"] | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
@@ -18,7 +95,7 @@ export type Database = {
       [_ in never]: never
     }
     Enums: {
-      [_ in never]: never
+      user_role: "admin" | "user"
     }
     CompositeTypes: {
       [_ in never]: never
