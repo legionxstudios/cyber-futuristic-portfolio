@@ -35,8 +35,7 @@ const CaseStudyHero = () => {
 
           {/* Image Container */}
           <div className="relative">
-            {/* Top Image Section */}
-            <div className="w-full aspect-[21/9] rounded-t-lg overflow-hidden">
+            <div className="w-full aspect-[21/9] rounded-lg overflow-hidden">
               <img 
                 src="/lovable-uploads/ab75de39-3ba3-4352-b67c-fbd6c00decae.png"
                 alt="Format portfolio builder showcase"
@@ -44,7 +43,7 @@ const CaseStudyHero = () => {
               />
             </div>
 
-            {/* Title Box - Now cuts through the image */}
+            {/* Title Box - Overlays the image */}
             <div className="w-[90%] max-w-4xl mx-auto -mt-16 relative z-20">
               <div className="glass-card p-8 backdrop-blur-md">
                 <h1 className="text-4xl md:text-5xl font-bold mb-4">
@@ -56,11 +55,6 @@ const CaseStudyHero = () => {
                   An in-depth exploration of strategic SEO implementation and its impact on Format's digital presence
                 </p>
               </div>
-            </div>
-
-            {/* Bottom Image Section */}
-            <div className="w-full aspect-[21/9] -mt-16 pt-16 rounded-b-lg overflow-hidden bg-cyberdark">
-              {/* This space intentionally left empty for the title box overlay effect */}
             </div>
           </div>
         </motion.div>
