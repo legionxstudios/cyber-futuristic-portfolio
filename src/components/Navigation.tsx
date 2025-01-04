@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
+import React, { useState, useEffect } from 'react';
 
 export const Navigation = ({ showBack = false }: { showBack?: boolean }) => {
   const [displayText, setDisplayText] = useState("");
