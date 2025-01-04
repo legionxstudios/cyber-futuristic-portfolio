@@ -10,6 +10,9 @@ import { TrendingUp, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { InlineWidget } from "react-calendly";
+import { Tables } from "@/integrations/supabase/types";
+
+type CaseStudy = Tables<"case_studies">;
 
 const CaseStudy = () => {
   const { slug } = useParams();
@@ -68,23 +71,23 @@ const CaseStudy = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-4">
                   <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cyberpink mb-2">Traffic Growth</h3>
+                    <h3 className="text-xl font-semibold text-cyberpink mb-2">{caseStudy.traffic_heading}</h3>
                     <p className="text-gray-300">
-                      {caseStudy.traffic_initial.toLocaleString()} → {caseStudy.traffic_final.toLocaleString()} monthly visits
+                      {caseStudy.traffic_initial?.toLocaleString()} → {caseStudy.traffic_final?.toLocaleString()} monthly visits
                     </p>
                   </div>
                   <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cybercyan mb-2">Lead Generation</h3>
+                    <h3 className="text-xl font-semibold text-cybercyan mb-2">{caseStudy.leads_heading}</h3>
                     <p className="text-gray-300">{caseStudy.lead_generation}</p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cyberamber mb-2">Visitor Engagement</h3>
+                    <h3 className="text-xl font-semibold text-cyberamber mb-2">{caseStudy.visitors_heading}</h3>
                     <p className="text-gray-300">{caseStudy.unique_visitors}</p>
                   </div>
                   <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cyberpink mb-2">Budget Efficiency</h3>
+                    <h3 className="text-xl font-semibold text-cyberpink mb-2">{caseStudy.budget_heading}</h3>
                     <p className="text-gray-300">{caseStudy.budget_efficiency}</p>
                   </div>
                 </div>
@@ -103,7 +106,7 @@ const CaseStudy = () => {
         </div>
       </section>
 
-      <ToolsSection tools={caseStudy.tools_used} />
+      <ToolsSection tools={Array.isArray(caseStudy.tools_used) ? caseStudy.tools_used : []} />
 
       {/* Pre-footer CTA Section */}
       <section className="py-16 relative">

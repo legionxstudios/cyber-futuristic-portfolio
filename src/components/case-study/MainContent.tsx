@@ -1,15 +1,29 @@
 import { motion } from "framer-motion";
 import { Target, Lightbulb, CheckCircle2 } from "lucide-react";
+import { Json } from "@/integrations/supabase/types";
 
 interface MainContentProps {
   caseStudy: {
     challenge: string[];
-    solution: string[];
-    key_takeaways: string[];
+    solution: Json;
+    key_takeaways: Json;
   };
 }
 
 const MainContent = ({ caseStudy }: MainContentProps) => {
+  // Convert JSON to string array if needed
+  const solutions = Array.isArray(caseStudy.solution) 
+    ? caseStudy.solution 
+    : typeof caseStudy.solution === 'string' 
+      ? [caseStudy.solution]
+      : [];
+
+  const keyTakeaways = Array.isArray(caseStudy.key_takeaways)
+    ? caseStudy.key_takeaways
+    : typeof caseStudy.key_takeaways === 'string'
+      ? [caseStudy.key_takeaways]
+      : [];
+
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -47,7 +61,7 @@ const MainContent = ({ caseStudy }: MainContentProps) => {
                 The Solution
               </h2>
               <div className="space-y-6">
-                {caseStudy.solution.map((item, index) => (
+                {solutions.map((item, index) => (
                   <div key={index} className="flex items-start gap-2">
                     <CheckCircle2 className="w-5 h-5 mt-1 text-cybercyan" />
                     <span className="text-gray-300">{item}</span>
@@ -69,7 +83,7 @@ const MainContent = ({ caseStudy }: MainContentProps) => {
               Key Takeaways
             </h2>
             <div className="space-y-6">
-              {caseStudy.key_takeaways.map((takeaway, index) => (
+              {keyTakeaways.map((takeaway, index) => (
                 <div key={index} className="p-4 bg-white/5 rounded-lg">
                   <p className="text-gray-300">{takeaway}</p>
                 </div>
