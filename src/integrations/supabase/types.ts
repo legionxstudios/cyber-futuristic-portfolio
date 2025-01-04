@@ -20,6 +20,7 @@ export type Database = {
           id: string
           key_takeaways: Json | null
           lead_generation: string | null
+          slug: string
           solution: Json | null
           subtitle: string | null
           title: string
@@ -39,6 +40,7 @@ export type Database = {
           id?: string
           key_takeaways?: Json | null
           lead_generation?: string | null
+          slug: string
           solution?: Json | null
           subtitle?: string | null
           title: string
@@ -58,6 +60,7 @@ export type Database = {
           id?: string
           key_takeaways?: Json | null
           lead_generation?: string | null
+          slug?: string
           solution?: Json | null
           subtitle?: string | null
           title?: string

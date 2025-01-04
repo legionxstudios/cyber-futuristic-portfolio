@@ -20,6 +20,7 @@ export const CaseStudyForm = ({ initialData, onSuccess }: CaseStudyFormProps) =>
     defaultValues: initialData || {
       title: "",
       subtitle: "",
+      slug: "",
       challenge: [],
       solution: [],
       key_takeaways: [],
