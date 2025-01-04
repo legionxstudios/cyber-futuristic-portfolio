@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { AuthGuard } from "@/components/auth/AuthGuard";
+import { CookieConsent } from "@/components/CookieConsent";
 import Index from "./pages/Index";
 import CaseStudy from "./pages/CaseStudy";
 import Auth from "./pages/Auth";
@@ -20,6 +21,7 @@ const App = () => (
     <TooltipProvider>
       <Toaster />
       <Sonner />
+      <CookieConsent />
       <BrowserRouter>
         <Routes>
           <Route path="/auth" element={<Auth />} />
