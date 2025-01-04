@@ -7,6 +7,7 @@ interface CaseStudyHeroProps {
     title: string;
     subtitle: string;
     cover_image: string;
+    client?: string;
   };
 }
 
@@ -29,7 +30,7 @@ const CaseStudyHero = ({ caseStudy }: CaseStudyHeroProps) => {
             transition={{ delay: 0.2 }}
             className="max-w-6xl mx-auto"
           >
-            {/* Format Badge */}
+            {/* Client Badge */}
             <motion.div
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
@@ -40,7 +41,7 @@ const CaseStudyHero = ({ caseStudy }: CaseStudyHeroProps) => {
                 variant="outline" 
                 className="px-4 py-2 rounded-full text-sm font-medium bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink animate-glow"
               >
-                CASE STUDY
+                {caseStudy.client || "CASE STUDY"}
               </Badge>
             </motion.div>
 

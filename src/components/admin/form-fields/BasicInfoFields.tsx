@@ -39,6 +39,20 @@ export const BasicInfoFields = ({ form }: BasicInfoFieldsProps) => {
 
       <FormField
         control={form.control}
+        name="client"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Client</FormLabel>
+            <FormControl>
+              <Input {...field} className="bg-cyberdark border-cyberblue" />
+            </FormControl>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
         name="slug"
         render={({ field }) => (
           <FormItem>

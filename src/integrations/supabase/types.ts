@@ -14,6 +14,7 @@ export type Database = {
           budget_efficiency: string | null
           budget_heading: string | null
           challenge: string[] | null
+          client: string | null
           cover_image: string | null
           created_at: string | null
           created_by: string | null
@@ -38,6 +39,7 @@ export type Database = {
           budget_efficiency?: string | null
           budget_heading?: string | null
           challenge?: string[] | null
+          client?: string | null
           cover_image?: string | null
           created_at?: string | null
           created_by?: string | null
@@ -62,6 +64,7 @@ export type Database = {
           budget_efficiency?: string | null
           budget_heading?: string | null
           challenge?: string[] | null
+          client?: string | null
           cover_image?: string | null
           created_at?: string | null
           created_by?: string | null
