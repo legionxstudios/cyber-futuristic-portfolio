@@ -2,18 +2,10 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/components/ui/use-toast";
-import {
-  Form,
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Loader2 } from "lucide-react";
+import { CaseStudyFormFields } from "./CaseStudyFormFields";
 
 interface CaseStudyFormProps {
   initialData?: any;
@@ -34,6 +26,8 @@ export const CaseStudyForm = ({ initialData, onSuccess }: CaseStudyFormProps) =>
       unique_visitors: "",
       lead_generation: "",
       budget_efficiency: "",
+      cover_image: "",
+      graph_image: "",
     },
   });
 
@@ -69,133 +63,8 @@ export const CaseStudyForm = ({ initialData, onSuccess }: CaseStudyFormProps) =>
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-        <FormField
-          control={form.control}
-          name="title"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Title</FormLabel>
-              <FormControl>
-                <Input {...field} className="bg-cyberdark border-cyberblue" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="subtitle"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Subtitle</FormLabel>
-              <FormControl>
-                <Input {...field} className="bg-cyberdark border-cyberblue" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="challenge"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Challenge</FormLabel>
-              <FormControl>
-                <Textarea
-                  {...field}
-                  value={Array.isArray(field.value) ? field.value.join("\n") : field.value}
-                  onChange={(e) => field.onChange(e.target.value.split("\n"))}
-                  className="bg-cyberdark border-cyberblue"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="traffic_initial"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Initial Traffic</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="number"
-                    className="bg-cyberdark border-cyberblue"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-
-          <FormField
-            control={form.control}
-            name="traffic_final"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>Final Traffic</FormLabel>
-                <FormControl>
-                  <Input
-                    {...field}
-                    type="number"
-                    className="bg-cyberdark border-cyberblue"
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-        </div>
-
-        <FormField
-          control={form.control}
-          name="unique_visitors"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Unique Visitors</FormLabel>
-              <FormControl>
-                <Input {...field} className="bg-cyberdark border-cyberblue" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="lead_generation"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Lead Generation</FormLabel>
-              <FormControl>
-                <Input {...field} className="bg-cyberdark border-cyberblue" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <FormField
-          control={form.control}
-          name="budget_efficiency"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Budget Efficiency</FormLabel>
-              <FormControl>
-                <Input {...field} className="bg-cyberdark border-cyberblue" />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
+        <CaseStudyFormFields form={form} />
+        
         <Button
           type="submit"
           className="w-full bg-cyberpink hover:bg-cyberpink/80"
