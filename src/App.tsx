@@ -30,7 +30,7 @@ const App = () => (
             }
           />
           <Route
-            path="/case-study"
+            path="/format"
             element={
               <AuthGuard>
                 <CaseStudy />
