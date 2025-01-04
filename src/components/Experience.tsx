@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Building2, ExternalLink } from "lucide-react";
+import { Building2, ExternalLink, CheckCircle } from "lucide-react";
 
 const experiences = [
   {
@@ -127,11 +127,26 @@ export const Experience = () => {
                   
                   <div className="text-gray-400 text-sm mb-4">{exp.location}</div>
                   
-                  <div className="text-gray-400 space-y-4">
-                    {exp.description.map((item, i) => (
-                      <p key={i} className="text-left">{item}</p>
-                    ))}
-                  </div>
+                  {exp.description.length > 0 && (
+                    <div className="space-y-3 mt-4 border-t border-white/10 pt-4">
+                      {exp.description.map((item, i) => (
+                        <motion.div
+                          key={i}
+                          initial={{ opacity: 0, y: 10 }}
+                          whileInView={{ opacity: 1, y: 0 }}
+                          transition={{ delay: i * 0.1 }}
+                          className="flex items-start gap-3 group"
+                        >
+                          <div className="mt-1 flex-shrink-0">
+                            <CheckCircle className="w-4 h-4 text-cyberpink group-hover:text-cyberamber transition-colors" />
+                          </div>
+                          <p className="text-gray-300 group-hover:text-white transition-colors">
+                            {item}
+                          </p>
+                        </motion.div>
+                      ))}
+                    </div>
+                  )}
                 </div>
 
                 {/* Timeline dot */}
