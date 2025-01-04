@@ -43,7 +43,6 @@ export const Hero = () => {
       
       if (!isDeleting) {
         if (displayText === currentText) {
-          // Wait 3 seconds before starting to delete
           timeout = setTimeout(() => {
             setIsDeleting(true);
           }, 3000);
@@ -176,6 +175,21 @@ export const Hero = () => {
         </motion.div>
 
         <TestimonialCarousel />
+
+        {/* Flashing down arrow */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: [0.4, 1, 0.4], y: [0, 10, 0] }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut"
+          }}
+          className="absolute bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-white/80"
+        >
+          <span className="text-sm font-medium">See work experience below</span>
+          <ChevronDown className="w-6 h-6" />
+        </motion.div>
       </div>
     </motion.div>
   );
