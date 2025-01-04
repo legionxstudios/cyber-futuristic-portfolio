@@ -1,41 +1,12 @@
 import { motion } from "framer-motion";
-import { Database, Search, Globe, BarChart, LineChart } from "lucide-react";
+import { Database } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const tools = [
-  {
-    name: "Google Keyword Planner",
-    icon: Search,
-    description: "Keyword research and volume analysis"
-  },
-  {
-    name: "Ahrefs",
-    icon: Globe,
-    description: "Backlink analysis and keyword tracking"
-  },
-  {
-    name: "SEMRush",
-    icon: LineChart,
-    description: "Competitor analysis and rank tracking"
-  },
-  {
-    name: "Amplitude",
-    icon: BarChart,
-    description: "User behavior analytics"
-  },
-  {
-    name: "Google Analytics",
-    icon: Database,
-    description: "Traffic and conversion tracking"
-  },
-  {
-    name: "Google Search Console",
-    icon: Search,
-    description: "Search performance monitoring"
-  }
-];
+interface ToolsSectionProps {
+  tools: string[];
+}
 
-const ToolsSection = () => {
+const ToolsSection = ({ tools }: ToolsSectionProps) => {
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -52,7 +23,7 @@ const ToolsSection = () => {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {tools.map((tool, index) => (
               <motion.div
-                key={tool.name}
+                key={tool}
                 initial={{ y: 20, opacity: 0 }}
                 whileInView={{ y: 0, opacity: 1 }}
                 viewport={{ once: true }}
@@ -61,13 +32,10 @@ const ToolsSection = () => {
                 <Card className="glass-card hover-glow h-full">
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg">
-                      <tool.icon className="text-cybercyan" />
-                      {tool.name}
+                      <Database className="text-cybercyan" />
+                      {tool}
                     </CardTitle>
                   </CardHeader>
-                  <CardContent>
-                    <p className="text-gray-400">{tool.description}</p>
-                  </CardContent>
                 </Card>
               </motion.div>
             ))}

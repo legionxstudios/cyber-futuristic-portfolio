@@ -2,7 +2,15 @@ import { motion } from "framer-motion";
 import { Badge } from "@/components/ui/badge";
 import { Navigation } from "@/components/Navigation";
 
-const CaseStudyHero = () => {
+interface CaseStudyHeroProps {
+  caseStudy: {
+    title: string;
+    subtitle: string;
+    cover_image: string;
+  };
+}
+
+const CaseStudyHero = ({ caseStudy }: CaseStudyHeroProps) => {
   return (
     <>
       <Navigation showBack={true} />
@@ -32,7 +40,7 @@ const CaseStudyHero = () => {
                 variant="outline" 
                 className="px-4 py-2 rounded-full text-sm font-medium bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink animate-glow"
               >
-                FORMAT
+                CASE STUDY
               </Badge>
             </motion.div>
 
@@ -40,8 +48,8 @@ const CaseStudyHero = () => {
             <div className="relative">
               <div className="w-full aspect-[21/9] rounded-lg overflow-hidden">
                 <img 
-                  src="/lovable-uploads/ab75de39-3ba3-4352-b67c-fbd6c00decae.png"
-                  alt="Format portfolio builder showcase"
+                  src={caseStudy.cover_image}
+                  alt={caseStudy.title}
                   className="w-full h-full object-cover object-top"
                 />
               </div>
@@ -52,11 +60,11 @@ const CaseStudyHero = () => {
                   <div className="bg-black/50 p-4 rounded-lg text-center">
                     <h1 className="text-4xl md:text-5xl font-bold mb-4">
                       <span className="bg-gradient-to-r from-cyberpink to-cybercyan bg-clip-text text-transparent drop-shadow-lg">
-                        Growing Organic Traffic from 100K to 450K Monthly Visits
+                        {caseStudy.title}
                       </span>
                     </h1>
                     <p className="text-lg text-gray-200">
-                      An in-depth exploration of strategic SEO implementation and its impact on Format's digital presence
+                      {caseStudy.subtitle}
                     </p>
                   </div>
                 </div>

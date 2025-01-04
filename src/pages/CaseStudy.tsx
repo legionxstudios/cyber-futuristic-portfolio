@@ -1,5 +1,7 @@
-import { motion } from "framer-motion";
 import { useEffect } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import CaseStudyHero from "@/components/case-study/CaseStudyHero";
 import ResultsOverview from "@/components/case-study/ResultsOverview";
 import MainContent from "@/components/case-study/MainContent";
@@ -10,25 +12,54 @@ import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { InlineWidget } from "react-calendly";
 
 const CaseStudy = () => {
+  const { slug } = useParams();
+  
+  const { data: caseStudy, isLoading } = useQuery({
+    queryKey: ['case-study', slug],
+    queryFn: async () => {
+      console.log('Fetching case study for slug:', slug);
+      const { data, error } = await supabase
+        .from('case_studies')
+        .select('*')
+        .eq('slug', slug)
+        .single();
+      
+      if (error) {
+        console.error('Error fetching case study:', error);
+        throw error;
+      }
+      
+      console.log('Fetched case study:', data);
+      return data;
+    },
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  if (isLoading) {
+    return <div className="min-h-screen bg-cyberdark text-white flex items-center justify-center">
+      Loading...
+    </div>;
+  }
+
+  if (!caseStudy) {
+    return <div className="min-h-screen bg-cyberdark text-white flex items-center justify-center">
+      Case study not found
+    </div>;
+  }
+
   return (
     <div className="min-h-screen bg-cyberdark text-white pb-20">
-      <CaseStudyHero />
-      <ResultsOverview />
-      <MainContent />
+      <CaseStudyHero caseStudy={caseStudy} />
+      <ResultsOverview caseStudy={caseStudy} />
+      <MainContent caseStudy={caseStudy} />
       
       {/* Results Section */}
       <section className="py-16">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            className="glass-card p-8"
-          >
+          <div className="glass-card p-8">
             <div className="flex items-center gap-3 mb-6">
               <TrendingUp className="w-6 h-6 text-cyberpink" />
               <h2 className="text-2xl font-bold">Results & Impact</h2>
@@ -38,47 +69,46 @@ const CaseStudy = () => {
                 <div className="space-y-4">
                   <div className="bg-white/5 p-4 rounded-lg">
                     <h3 className="text-xl font-semibold text-cyberpink mb-2">Traffic Growth</h3>
-                    <p className="text-gray-300">Increased monthly visits from 100K to 450K</p>
+                    <p className="text-gray-300">
+                      {caseStudy.traffic_initial.toLocaleString()} → {caseStudy.traffic_final.toLocaleString()} monthly visits
+                    </p>
                   </div>
                   <div className="bg-white/5 p-4 rounded-lg">
                     <h3 className="text-xl font-semibold text-cybercyan mb-2">Lead Generation</h3>
-                    <p className="text-gray-300">25% of total business leads now come from organic traffic</p>
+                    <p className="text-gray-300">{caseStudy.lead_generation}</p>
                   </div>
                 </div>
                 <div className="space-y-4">
                   <div className="bg-white/5 p-4 rounded-lg">
                     <h3 className="text-xl font-semibold text-cyberamber mb-2">Visitor Engagement</h3>
-                    <p className="text-gray-300">Over 1M unique organic visitors in the first year</p>
+                    <p className="text-gray-300">{caseStudy.unique_visitors}</p>
                   </div>
                   <div className="bg-white/5 p-4 rounded-lg">
                     <h3 className="text-xl font-semibold text-cyberpink mb-2">Budget Efficiency</h3>
-                    <p className="text-gray-300">Achieved results using only 60% of allocated budget</p>
+                    <p className="text-gray-300">{caseStudy.budget_efficiency}</p>
                   </div>
                 </div>
               </div>
-              <div className="w-full h-[400px] relative rounded-lg overflow-hidden">
-                <img 
-                  src="/lovable-uploads/6afca98e-94f3-4d18-a044-2b884c4f57a4.png"
-                  alt="Traffic growth graph showing increase from 100K to 450K monthly visits"
-                  className="w-full h-full object-contain bg-white/5"
-                />
-              </div>
+              {caseStudy.graph_image && (
+                <div className="w-full h-[400px] relative rounded-lg overflow-hidden">
+                  <img 
+                    src={caseStudy.graph_image}
+                    alt={`Traffic growth graph for ${caseStudy.title}`}
+                    className="w-full h-full object-contain bg-white/5"
+                  />
+                </div>
+              )}
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
 
-      <ToolsSection />
+      <ToolsSection tools={caseStudy.tools_used} />
 
       {/* Pre-footer CTA Section */}
       <section className="py-16 relative">
         <div className="container mx-auto px-4">
-          <motion.div
-            initial={{ y: 20, opacity: 0 }}
-            whileInView={{ y: 0, opacity: 1 }}
-            viewport={{ once: true }}
-            className="glass-card p-8"
-          >
+          <div className="glass-card p-8">
             <div className="text-center space-y-6 max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
@@ -102,7 +132,7 @@ const CaseStudy = () => {
                 </DialogContent>
               </Dialog>
             </div>
-          </motion.div>
+          </div>
         </div>
       </section>
     </div>

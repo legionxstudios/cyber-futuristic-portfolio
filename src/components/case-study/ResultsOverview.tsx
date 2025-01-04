@@ -3,7 +3,19 @@ import { TrendingUp, Users, Target, DollarSign } from "lucide-react";
 import { Progress } from "@/components/ui/progress";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 
-const ResultsOverview = () => {
+interface ResultsOverviewProps {
+  caseStudy: {
+    traffic_initial: number;
+    traffic_final: number;
+    unique_visitors: string;
+    lead_generation: string;
+    budget_efficiency: string;
+  };
+}
+
+const ResultsOverview = ({ caseStudy }: ResultsOverviewProps) => {
+  const trafficInitialPercentage = (caseStudy.traffic_initial / caseStudy.traffic_final) * 100;
+  
   return (
     <section className="py-16">
       <div className="container mx-auto px-4">
@@ -25,12 +37,12 @@ const ResultsOverview = () => {
                 <div className="space-y-2">
                   <div className="flex justify-between text-sm">
                     <span>Initial</span>
-                    <span>100K</span>
+                    <span>{caseStudy.traffic_initial.toLocaleString()}</span>
                   </div>
-                  <Progress value={22} className="h-2 bg-white/10" />
+                  <Progress value={trafficInitialPercentage} className="h-2 bg-white/10" />
                   <div className="flex justify-between text-sm">
                     <span>Final</span>
-                    <span>450K</span>
+                    <span>{caseStudy.traffic_final.toLocaleString()}</span>
                   </div>
                   <Progress value={100} className="h-2 bg-white/10" />
                 </div>
@@ -52,8 +64,8 @@ const ResultsOverview = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold mb-2">1M+</p>
-                <p className="text-gray-400">Unique organic visitors in first year</p>
+                <p className="text-3xl font-bold mb-2">{caseStudy.unique_visitors}</p>
+                <p className="text-gray-400">Unique organic visitors</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -72,8 +84,8 @@ const ResultsOverview = () => {
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold mb-2">25%</p>
-                <p className="text-gray-400">Of total business leads</p>
+                <p className="text-3xl font-bold mb-2">{caseStudy.lead_generation}</p>
+                <p className="text-gray-400">Monthly organic visitors</p>
               </CardContent>
             </Card>
           </motion.div>
@@ -88,12 +100,12 @@ const ResultsOverview = () => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <DollarSign className="text-cyberpink" />
-                  Budget Efficiency
+                  Development Time
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-3xl font-bold mb-2">60%</p>
-                <p className="text-gray-400">Of allocated budget used</p>
+                <p className="text-3xl font-bold mb-2">{caseStudy.budget_efficiency}</p>
+                <p className="text-gray-400">Total time invested</p>
               </CardContent>
             </Card>
           </motion.div>
