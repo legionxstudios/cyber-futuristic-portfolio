@@ -64,7 +64,7 @@ const MainContent = ({ caseStudy }: MainContentProps) => {
                 {solutions.map((item, index) => (
                   <div key={index} className="flex items-start gap-2">
                     <CheckCircle2 className="w-5 h-5 mt-1 text-cybercyan" />
-                    <span className="text-gray-300">{item}</span>
+                    <span className="text-gray-300">{String(item)}</span>
                   </div>
                 ))}
               </div>
@@ -85,7 +85,7 @@ const MainContent = ({ caseStudy }: MainContentProps) => {
             <div className="space-y-6">
               {keyTakeaways.map((takeaway, index) => (
                 <div key={index} className="p-4 bg-white/5 rounded-lg">
-                  <p className="text-gray-300">{takeaway}</p>
+                  <p className="text-gray-300">{String(takeaway)}</p>
                 </div>
               ))}
             </div>
