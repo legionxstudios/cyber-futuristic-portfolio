@@ -40,7 +40,7 @@ export const Hero = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.3 }}
-          className="mt-8 text-4xl md:text-6xl font-bold text-white font-mono"
+          className="mt-8 mb-8 text-4xl md:text-6xl font-bold text-white font-mono"
         >
           <TypeWriter texts={texts} />
         </motion.h1>
@@ -49,6 +49,7 @@ export const Hero = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.4 }}
+          className="mb-6"
         >
           <RoleSelector 
             selectedTitle={selectedTitle}
