@@ -30,7 +30,7 @@ const App = () => (
             }
           />
           <Route
-            path="/format"
+            path="/:slug"
             element={<CaseStudy />}
           />
           <Route
