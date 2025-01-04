@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import CaseStudyHero from "@/components/case-study/CaseStudyHero";
 import ResultsOverview from "@/components/case-study/ResultsOverview";
 import MainContent from "@/components/case-study/MainContent";
