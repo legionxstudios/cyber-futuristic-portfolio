@@ -5,6 +5,7 @@ import MainContent from "@/components/case-study/MainContent";
 import ToolsSection from "@/components/case-study/ToolsSection";
 import { TrendingUp, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { InlineWidget } from "react-calendly";
 
 const CaseStudy = () => {
@@ -62,6 +63,8 @@ const CaseStudy = () => {
         </div>
       </section>
 
+      <ToolsSection />
+
       {/* Pre-footer CTA Section */}
       <section className="py-16 relative">
         <div className="container mx-auto px-4">
@@ -71,7 +74,7 @@ const CaseStudy = () => {
             viewport={{ once: true }}
             className="glass-card p-8"
           >
-            <div className="text-center space-y-6 max-w-3xl mx-auto mb-8">
+            <div className="text-center space-y-6 max-w-3xl mx-auto">
               <h2 className="text-3xl font-bold">
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
                   Ready to Achieve Similar Results?
@@ -80,31 +83,23 @@ const CaseStudy = () => {
               <p className="text-lg text-gray-300">
                 Transform your organization's digital presence with data-driven strategies that deliver measurable results. Let's discuss how we can help you reach your goals.
               </p>
-              <div className="flex justify-center gap-4">
-                <Button
-                  onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                  className="bg-cyberpink hover:bg-cyberpink/80 text-white"
-                >
-                  Contact Me
-                </Button>
-                <Button
-                  variant="outline"
-                  className="border-cybercyan text-cybercyan hover:bg-cybercyan/10"
-                  onClick={() => document.getElementById('calendar')?.scrollIntoView({ behavior: 'smooth' })}
-                >
-                  <Calendar className="mr-2 h-4 w-4" />
-                  Schedule a Call
-                </Button>
-              </div>
-            </div>
-            <div id="calendar" className="max-w-3xl mx-auto">
-              <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '600px' }} />
+              <Dialog>
+                <DialogTrigger asChild>
+                  <Button
+                    className="bg-cyberpink hover:bg-cyberpink/80 text-white"
+                  >
+                    <Calendar className="mr-2 h-4 w-4" />
+                    Schedule a Call
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="sm:max-w-[600px] h-[80vh]">
+                  <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '100%' }} />
+                </DialogContent>
+              </Dialog>
             </div>
           </motion.div>
         </div>
       </section>
-
-      <ToolsSection />
     </div>
   );
 };
