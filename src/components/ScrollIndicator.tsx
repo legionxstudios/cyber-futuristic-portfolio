@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 
 export const ScrollIndicator = () => {
   const [activeSection, setActiveSection] = useState(0);
-  const sections = ["hero", "skills", "experience", "projects", "contact"];
+  const sections = ["hero", "skills", "experience", "featured-projects", "contact"];
 
   useEffect(() => {
     const handleScroll = () => {
