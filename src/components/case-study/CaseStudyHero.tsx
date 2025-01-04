@@ -9,7 +9,7 @@ const CaseStudyHero = () => {
       <motion.section 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        className="relative min-h-[90vh] flex items-center justify-center pt-16"
+        className="relative min-h-[90vh] flex items-center justify-center"
       >
         <div className="absolute inset-0 bg-gradient-to-b from-cyberpink/10 to-transparent" />
         
@@ -42,7 +42,7 @@ const CaseStudyHero = () => {
                 <img 
                   src="/lovable-uploads/ab75de39-3ba3-4352-b67c-fbd6c00decae.png"
                   alt="Format portfolio builder showcase"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover object-top"
                 />
               </div>
 
