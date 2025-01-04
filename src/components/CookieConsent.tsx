@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { X } from "lucide-react";
 
 export const CookieConsent = () => {
   const [show, setShow] = useState(false);
@@ -48,7 +49,16 @@ export const CookieConsent = () => {
 
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-t border-border z-50">
-      <div className="container flex flex-col sm:flex-row items-center justify-between gap-4 py-4 text-center sm:text-left">
+      <div className="container relative flex flex-col sm:flex-row items-center justify-between gap-4 py-4 text-center sm:text-left">
+        <Button
+          variant="ghost"
+          size="icon"
+          className="absolute right-0 top-0 sm:right-2"
+          onClick={() => setShow(false)}
+        >
+          <X className="h-4 w-4" />
+          <span className="sr-only">Close</span>
+        </Button>
         <p className="text-sm text-muted-foreground">
           We use cookies to enhance your browsing experience and analyze site traffic.
         </p>
