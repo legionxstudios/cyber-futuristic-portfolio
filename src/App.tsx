@@ -23,19 +23,15 @@ const App = () => (
           <Route
             path="/"
             element={
-              <AuthGuard>
+              <>
                 <Navigation />
                 <Index />
-              </AuthGuard>
+              </>
             }
           />
           <Route
             path="/format"
-            element={
-              <AuthGuard>
-                <CaseStudy />
-              </AuthGuard>
-            }
+            element={<CaseStudy />}
           />
           <Route
             path="/admin"
