@@ -1,6 +1,7 @@
 import { renderToString } from 'react-dom/server';
 import { StaticRouter } from 'react-router-dom/server';
-import { HelmetProvider } from 'react-helmet-async';
+import pkg from 'react-helmet-async';
+const { HelmetProvider } = pkg;
 import App from '../App';
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 
@@ -21,18 +22,15 @@ export function render(url: string) {
   return {
     documentHtml: html,
     pageContext: {
-      // This will be available as pageContext.helmetContext
       helmetContext,
     },
   };
 }
 
-// Pre-render every route of your application
 export const prerender = () => {
   return [
     '/',
     '/privacy-policy',
     '/terms',
-    // Add other routes as needed
   ];
 };
