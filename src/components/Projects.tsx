@@ -25,6 +25,65 @@ export const Projects = () => {
     },
   });
 
+  // Function to insert the new case study
+  const insertNewCaseStudy = async () => {
+    const { error } = await supabase
+      .from('case_studies')
+      .insert([
+        {
+          title: "Implementing Product SEO to Drive Organic Traffic for Format",
+          subtitle: "How we transformed Format's website templates to better align with search intent",
+          slug: "format-2",
+          client: "Format",
+          challenge: [
+            "Format's existing website templates were generalized frameworks showcasing DIY website builder capabilities",
+            "Only 7 broad themes were available",
+            "Significant opportunity to better align product offering with search intent",
+            "Need to drive more organic traffic for non-branded, commercial terms"
+          ],
+          solution: [
+            "Partnered with product team to 'productize' search terms",
+            "Conducted keyword research for high-value niche-specific terms",
+            "Transformed 7 generalized themes into 51 niche-specific templates",
+            "Categorized templates into targeted niches",
+            "Optimized pages for SEO with targeted keywords"
+          ],
+          key_takeaways: [
+            "Google favors informational content for certain queries",
+            "Created roundup articles for better conversion",
+            "Account for development timelines in marketing planning"
+          ],
+          tools_used: [
+            "Keyword Research Tools",
+            "SEO Analytics",
+            "Content Management System",
+            "Web Development",
+            "Google Search Console"
+          ],
+          traffic_initial: 0,
+          traffic_final: 5000,
+          unique_visitors: "5,000 monthly organic visitors",
+          lead_generation: "2x conversion rate increase",
+          budget_efficiency: "3 months to results",
+          cover_image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+          traffic_heading: "Traffic Growth",
+          visitors_heading: "Visitor Engagement",
+          leads_heading: "Conversion Impact",
+          budget_heading: "Time to Results"
+        }
+      ]);
+
+    if (error) {
+      console.error('Error inserting case study:', error);
+    } else {
+      console.log('Successfully inserted new case study');
+    }
+  };
+
+  // Call the function to insert the case study
+  // Note: You might want to remove this after the first run
+  // insertNewCaseStudy();
+
   return (
     <section id="featured-projects" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cybercyan/5 to-transparent" />
