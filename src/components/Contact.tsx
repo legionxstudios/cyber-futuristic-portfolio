@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Mail, Github, Linkedin, Twitter } from "lucide-react";
+import { Mail, Linkedin } from "lucide-react";
 import { InlineWidget } from "react-calendly";
 
 export const Contact = () => {
@@ -30,9 +30,9 @@ export const Contact = () => {
               Ready to collaborate? Let's create something amazing together.
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-2 gap-6">
+            <div className="grid grid-cols-2 gap-6">
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:tudorfilms@gmail.com"
                 className="flex flex-col items-center gap-2 text-gray-400 hover:text-cyberpink transition-colors group"
               >
                 <div className="p-4 rounded-full border border-gray-700 group-hover:border-cyberpink transition-colors">
@@ -42,19 +42,7 @@ export const Contact = () => {
               </a>
               
               <a
-                href="https://github.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 text-gray-400 hover:text-cybercyan transition-colors group"
-              >
-                <div className="p-4 rounded-full border border-gray-700 group-hover:border-cybercyan transition-colors">
-                  <Github className="w-6 h-6" />
-                </div>
-                <span>GitHub</span>
-              </a>
-              
-              <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://www.linkedin.com/in/tudorstanescu/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex flex-col items-center gap-2 text-gray-400 hover:text-cyberamber transition-colors group"
@@ -63,18 +51,6 @@ export const Contact = () => {
                   <Linkedin className="w-6 h-6" />
                 </div>
                 <span>LinkedIn</span>
-              </a>
-              
-              <a
-                href="https://twitter.com/yourusername"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 text-gray-400 hover:text-cyberblue transition-colors group"
-              >
-                <div className="p-4 rounded-full border border-gray-700 group-hover:border-cyberblue transition-colors">
-                  <Twitter className="w-6 h-6" />
-                </div>
-                <span>Twitter</span>
               </a>
             </div>
           </motion.div>
