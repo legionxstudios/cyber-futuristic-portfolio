@@ -24,7 +24,7 @@ export const Hero = () => {
       <div className="absolute inset-0 bg-[url('/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png')] bg-cover bg-center opacity-30" />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
-      <div className="relative z-10 text-center px-4">
+      <div className="relative z-10 text-center px-4 w-full max-w-7xl mx-auto">
         <motion.div
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
@@ -62,7 +62,7 @@ export const Hero = () => {
           initial={{ y: 20, opacity: 0 }}
           animate={{ y: 0, opacity: 1 }}
           transition={{ delay: 0.5 }}
-          className="mt-4 text-xl text-gray-300 max-w-2xl mx-auto bg-black/30 p-4 rounded-lg"
+          className="mt-4 text-xl text-gray-300 max-w-[90%] sm:max-w-2xl mx-auto bg-black/30 p-4 rounded-lg"
         >
           Over a decade of driving growth with data-driven marketing, advanced SEO, and proven CRO techniques
         </motion.p>

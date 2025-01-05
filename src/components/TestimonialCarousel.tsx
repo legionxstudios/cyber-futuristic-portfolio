@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import {
   Carousel,
   CarouselContent,
@@ -6,6 +7,7 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 import { Quote, Linkedin, ArrowUpRight } from "lucide-react";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 const testimonials = [
   {
@@ -29,6 +31,20 @@ const testimonials = [
 ];
 
 export const TestimonialCarousel = () => {
+  const [api, setApi] = useState<any>();
+  const [current, setCurrent] = useState(0);
+  const isMobile = useIsMobile();
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap());
+    });
+  }, [api]);
+
   return (
     <div className="w-full max-w-6xl mx-auto mt-20 px-4">
       <Carousel
@@ -37,13 +53,14 @@ export const TestimonialCarousel = () => {
           loop: true,
         }}
         className="relative"
+        setApi={setApi}
       >
         <CarouselContent>
           {testimonials.map((testimonial, index) => (
-            <CarouselItem key={index} className="md:basis-1/2">
+            <CarouselItem key={index} className="md:basis-1/2 px-1 md:px-4">
               <div className="glass-card p-6 h-full flex flex-col gap-4">
                 <Quote className="text-cyberpink w-8 h-8" />
-                <p className="text-gray-300 flex-grow">{testimonial.text}</p>
+                <p className="text-gray-300 flex-grow text-sm md:text-base">{testimonial.text}</p>
                 <div>
                   <div className="flex items-center justify-center gap-2">
                     <p className="text-cyberpink font-semibold">{testimonial.author}</p>
@@ -63,8 +80,27 @@ export const TestimonialCarousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselPrevious className="absolute -left-12 border border-cyberpink/20 hover:bg-cyberpink/20" />
-        <CarouselNext className="absolute -right-12 border border-cyberpink/20 hover:bg-cyberpink/20" />
+        
+        {!isMobile && (
+          <>
+            <CarouselPrevious className="absolute -left-12 border border-cyberpink/20 hover:bg-cyberpink/20" />
+            <CarouselNext className="absolute -right-12 border border-cyberpink/20 hover:bg-cyberpink/20" />
+          </>
+        )}
+
+        {isMobile && (
+          <div className="flex justify-center gap-2 mt-4">
+            {testimonials.map((_, index) => (
+              <button
+                key={index}
+                className={`w-2 h-2 rounded-full transition-colors ${
+                  current === index ? "bg-cyberpink" : "bg-gray-600"
+                }`}
+                onClick={() => api?.scrollTo(index)}
+              />
+            ))}
+          </div>
+        )}
       </Carousel>
     </div>
   );
