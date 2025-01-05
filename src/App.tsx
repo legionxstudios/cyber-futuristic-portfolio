@@ -18,13 +18,13 @@ import Terms from "./pages/Terms";
 const queryClient = new QueryClient();
 
 const App = () => (
-  <HelmetProvider>
-    <QueryClientProvider client={queryClient}>
-      <TooltipProvider>
-        <Toaster />
-        <Sonner />
-        <CookieConsent />
-        <BrowserRouter>
+  <BrowserRouter>
+    <HelmetProvider>
+      <QueryClientProvider client={queryClient}>
+        <TooltipProvider>
+          <Toaster />
+          <Sonner />
+          <CookieConsent />
           <Routes>
             <Route path="/auth" element={<Auth />} />
             <Route
@@ -57,10 +57,10 @@ const App = () => (
               }
             />
           </Routes>
-        </BrowserRouter>
-      </TooltipProvider>
-    </QueryClientProvider>
-  </HelmetProvider>
+        </TooltipProvider>
+      </QueryClientProvider>
+    </HelmetProvider>
+  </BrowserRouter>
 );
 
 export default App;
