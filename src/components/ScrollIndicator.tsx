@@ -34,7 +34,7 @@ export const ScrollIndicator = () => {
   };
 
   return (
-    <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-3">
+    <div className="fixed right-8 top-1/2 -translate-y-1/2 z-50 hidden md:flex flex-col gap-3">
       {sections.map((section, index) => (
         <button
           key={section}
