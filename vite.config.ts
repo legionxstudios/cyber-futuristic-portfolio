@@ -19,7 +19,8 @@ export default defineConfig(({ mode }) => ({
   ].filter(Boolean),
   resolve: {
     alias: {
-      "@": path.resolve(__dirname, "./src"),
+      // Changed from @ to src to follow vite-plugin-ssr recommendations
+      "src": path.resolve(__dirname, "./src"),
     },
   },
 }));
