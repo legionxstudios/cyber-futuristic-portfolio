@@ -80,8 +80,8 @@ export const Experience = () => {
         </motion.h2>
 
         <div className="relative">
-          {/* Vertical line */}
-          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gradient-to-b from-cyberpink via-cybercyan to-cyberamber" />
+          {/* Vertical line - hidden on mobile */}
+          <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gradient-to-b from-cyberpink via-cybercyan to-cyberamber hidden md:block" />
 
           <div className="space-y-12">
             {experiences.map((exp, index) => (
@@ -92,7 +92,7 @@ export const Experience = () => {
                 transition={{ duration: 0.5, delay: index * 0.2 }}
                 className="relative grid grid-cols-1 md:grid-cols-2 gap-8"
               >
-                {/* Date on the opposite side */}
+                {/* Date on the opposite side - hidden on mobile */}
                 <div 
                   className={`hidden md:block text-cyberpink font-medium absolute top-2 ${
                     index % 2 === 0 
@@ -153,8 +153,8 @@ export const Experience = () => {
                   )}
                 </div>
 
-                {/* Timeline dot */}
-                <div className="absolute left-1/2 top-2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyberpink" />
+                {/* Timeline dot - hidden on mobile */}
+                <div className="absolute left-1/2 top-2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-cyberpink hidden md:block" />
               </motion.div>
             ))}
           </div>
