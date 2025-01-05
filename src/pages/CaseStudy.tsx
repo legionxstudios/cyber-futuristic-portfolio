@@ -54,99 +54,111 @@ const CaseStudy = () => {
     </div>;
   }
 
+  const metaDescription = `${caseStudy.subtitle || ''} Learn how we achieved ${caseStudy.traffic_final?.toLocaleString()} monthly visits and ${caseStudy.lead_generation} leads for ${caseStudy.client}.`;
+
   return (
     <>
       <Helmet>
-        <title>{`${caseStudy.title} Case Study | Tudor Stanescu Portfolio`}</title>
-        <meta name="description" content={caseStudy.subtitle || `Case study showing how Tudor Stanescu helped achieve remarkable results for ${caseStudy.client || 'a client'}.`} />
-        <meta property="og:title" content={`${caseStudy.title} Case Study | Tudor Stanescu Portfolio`} />
-        <meta property="og:description" content={caseStudy.subtitle || `Case study showing how Tudor Stanescu helped achieve remarkable results for ${caseStudy.client || 'a client'}.`} />
+        <title>{`${caseStudy.title} | Case Study`}</title>
+        <meta name="description" content={metaDescription} />
+        
+        {/* Open Graph / Facebook */}
+        <meta property="og:type" content="article" />
+        <meta property="og:title" content={`${caseStudy.title} | Case Study`} />
+        <meta property="og:description" content={metaDescription} />
         {caseStudy.cover_image && <meta property="og:image" content={caseStudy.cover_image} />}
+        
+        {/* Twitter */}
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:title" content={`${caseStudy.title} | Case Study`} />
+        <meta name="twitter:description" content={metaDescription} />
+        {caseStudy.cover_image && <meta name="twitter:image" content={caseStudy.cover_image} />}
       </Helmet>
+
       <div className="min-h-screen bg-cyberdark text-white pb-20">
-      <CaseStudyHero caseStudy={caseStudy} />
-      <ResultsOverview caseStudy={caseStudy} />
-      <MainContent caseStudy={caseStudy} />
-      
-      {/* Results Section */}
-      <section className="py-16">
-        <div className="container mx-auto px-4">
-          <div className="glass-card p-8">
-            <div className="flex items-center gap-3 mb-6">
-              <TrendingUp className="w-6 h-6 text-cyberpink" />
-              <h2 className="text-2xl font-bold">Results & Impact</h2>
-            </div>
-            <div className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-4">
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cyberpink mb-2">{caseStudy.traffic_heading}</h3>
-                    <p className="text-gray-300">
-                      {caseStudy.traffic_initial?.toLocaleString()} → {caseStudy.traffic_final?.toLocaleString()} monthly visits
-                    </p>
-                  </div>
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cybercyan mb-2">{caseStudy.leads_heading}</h3>
-                    <p className="text-gray-300">{caseStudy.lead_generation}</p>
-                  </div>
-                </div>
-                <div className="space-y-4">
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cyberamber mb-2">{caseStudy.visitors_heading}</h3>
-                    <p className="text-gray-300">{caseStudy.unique_visitors}</p>
-                  </div>
-                  <div className="bg-white/5 p-4 rounded-lg">
-                    <h3 className="text-xl font-semibold text-cyberpink mb-2">{caseStudy.budget_heading}</h3>
-                    <p className="text-gray-300">{caseStudy.budget_efficiency}</p>
-                  </div>
-                </div>
+        <CaseStudyHero caseStudy={caseStudy} />
+        <ResultsOverview caseStudy={caseStudy} />
+        <MainContent caseStudy={caseStudy} />
+        
+        {/* Results Section */}
+        <section className="py-16">
+          <div className="container mx-auto px-4">
+            <div className="glass-card p-8">
+              <div className="flex items-center gap-3 mb-6">
+                <TrendingUp className="w-6 h-6 text-cyberpink" />
+                <h2 className="text-2xl font-bold">Results & Impact</h2>
               </div>
-              {caseStudy.graph_image && (
-                <div className="w-full h-[400px] relative rounded-lg overflow-hidden">
-                  <img 
-                    src={caseStudy.graph_image}
-                    alt={`Traffic growth graph for ${caseStudy.title}`}
-                    className="w-full h-full object-contain bg-white/5"
-                  />
+              <div className="space-y-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="space-y-4">
+                    <div className="bg-white/5 p-4 rounded-lg">
+                      <h3 className="text-xl font-semibold text-cyberpink mb-2">{caseStudy.traffic_heading}</h3>
+                      <p className="text-gray-300">
+                        {caseStudy.traffic_initial?.toLocaleString()} → {caseStudy.traffic_final?.toLocaleString()} monthly visits
+                      </p>
+                    </div>
+                    <div className="bg-white/5 p-4 rounded-lg">
+                      <h3 className="text-xl font-semibold text-cybercyan mb-2">{caseStudy.leads_heading}</h3>
+                      <p className="text-gray-300">{caseStudy.lead_generation}</p>
+                    </div>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="bg-white/5 p-4 rounded-lg">
+                      <h3 className="text-xl font-semibold text-cyberamber mb-2">{caseStudy.visitors_heading}</h3>
+                      <p className="text-gray-300">{caseStudy.unique_visitors}</p>
+                    </div>
+                    <div className="bg-white/5 p-4 rounded-lg">
+                      <h3 className="text-xl font-semibold text-cyberpink mb-2">{caseStudy.budget_heading}</h3>
+                      <p className="text-gray-300">{caseStudy.budget_efficiency}</p>
+                    </div>
+                  </div>
                 </div>
-              )}
+                {caseStudy.graph_image && (
+                  <div className="w-full h-[400px] relative rounded-lg overflow-hidden">
+                    <img 
+                      src={caseStudy.graph_image}
+                      alt={`Traffic growth graph for ${caseStudy.title}`}
+                      className="w-full h-full object-contain bg-white/5"
+                    />
+                  </div>
+                )}
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <ToolsSection tools={Array.isArray(caseStudy.tools_used) ? caseStudy.tools_used : []} />
+        <ToolsSection tools={Array.isArray(caseStudy.tools_used) ? caseStudy.tools_used : []} />
 
-      {/* Pre-footer CTA Section */}
-      <section className="py-16 relative">
-        <div className="container mx-auto px-4">
-          <div className="glass-card p-8">
-            <div className="text-center space-y-6 max-w-3xl mx-auto">
-              <h2 className="text-3xl font-bold">
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
-                  Ready to Achieve Similar Results?
-                </span>
-              </h2>
-              <p className="text-lg text-gray-300">
-                Transform your organization's digital presence with data-driven strategies that deliver measurable results. Let's discuss how we can help you reach your goals.
-              </p>
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button
-                    className="bg-cyberpink hover:bg-cyberpink/80 text-white"
-                  >
-                    <Calendar className="mr-2 h-4 w-4" />
-                    Schedule a Call
-                  </Button>
-                </DialogTrigger>
-                <DialogContent className="sm:max-w-[600px] h-[80vh]">
-                  <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '100%' }} />
-                </DialogContent>
-              </Dialog>
+        {/* Pre-footer CTA Section */}
+        <section className="py-16 relative">
+          <div className="container mx-auto px-4">
+            <div className="glass-card p-8">
+              <div className="text-center space-y-6 max-w-3xl mx-auto">
+                <h2 className="text-3xl font-bold">
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
+                    Ready to Achieve Similar Results?
+                  </span>
+                </h2>
+                <p className="text-lg text-gray-300">
+                  Transform your organization's digital presence with data-driven strategies that deliver measurable results. Let's discuss how we can help you reach your goals.
+                </p>
+                <Dialog>
+                  <DialogTrigger asChild>
+                    <Button
+                      className="bg-cyberpink hover:bg-cyberpink/80 text-white"
+                    >
+                      <Calendar className="mr-2 h-4 w-4" />
+                      Schedule a Call
+                    </Button>
+                  </DialogTrigger>
+                  <DialogContent className="sm:max-w-[600px] h-[80vh]">
+                    <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '100%' }} />
+                  </DialogContent>
+                </Dialog>
+              </div>
             </div>
           </div>
-        </div>
-      </section>
+        </section>
       </div>
     </>
   );
