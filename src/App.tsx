@@ -14,6 +14,7 @@ import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
+import MetaImage from "./pages/MetaImage";
 
 const queryClient = new QueryClient();
 
@@ -27,6 +28,7 @@ const App = () => (
           <CookieConsent />
           <Routes>
             <Route path="/auth" element={<Auth />} />
+            <Route path="/meta-image" element={<MetaImage />} />
             <Route
               path="/"
               element={
