@@ -80,8 +80,8 @@ export const Projects = () => {
     }
   };
 
-  // Call the function to insert the case study
-  insertNewCaseStudy();
+  // Removing the function call since the case study has already been inserted
+  // insertNewCaseStudy();
 
   return (
     <section id="featured-projects" className="py-20 relative">
