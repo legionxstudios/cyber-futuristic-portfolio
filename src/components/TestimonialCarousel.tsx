@@ -46,7 +46,7 @@ export const TestimonialCarousel = () => {
   }, [api]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto mt-20 px-4">
+    <div className="w-full max-w-[calc(100vw-2rem)] md:max-w-6xl mx-auto mt-20">
       <Carousel
         opts={{
           align: "start",
@@ -55,11 +55,11 @@ export const TestimonialCarousel = () => {
         className="relative"
         setApi={setApi}
       >
-        <CarouselContent>
+        <CarouselContent className="-ml-2 md:-ml-4">
           {testimonials.map((testimonial, index) => (
-            <CarouselItem key={index} className="md:basis-1/2 px-1 md:px-4">
-              <div className="glass-card p-6 h-full flex flex-col gap-4">
-                <Quote className="text-cyberpink w-8 h-8" />
+            <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2">
+              <div className="glass-card p-4 md:p-6 h-full flex flex-col gap-4">
+                <Quote className="text-cyberpink w-6 h-6 md:w-8 md:h-8" />
                 <p className="text-gray-300 flex-grow text-sm md:text-base">{testimonial.text}</p>
                 <div>
                   <div className="flex items-center justify-center gap-2">
