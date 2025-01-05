@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
+import { Helmet } from 'react-helmet-async';
 import { supabase } from "@/integrations/supabase/client";
 import CaseStudyHero from "@/components/case-study/CaseStudyHero";
 import ResultsOverview from "@/components/case-study/ResultsOverview";
@@ -54,7 +55,15 @@ const CaseStudy = () => {
   }
 
   return (
-    <div className="min-h-screen bg-cyberdark text-white pb-20">
+    <>
+      <Helmet>
+        <title>{`${caseStudy.title} Case Study | Tudor Stanescu Portfolio`}</title>
+        <meta name="description" content={caseStudy.subtitle || `Case study showing how Tudor Stanescu helped achieve remarkable results for ${caseStudy.client || 'a client'}.`} />
+        <meta property="og:title" content={`${caseStudy.title} Case Study | Tudor Stanescu Portfolio`} />
+        <meta property="og:description" content={caseStudy.subtitle || `Case study showing how Tudor Stanescu helped achieve remarkable results for ${caseStudy.client || 'a client'}.`} />
+        {caseStudy.cover_image && <meta property="og:image" content={caseStudy.cover_image} />}
+      </Helmet>
+      <div className="min-h-screen bg-cyberdark text-white pb-20">
       <CaseStudyHero caseStudy={caseStudy} />
       <ResultsOverview caseStudy={caseStudy} />
       <MainContent caseStudy={caseStudy} />
@@ -138,7 +147,8 @@ const CaseStudy = () => {
           </div>
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 };
 
