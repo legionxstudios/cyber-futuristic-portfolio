@@ -18,7 +18,7 @@ export const Hero = () => {
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.5 }}
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark pt-20 md:pt-0"
     >
       <ScrollIndicator />
       <div className="absolute inset-0 bg-[url('/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png')] bg-cover bg-center opacity-30" />
