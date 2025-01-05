@@ -24,33 +24,42 @@ export const Contact = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
-            className="glass-card p-8"
+            className="glass-card p-8 flex flex-col justify-between"
           >
-            <p className="text-lg text-gray-300 mb-8 text-center">
-              Ready to collaborate? Let's create something amazing together.
-            </p>
+            <div>
+              <h3 className="text-2xl font-semibold mb-4 text-cyberpink">Get in Touch</h3>
+              <p className="text-lg text-gray-300 mb-8">
+                Ready to collaborate? Let's create something amazing together. Choose your preferred way to connect:
+              </p>
+            </div>
             
             <div className="grid grid-cols-2 gap-6">
               <a
                 href="mailto:tudorfilms@gmail.com"
-                className="flex flex-col items-center gap-2 text-gray-400 hover:text-cyberpink transition-colors group"
+                className="flex flex-col items-center gap-4 p-6 rounded-lg bg-glass hover:bg-white/5 transition-all text-gray-400 hover:text-cyberpink group"
               >
-                <div className="p-4 rounded-full border border-gray-700 group-hover:border-cyberpink transition-colors">
-                  <Mail className="w-6 h-6" />
+                <div className="p-4 rounded-full border-2 border-gray-700 group-hover:border-cyberpink transition-colors">
+                  <Mail className="w-8 h-8" />
                 </div>
-                <span>Email</span>
+                <div className="text-center">
+                  <div className="font-semibold mb-1">Email</div>
+                  <div className="text-sm opacity-75">Direct Message</div>
+                </div>
               </a>
               
               <a
                 href="https://www.linkedin.com/in/tudorstanescu/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex flex-col items-center gap-2 text-gray-400 hover:text-cyberamber transition-colors group"
+                className="flex flex-col items-center gap-4 p-6 rounded-lg bg-glass hover:bg-white/5 transition-all text-gray-400 hover:text-cyberamber group"
               >
-                <div className="p-4 rounded-full border border-gray-700 group-hover:border-cyberamber transition-colors">
-                  <Linkedin className="w-6 h-6" />
+                <div className="p-4 rounded-full border-2 border-gray-700 group-hover:border-cyberamber transition-colors">
+                  <Linkedin className="w-8 h-8" />
                 </div>
-                <span>LinkedIn</span>
+                <div className="text-center">
+                  <div className="font-semibold mb-1">LinkedIn</div>
+                  <div className="text-sm opacity-75">Professional Network</div>
+                </div>
               </a>
             </div>
           </motion.div>
