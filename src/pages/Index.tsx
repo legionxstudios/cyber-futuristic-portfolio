@@ -17,7 +17,7 @@ const Index = () => {
   const title = "Tudor Stanescu Portfolio | #HireMeHuman";
   const description = "Experienced SEO & Growth Marketing leader driving traffic, conversions, and innovation. Proven results in scaling brands and digital strategies.";
   const ogImage = "/lovable-uploads/cc5b7e22-9f01-450b-9dbe-b069e1429ae0.png";
-  const url = "https://tudorstanescu.com"; // Replace with your actual domain
+  const url = "https://hiremehuman.com";
 
   return (
     <>
