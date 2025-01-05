@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import { AuthLayout } from "src/components/auth/AuthLayout";
+import { AuthLayout } from "@/components/auth/AuthLayout";
 
 const Auth = () => {
   return (
