@@ -8,14 +8,14 @@ export const VersusSection = () => {
       <div className="absolute inset-0 bg-gradient-to-r from-cyberpink/20 via-transparent to-cyberamber/20 opacity-20" />
       
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row items-center justify-between gap-8 relative">
+        <div className="flex flex-col md:flex-row items-center justify-center gap-4 relative">
           {/* Left side - What I'm looking for */}
           <motion.div
             initial={{ x: -100, opacity: 0 }}
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex-1"
+            className="flex-1 transform md:rotate-2"
           >
             <div className="glass-card p-8 hover-glow">
               <Target className="w-12 h-12 mb-4 text-cyberpink" />
@@ -32,10 +32,13 @@ export const VersusSection = () => {
             whileInView={{ scale: 1, rotate: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.7, type: "spring" }}
-            className="relative z-10"
+            className="relative z-10 mx-[-2rem]"
           >
-            <div className="w-24 h-24 rounded-full bg-gradient-to-br from-cyberpink via-cyberamber to-cybercyan flex items-center justify-center transform rotate-12 animate-pulse">
-              <span className="text-3xl font-bold text-white transform -rotate-12">VS</span>
+            <div className="w-32 h-32 rounded-full bg-gradient-to-br from-cyberpink via-cyberamber to-cybercyan flex flex-col items-center justify-center transform rotate-12 animate-pulse shadow-lg shadow-cyberpink/20">
+              <span className="text-4xl font-bold text-white transform -rotate-12 relative">
+                VS
+                <span className="absolute bottom-0 left-0 w-full h-0.5 bg-white transform scale-x-0 animate-[strike_0.3s_ease-in-out_forwards]" />
+              </span>
             </div>
           </motion.div>
 
@@ -45,7 +48,7 @@ export const VersusSection = () => {
             whileInView={{ x: 0, opacity: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
-            className="flex-1"
+            className="flex-1 transform md:-rotate-2"
           >
             <div className="glass-card p-8 hover-glow">
               <Gift className="w-12 h-12 mb-4 text-cyberamber" />
