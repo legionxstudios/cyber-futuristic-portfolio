@@ -16,6 +16,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import MetaImage from "./pages/MetaImage";
+import Sitemap from "@/components/Sitemap";
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,7 @@ const App = () => (
           <Routes>
             <Route path="/auth" element={<Auth />} />
             <Route path="/meta-image" element={<MetaImage />} />
+            <Route path="/sitemap.xml" element={<Sitemap />} />
             <Route
               path="/"
               element={
