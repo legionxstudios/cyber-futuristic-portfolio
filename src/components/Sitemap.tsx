@@ -68,12 +68,12 @@ const Sitemap = () => {
 
   useEffect(() => {
     if (sitemap) {
-      // Set content type header
-      document.contentType = 'application/xml';
+      // Create a new document for XML content
+      const xmlDoc = new DOMParser().parseFromString(sitemap, 'application/xml');
       
-      // Write the XML content directly to the document
-      document.write(sitemap);
-      document.close();
+      // Replace the entire HTML document with XML content
+      document.documentElement.innerHTML = '';
+      document.appendChild(document.importNode(xmlDoc.documentElement, true));
     }
   }, [sitemap]);
 
