@@ -4,7 +4,7 @@ export const Contact = () => {
   return (
     <section id="contact" className="py-20 relative">
       {/* Astronaut Image */}
-      <div className="absolute -top-32 left-0 w-96 h-96 pointer-events-none select-none">
+      <div className="absolute -top-40 left-0 w-96 h-96 pointer-events-none select-none">
         <img 
           src="/lovable-uploads/64a9147e-2a61-4d98-a48d-fb43097470fb.png" 
           alt="Decorative astronaut" 
@@ -19,7 +19,7 @@ export const Contact = () => {
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
-          Get in Touch
+          Let's Connect
         </motion.h2>
         
         <motion.p 
