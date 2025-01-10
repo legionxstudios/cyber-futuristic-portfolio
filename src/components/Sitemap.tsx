@@ -68,20 +68,12 @@ const Sitemap = () => {
 
   useEffect(() => {
     if (sitemap) {
-      // Create a blob with XML content type
-      const blob = new Blob([sitemap], { type: 'application/xml' });
-      const url = URL.createObjectURL(blob);
-      
       // Set content type header
-      const link = document.createElement('a');
-      link.href = url;
-      document.body.appendChild(link);
+      document.contentType = 'application/xml';
       
-      // Force download as XML
-      window.location.href = url;
-      
-      // Cleanup
-      URL.revokeObjectURL(url);
+      // Write the XML content directly to the document
+      document.write(sitemap);
+      document.close();
     }
   }, [sitemap]);
 
