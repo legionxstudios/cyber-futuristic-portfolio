@@ -28,6 +28,12 @@ const testimonials = [
     role: "former colleague @Vendasta",
     linkedin: "https://www.linkedin.com/in/brandon-moore-616b1336/",
   },
+  {
+    text: "Working on Tudor's team was an incredible experience. He consistently went above and beyond to create an environment built on collaboration, trust, and growth. Under his direction, our team successfully brought numerous innovative projects to life. He encouraged us to push design boundaries, explore creative possibilities, and continually raise the standard of what we could achieve with our website.",
+    author: "Lua Stee",
+    role: "former team member @Vendasta",
+    linkedin: "https://www.linkedin.com/in/lua-stee",
+  },
 ];
 
 export const TestimonialCarousel = () => {
