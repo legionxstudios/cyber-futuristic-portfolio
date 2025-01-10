@@ -26,7 +26,6 @@ export const Hero = () => {
   };
 
   useEffect(() => {
-    // Get initial role from URL hash if present
     const hash = window.location.hash.slice(1);
     if (hash && titles.includes(hash)) {
       setSelectedTitle(hash);
@@ -47,7 +46,7 @@ export const Hero = () => {
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark pt-20 md:pt-0"
     >
       <ScrollIndicator />
-      <div className="absolute inset-0 bg-[url('/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png')] bg-cover bg-center opacity-30" />
+      <div className="absolute inset-0 bg-[url('/lovable-uploads/820a6b6e-989e-48b8-97ee-8aac1d2f0c72.png')] bg-cover bg-center opacity-40" />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
       <div className="relative z-10 text-center px-4 w-full max-w-7xl mx-auto">

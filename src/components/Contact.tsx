@@ -1,78 +1,53 @@
 import { motion } from "framer-motion";
-import { Mail, Linkedin } from "lucide-react";
-import { InlineWidget } from "react-calendly";
 
 export const Contact = () => {
   return (
     <section id="contact" className="py-20 relative">
-      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyberblue/5 to-transparent" />
+      {/* Astronaut Image */}
+      <div className="absolute -top-32 left-0 w-96 h-96 pointer-events-none select-none">
+        <img 
+          src="/lovable-uploads/64a9147e-2a61-4d98-a48d-fb43097470fb.png" 
+          alt="Decorative astronaut" 
+          className="w-full h-full object-contain"
+        />
+      </div>
       
       <div className="container mx-auto px-4">
-        <motion.h2
+        <motion.h2 
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
           className="text-3xl md:text-4xl font-bold text-center mb-12"
         >
-          <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
-            Let's Connect
-          </span>
+          Get in Touch
         </motion.h2>
         
-        <div className="grid md:grid-cols-2 gap-8 max-w-6xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="glass-card p-8 flex flex-col justify-between"
-          >
-            <div>
-              <h3 className="text-2xl font-semibold mb-4 text-cyberpink">Get in Touch</h3>
-              <p className="text-lg text-gray-300 mb-8">
-                Ready to collaborate? Let's create something amazing together. Choose your preferred way to connect:
-              </p>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-6">
-              <a
-                href="mailto:tudorfilms@gmail.com"
-                className="flex flex-col items-center gap-4 p-6 rounded-lg bg-glass hover:bg-white/5 transition-all text-gray-400 hover:text-cyberpink group"
-              >
-                <div className="p-4 rounded-full border-2 border-gray-700 group-hover:border-cyberpink transition-colors">
-                  <Mail className="w-8 h-8" />
-                </div>
-                <div className="text-center">
-                  <div className="font-semibold mb-1">Email</div>
-                  <div className="text-sm opacity-75">Direct Message</div>
-                </div>
-              </a>
-              
-              <a
-                href="https://www.linkedin.com/in/tudorstanescu/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex flex-col items-center gap-4 p-6 rounded-lg bg-glass hover:bg-white/5 transition-all text-gray-400 hover:text-cyberamber group"
-              >
-                <div className="p-4 rounded-full border-2 border-gray-700 group-hover:border-cyberamber transition-colors">
-                  <Linkedin className="w-8 h-8" />
-                </div>
-                <div className="text-center">
-                  <div className="font-semibold mb-1">LinkedIn</div>
-                  <div className="text-sm opacity-75">Professional Network</div>
-                </div>
-              </a>
-            </div>
-          </motion.div>
+        <motion.p 
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center text-lg text-gray-300 mb-8"
+        >
+          I’d love to hear from you! Whether you have a question or just want to say hi, feel free to reach out.
+        </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="glass-card p-8"
-          >
-            <InlineWidget url="https://calendly.com/meetwithtudor/30min" styles={{ height: '500px' }} />
-          </motion.div>
-        </div>
+        <form className="max-w-lg mx-auto">
+          <div className="mb-4">
+            <label htmlFor="name" className="block text-gray-300 mb-2">Name</label>
+            <input type="text" id="name" className="w-full p-2 rounded bg-gray-800 border border-gray-700" required />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="email" className="block text-gray-300 mb-2">Email</label>
+            <input type="email" id="email" className="w-full p-2 rounded bg-gray-800 border border-gray-700" required />
+          </div>
+          <div className="mb-4">
+            <label htmlFor="message" className="block text-gray-300 mb-2">Message</label>
+            <textarea id="message" className="w-full p-2 rounded bg-gray-800 border border-gray-700" rows="4" required></textarea>
+          </div>
+          <button type="submit" className="w-full p-3 rounded bg-cyberpink text-white hover:bg-cyberamber transition-colors">
+            Send Message
+          </button>
+        </form>
       </div>
     </section>
   );

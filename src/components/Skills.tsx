@@ -52,6 +52,15 @@ export const Skills = () => {
     <section id="skills" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyberpink/5 to-transparent" />
       
+      {/* Astronaut Image */}
+      <div className="absolute -top-32 right-0 w-96 h-96 pointer-events-none select-none">
+        <img 
+          src="/lovable-uploads/d10d4050-90c0-4c30-af6c-9e57b7ef33b6.png" 
+          alt="Decorative astronaut" 
+          className="w-full h-full object-contain"
+        />
+      </div>
+      
       <div className="container mx-auto px-4">
         <motion.h2 
           initial={{ opacity: 0, y: 20 }}
