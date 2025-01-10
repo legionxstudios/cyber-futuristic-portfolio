@@ -8,6 +8,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { AuthGuard } from "@/components/auth/AuthGuard";
 import { CookieConsent } from "@/components/CookieConsent";
+import { SocialProofPopup } from "@/components/SocialProofPopup";
 import Index from "./pages/Index";
 import CaseStudy from "./pages/CaseStudy";
 import Auth from "./pages/Auth";
@@ -26,6 +27,7 @@ const App = () => (
           <Toaster />
           <Sonner />
           <CookieConsent />
+          <SocialProofPopup />
           <Routes>
             <Route path="/auth" element={<Auth />} />
             <Route path="/meta-image" element={<MetaImage />} />
