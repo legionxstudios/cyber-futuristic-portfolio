@@ -15,71 +15,71 @@ const contacts: Contact[] = [
     name: "Sarah Chen",
     title: "VP of Talent Acquisition",
     company: "Microsoft",
-    image: "/placeholder.svg",
-    action: "viewed your profile"
+    image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+    action: "contacted you"
   },
   {
     name: "Michael Rodriguez",
     title: "Head of HR",
     company: "Adobe",
-    image: "/placeholder.svg",
-    action: "downloaded your resume"
+    image: "https://images.unsplash.com/photo-1581092795360-fd1ca04f0952",
+    action: "contacted you"
   },
   {
     name: "Emily Thompson",
     title: "Senior Technical Recruiter",
     company: "Amazon",
-    image: "/placeholder.svg",
-    action: "scheduled a call"
+    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2",
+    action: "contacted you"
   },
   {
     name: "David Kim",
     title: "Director of People Operations",
     company: "Salesforce",
-    image: "/placeholder.svg",
-    action: "viewed your case studies"
+    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a",
+    action: "contacted you"
   },
   {
     name: "Rachel Foster",
     title: "VP of Human Resources",
     company: "Meta",
-    image: "/placeholder.svg",
-    action: "sent you a message"
+    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956",
+    action: "contacted you"
   },
   {
     name: "James Wilson",
     title: "Global Talent Director",
     company: "Apple",
-    image: "/placeholder.svg",
-    action: "viewed your profile"
+    image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7",
+    action: "contacted you"
   },
   {
     name: "Lisa Patel",
     title: "Chief People Officer",
     company: "LinkedIn",
-    image: "/placeholder.svg",
-    action: "downloaded your resume"
+    image: "https://images.unsplash.com/photo-1598550874175-4d0ef436c909",
+    action: "contacted you"
   },
   {
     name: "Robert Chang",
     title: "VP of Talent",
     company: "Google",
-    image: "/placeholder.svg",
-    action: "scheduled a call"
+    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e",
+    action: "contacted you"
   },
   {
     name: "Amanda Martinez",
     title: "Head of Recruitment",
     company: "Netflix",
-    image: "/placeholder.svg",
-    action: "viewed your case studies"
+    image: "https://images.unsplash.com/photo-1607746882042-944635dfe10e",
+    action: "contacted you"
   },
   {
     name: "John Baker",
     title: "Director of HR",
     company: "Twitter",
-    image: "/placeholder.svg",
-    action: "sent you a message"
+    image: "https://images.unsplash.com/photo-1563237023-b1e970526dcb",
+    action: "contacted you"
   }
 ];
 
