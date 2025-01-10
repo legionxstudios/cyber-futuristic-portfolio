@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { ChevronDown } from "lucide-react";
 import { TestimonialCarousel } from "./TestimonialCarousel";
 import { ScrollIndicator } from "./ScrollIndicator";
@@ -7,10 +7,36 @@ import { TypeWriter } from "./hero/TypeWriter";
 import { RoleSelector } from "./hero/RoleSelector";
 import { VideoDialog } from "./hero/VideoDialog";
 
+type RoleContent = {
+  [key: string]: string;
+};
+
 export const Hero = () => {
   const [selectedTitle, setSelectedTitle] = useState("SEO");
-  const titles = ["SEO", "Web", "Content", "Growth", "CRO"];
+  const titles = ["SEO", "Web", "Content", "Growth", "CRO", "AI"];
   const texts = ["#HireMeHuman", "Tudor Stanescu"];
+
+  const roleContent: RoleContent = {
+    "SEO": "Increased organic traffic by up to 300% and improved conversion rates by 40% through advanced SEO strategies.",
+    "Web": "Enhanced website performance with 25% higher organic sessions and 30% boost in lead conversions.",
+    "Content": "Led content strategies generating 50% YoY organic growth with scalable, data-driven production systems.",
+    "Growth": "Scaled businesses with 2x traffic growth and 75% reduced CAC through a unique ad video framework.",
+    "CRO": "Improved conversion rates by 39% with A/B testing and holistic experimentation frameworks.",
+    "AI": "Developed AI-powered SEO tools driving 18% higher conversions and scaling content production by 50%."
+  };
+
+  useEffect(() => {
+    // Get initial role from URL hash if present
+    const hash = window.location.hash.slice(1);
+    if (hash && titles.includes(hash)) {
+      setSelectedTitle(hash);
+    }
+  }, []);
+
+  const handleRoleSelect = (role: string) => {
+    setSelectedTitle(role);
+    window.location.hash = role;
+  };
 
   return (
     <motion.div 
@@ -54,7 +80,7 @@ export const Hero = () => {
           <RoleSelector 
             selectedTitle={selectedTitle}
             titles={titles}
-            onSelect={setSelectedTitle}
+            onSelect={handleRoleSelect}
           />
         </motion.div>
         
@@ -64,7 +90,7 @@ export const Hero = () => {
           transition={{ delay: 0.5 }}
           className="mt-4 text-xl text-gray-300 max-w-[90%] sm:max-w-2xl mx-auto bg-black/30 p-4 rounded-lg"
         >
-          Over a decade of driving growth with data-driven marketing, advanced SEO, and proven CRO techniques
+          {roleContent[selectedTitle]}
         </motion.p>
 
         <motion.div
