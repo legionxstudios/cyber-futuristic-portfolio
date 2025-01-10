@@ -28,7 +28,7 @@ export const Contact = () => {
           transition={{ duration: 0.5, delay: 0.2 }}
           className="text-center text-lg text-gray-300 mb-8"
         >
-          I’d love to hear from you! Whether you have a question or just want to say hi, feel free to reach out.
+          I'd love to hear from you! Whether you have a question or just want to say hi, feel free to reach out.
         </motion.p>
 
         <form className="max-w-lg mx-auto">
@@ -42,7 +42,7 @@ export const Contact = () => {
           </div>
           <div className="mb-4">
             <label htmlFor="message" className="block text-gray-300 mb-2">Message</label>
-            <textarea id="message" className="w-full p-2 rounded bg-gray-800 border border-gray-700" rows="4" required></textarea>
+            <textarea id="message" className="w-full p-2 rounded bg-gray-800 border border-gray-700" rows={4} required></textarea>
           </div>
           <button type="submit" className="w-full p-3 rounded bg-cyberpink text-white hover:bg-cyberamber transition-colors">
             Send Message
