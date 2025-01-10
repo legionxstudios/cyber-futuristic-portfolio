@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
+import { useEffect } from "react";
 
 export const generateSitemap = async () => {
   console.log('Generating sitemap...');
@@ -74,7 +75,16 @@ const Sitemap = () => {
     queryFn: generateSitemap,
   });
 
-  return sitemap || '';
+  useEffect(() => {
+    if (sitemap) {
+      // Set the content type to XML
+      const blob = new Blob([sitemap], { type: 'application/xml' });
+      const url = window.URL.createObjectURL(blob);
+      window.location.href = url;
+    }
+  }, [sitemap]);
+
+  return null;
 };
 
 export default Sitemap;
