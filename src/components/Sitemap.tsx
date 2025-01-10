@@ -68,12 +68,12 @@ const Sitemap = () => {
 
   useEffect(() => {
     if (sitemap) {
-      // Create a new document for XML content
-      const xmlDoc = new DOMParser().parseFromString(sitemap, 'application/xml');
+      // Create a Blob with the XML content
+      const blob = new Blob([sitemap], { type: 'application/xml' });
+      const url = URL.createObjectURL(blob);
       
-      // Replace the entire HTML document with XML content
-      document.documentElement.innerHTML = '';
-      document.appendChild(document.importNode(xmlDoc.documentElement, true));
+      // Redirect to the blob URL
+      window.location.href = url;
     }
   }, [sitemap]);
 
