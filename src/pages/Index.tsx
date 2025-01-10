@@ -19,6 +19,20 @@ const Index = () => {
   const ogImage = "/lovable-uploads/cc5b7e22-9f01-450b-9dbe-b069e1429ae0.png";
   const url = "https://hiremehuman.com";
 
+  const personSchema = {
+    "@context": "https://schema.org/",
+    "@type": "Person",
+    "name": "Tudor Stanescu",
+    "url": "https://hiremehuman.com/",
+    "image": "",
+    "sameAs": [
+      "https://www.linkedin.com/in/tudorstanescu/",
+      "https://www.instagram.com/legionxstudios/",
+      "https://www.legionxstudios.com/",
+      "https://x.com/legionx_studios"
+    ]
+  };
+
   return (
     <>
       <Helmet>
@@ -44,6 +58,11 @@ const Index = () => {
         {/* Additional Meta Tags */}
         <meta name="author" content="Tudor Stanescu" />
         <link rel="canonical" href={url} />
+        
+        {/* Person Schema */}
+        <script type="application/ld+json">
+          {JSON.stringify(personSchema)}
+        </script>
       </Helmet>
       <main className="bg-cyberdark min-h-screen relative">
         <Hero />
