@@ -130,6 +130,7 @@ export type Database = {
         Row: {
           created_at: string | null
           description: string
+          display_order: number | null
           focus: string | null
           icon: string
           id: string
@@ -140,6 +141,7 @@ export type Database = {
         Insert: {
           created_at?: string | null
           description: string
+          display_order?: number | null
           focus?: string | null
           icon: string
           id?: string
@@ -150,6 +152,7 @@ export type Database = {
         Update: {
           created_at?: string | null
           description?: string
+          display_order?: number | null
           focus?: string | null
           icon?: string
           id?: string
@@ -163,6 +166,7 @@ export type Database = {
         Row: {
           author: string
           created_at: string | null
+          display_order: number | null
           id: string
           linkedin_url: string | null
           quote: string
@@ -172,6 +176,7 @@ export type Database = {
         Insert: {
           author: string
           created_at?: string | null
+          display_order?: number | null
           id?: string
           linkedin_url?: string | null
           quote: string
@@ -181,6 +186,7 @@ export type Database = {
         Update: {
           author?: string
           created_at?: string | null
+          display_order?: number | null
           id?: string
           linkedin_url?: string | null
           quote?: string

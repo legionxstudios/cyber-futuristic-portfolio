@@ -23,7 +23,7 @@ export const TestimonialCarousel = () => {
       const { data, error } = await supabase
         .from('testimonials')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('display_order', { ascending: true });
       
       if (error) {
         console.error('Error fetching testimonials:', error);

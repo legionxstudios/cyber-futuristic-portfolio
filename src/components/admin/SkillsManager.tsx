@@ -5,17 +5,33 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { SkillForm } from "./forms/SkillForm";
 import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { SortableSkillItem } from "./sortable/SortableSkillItem";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { Progress } from "@/components/ui/progress";
+import { useToast } from "@/components/ui/use-toast";
 
 export const SkillsManager = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const { data: skills, refetch } = useQuery({
     queryKey: ["skills"],
@@ -23,12 +39,19 @@ export const SkillsManager = () => {
       const { data, error } = await supabase
         .from("skills")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("display_order", { ascending: true });
 
       if (error) throw error;
       return data;
     },
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const handleDelete = async (id: string) => {
     const { error } = await supabase
@@ -38,10 +61,62 @@ export const SkillsManager = () => {
 
     if (error) {
       console.error("Error deleting skill:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete skill",
+        variant: "destructive",
+      });
       return;
     }
 
     refetch();
+    toast({
+      title: "Success",
+      description: "Skill deleted successfully",
+    });
+  };
+
+  const handleDragEnd = async (event: any) => {
+    const { active, over } = event;
+    
+    if (!active || !over || active.id === over.id) {
+      return;
+    }
+
+    const oldIndex = skills?.findIndex((skill) => skill.id === active.id);
+    const newIndex = skills?.findIndex((skill) => skill.id === over.id);
+
+    if (oldIndex === undefined || newIndex === undefined || !skills) {
+      return;
+    }
+
+    const newSkills = arrayMove(skills, oldIndex, newIndex);
+    
+    // Update display order in database
+    const updates = newSkills.map((skill, index) => ({
+      id: skill.id,
+      display_order: index,
+    }));
+
+    const { error } = await supabase
+      .from('skills')
+      .upsert(updates);
+
+    if (error) {
+      console.error('Error updating skill order:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update skill order",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    refetch();
+    toast({
+      title: "Success",
+      description: "Skill order updated successfully",
+    });
   };
 
   return (
@@ -73,50 +148,30 @@ export const SkillsManager = () => {
         </Dialog>
       </div>
 
-      <div className="grid gap-4">
-        {skills?.map((skill) => (
-          <div
-            key={skill.id}
-            className="p-4 bg-cyberdark border border-cyberblue/20 rounded-lg"
-          >
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <p className="text-lg font-medium">{skill.title}</p>
-                <p className="text-sm text-gray-400">{skill.description}</p>
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setEditingId(skill.id);
-                    setIsFormOpen(true);
-                  }}
-                >
-                  Edit
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => handleDelete(skill.id)}
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-            <div className="space-y-2">
-              <div className="flex justify-between text-sm">
-                <span>Proficiency</span>
-                <span>{skill.proficiency}%</span>
-              </div>
-              <Progress value={skill.proficiency} className="h-2" />
-            </div>
-            {skill.focus && (
-              <p className="text-sm text-gray-400 mt-2">{skill.focus}</p>
-            )}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={skills || []}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="grid gap-4">
+            {skills?.map((skill) => (
+              <SortableSkillItem
+                key={skill.id}
+                skill={skill}
+                onEdit={() => {
+                  setEditingId(skill.id);
+                  setIsFormOpen(true);
+                }}
+                onDelete={() => handleDelete(skill.id)}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 };

@@ -64,7 +64,7 @@ const Skills = () => {
       const { data, error } = await supabase
         .from('skills')
         .select('*')
-        .order('created_at', { ascending: false });
+        .order('display_order', { ascending: true });
       
       if (error) {
         console.error('Error fetching skills:', error);

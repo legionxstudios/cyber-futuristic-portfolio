@@ -5,16 +5,33 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { TestimonialForm } from "./forms/TestimonialForm";
 import {
+  DndContext,
+  closestCenter,
+  KeyboardSensor,
+  PointerSensor,
+  useSensor,
+  useSensors,
+} from '@dnd-kit/core';
+import {
+  arrayMove,
+  SortableContext,
+  sortableKeyboardCoordinates,
+  verticalListSortingStrategy,
+} from '@dnd-kit/sortable';
+import { SortableTestimonialItem } from "./sortable/SortableTestimonialItem";
+import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { useToast } from "@/components/ui/use-toast";
 
 export const TestimonialsManager = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
+  const { toast } = useToast();
 
   const { data: testimonials, refetch } = useQuery({
     queryKey: ["testimonials"],
@@ -22,12 +39,19 @@ export const TestimonialsManager = () => {
       const { data, error } = await supabase
         .from("testimonials")
         .select("*")
-        .order("created_at", { ascending: false });
+        .order("display_order", { ascending: true });
 
       if (error) throw error;
       return data;
     },
   });
+
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+    useSensor(KeyboardSensor, {
+      coordinateGetter: sortableKeyboardCoordinates,
+    })
+  );
 
   const handleDelete = async (id: string) => {
     const { error } = await supabase
@@ -37,10 +61,62 @@ export const TestimonialsManager = () => {
 
     if (error) {
       console.error("Error deleting testimonial:", error);
+      toast({
+        title: "Error",
+        description: "Failed to delete testimonial",
+        variant: "destructive",
+      });
       return;
     }
 
     refetch();
+    toast({
+      title: "Success",
+      description: "Testimonial deleted successfully",
+    });
+  };
+
+  const handleDragEnd = async (event: any) => {
+    const { active, over } = event;
+    
+    if (!active || !over || active.id === over.id) {
+      return;
+    }
+
+    const oldIndex = testimonials?.findIndex((testimonial) => testimonial.id === active.id);
+    const newIndex = testimonials?.findIndex((testimonial) => testimonial.id === over.id);
+
+    if (oldIndex === undefined || newIndex === undefined || !testimonials) {
+      return;
+    }
+
+    const newTestimonials = arrayMove(testimonials, oldIndex, newIndex);
+    
+    // Update display order in database
+    const updates = newTestimonials.map((testimonial, index) => ({
+      id: testimonial.id,
+      display_order: index,
+    }));
+
+    const { error } = await supabase
+      .from('testimonials')
+      .upsert(updates);
+
+    if (error) {
+      console.error('Error updating testimonial order:', error);
+      toast({
+        title: "Error",
+        description: "Failed to update testimonial order",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    refetch();
+    toast({
+      title: "Success",
+      description: "Testimonial order updated successfully",
+    });
   };
 
   return (
@@ -72,51 +148,30 @@ export const TestimonialsManager = () => {
         </Dialog>
       </div>
 
-      <div className="grid gap-4">
-        {testimonials?.map((testimonial) => (
-          <div
-            key={testimonial.id}
-            className="p-4 bg-cyberdark border border-cyberblue/20 rounded-lg"
-          >
-            <div className="flex justify-between items-start mb-4">
-              <div>
-                <p className="text-lg font-medium">{testimonial.author}</p>
-                <p className="text-sm text-gray-400">{testimonial.relationship}</p>
-              </div>
-              <div className="flex gap-2">
-                <Button
-                  variant="outline"
-                  size="sm"
-                  onClick={() => {
-                    setEditingId(testimonial.id);
-                    setIsFormOpen(true);
-                  }}
-                >
-                  Edit
-                </Button>
-                <Button
-                  variant="destructive"
-                  size="sm"
-                  onClick={() => handleDelete(testimonial.id)}
-                >
-                  Delete
-                </Button>
-              </div>
-            </div>
-            <p className="text-gray-300">{testimonial.quote}</p>
-            {testimonial.linkedin_url && (
-              <a
-                href={testimonial.linkedin_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-cyberpink hover:text-cyberpink/80 mt-2 inline-block"
-              >
-                LinkedIn Profile
-              </a>
-            )}
+      <DndContext
+        sensors={sensors}
+        collisionDetection={closestCenter}
+        onDragEnd={handleDragEnd}
+      >
+        <SortableContext
+          items={testimonials || []}
+          strategy={verticalListSortingStrategy}
+        >
+          <div className="grid gap-4">
+            {testimonials?.map((testimonial) => (
+              <SortableTestimonialItem
+                key={testimonial.id}
+                testimonial={testimonial}
+                onEdit={() => {
+                  setEditingId(testimonial.id);
+                  setIsFormOpen(true);
+                }}
+                onDelete={() => handleDelete(testimonial.id)}
+              />
+            ))}
           </div>
-        ))}
-      </div>
+        </SortableContext>
+      </DndContext>
     </div>
   );
 };
