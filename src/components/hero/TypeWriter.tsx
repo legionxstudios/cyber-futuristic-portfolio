@@ -10,13 +10,21 @@ export const TypeWriter = ({ texts }: TypeWriterProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
   const [typingSpeed, setTypingSpeed] = useState(150);
+  const [showCursor, setShowCursor] = useState(true);
 
   useEffect(() => {
     const timer = setTimeout(() => {
       handleType();
     }, typingSpeed);
 
-    return () => clearTimeout(timer);
+    const cursorInterval = setInterval(() => {
+      setShowCursor(prev => !prev);
+    }, 530);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(cursorInterval);
+    };
   }, [displayText, isDeleting, currentIndex]);
 
   const handleType = () => {
@@ -45,9 +53,11 @@ export const TypeWriter = ({ texts }: TypeWriterProps) => {
   };
 
   return (
-    <span className="inline-block bg-gradient-to-r from-cyberpink via-cybercyan to-cyberamber bg-clip-text text-transparent transform-gpu will-change-transform">
-      {displayText}
-      <span className="animate-pulse">|</span>
+    <span className="inline-block">
+      <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
+        >_ {displayText}
+        <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-75`}>|</span>
+      </span>
     </span>
   );
 };
