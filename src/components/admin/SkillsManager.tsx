@@ -92,31 +92,41 @@ export const SkillsManager = () => {
 
     const newSkills = arrayMove(skills, oldIndex, newIndex);
     
-    // Update display order in database
-    const updates = newSkills.map((skill, index) => ({
-      id: skill.id,
-      display_order: index,
-    }));
+    // Update each skill's display order individually
+    const updatePromises = newSkills.map((skill, index) => 
+      supabase
+        .from('skills')
+        .update({ display_order: index })
+        .eq('id', skill.id)
+    );
 
-    const { error } = await supabase
-      .from('skills')
-      .upsert(updates);
+    try {
+      const results = await Promise.all(updatePromises);
+      const errors = results.filter(result => result.error);
+      
+      if (errors.length > 0) {
+        console.error('Errors updating skill order:', errors);
+        toast({
+          title: "Error",
+          description: "Failed to update skill order",
+          variant: "destructive",
+        });
+        return;
+      }
 
-    if (error) {
+      refetch();
+      toast({
+        title: "Success",
+        description: "Skill order updated successfully",
+      });
+    } catch (error) {
       console.error('Error updating skill order:', error);
       toast({
         title: "Error",
         description: "Failed to update skill order",
         variant: "destructive",
       });
-      return;
     }
-
-    refetch();
-    toast({
-      title: "Success",
-      description: "Skill order updated successfully",
-    });
   };
 
   return (

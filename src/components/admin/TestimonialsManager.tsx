@@ -92,31 +92,41 @@ export const TestimonialsManager = () => {
 
     const newTestimonials = arrayMove(testimonials, oldIndex, newIndex);
     
-    // Update display order in database
-    const updates = newTestimonials.map((testimonial, index) => ({
-      id: testimonial.id,
-      display_order: index,
-    }));
+    // Update each testimonial's display order individually
+    const updatePromises = newTestimonials.map((testimonial, index) => 
+      supabase
+        .from('testimonials')
+        .update({ display_order: index })
+        .eq('id', testimonial.id)
+    );
 
-    const { error } = await supabase
-      .from('testimonials')
-      .upsert(updates);
+    try {
+      const results = await Promise.all(updatePromises);
+      const errors = results.filter(result => result.error);
+      
+      if (errors.length > 0) {
+        console.error('Errors updating testimonial order:', errors);
+        toast({
+          title: "Error",
+          description: "Failed to update testimonial order",
+          variant: "destructive",
+        });
+        return;
+      }
 
-    if (error) {
+      refetch();
+      toast({
+        title: "Success",
+        description: "Testimonial order updated successfully",
+      });
+    } catch (error) {
       console.error('Error updating testimonial order:', error);
       toast({
         title: "Error",
         description: "Failed to update testimonial order",
         variant: "destructive",
       });
-      return;
     }
-
-    refetch();
-    toast({
-      title: "Success",
-      description: "Testimonial order updated successfully",
-    });
   };
 
   return (
