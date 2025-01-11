@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { CaseStudyForm } from "@/components/admin/CaseStudyForm";
 import { CaseStudyList } from "@/components/admin/CaseStudyList";
+import { HomepageSettings } from "@/components/admin/HomepageSettings";
 import {
   Dialog,
   DialogContent,
@@ -12,6 +13,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 const AdminDashboard = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -34,7 +36,7 @@ const AdminDashboard = () => {
       <div className="max-w-7xl mx-auto">
         <div className="flex justify-between items-center mb-8">
           <h1 className="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
-            Case Studies Dashboard
+            Admin Dashboard
           </h1>
           <Dialog open={isFormOpen} onOpenChange={setIsFormOpen}>
             <DialogTrigger asChild>
@@ -57,7 +59,24 @@ const AdminDashboard = () => {
           </Dialog>
         </div>
 
-        <CaseStudyList caseStudies={caseStudies || []} onCaseStudyChange={refetch} />
+        <Tabs defaultValue="case-studies" className="space-y-6">
+          <TabsList className="bg-cyberdark border border-cyberblue/20">
+            <TabsTrigger value="case-studies" className="data-[state=active]:bg-cyberpink">
+              Case Studies
+            </TabsTrigger>
+            <TabsTrigger value="homepage" className="data-[state=active]:bg-cyberpink">
+              Homepage
+            </TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="case-studies">
+            <CaseStudyList caseStudies={caseStudies || []} onCaseStudyChange={refetch} />
+          </TabsContent>
+
+          <TabsContent value="homepage">
+            <HomepageSettings />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   );

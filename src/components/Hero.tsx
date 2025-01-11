@@ -6,6 +6,8 @@ import { ScrollIndicator } from "./ScrollIndicator";
 import { TypeWriter } from "./hero/TypeWriter";
 import { RoleSelector } from "./hero/RoleSelector";
 import { VideoDialog } from "./hero/VideoDialog";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 
 type RoleContent = {
   [key: string]: string;
@@ -15,6 +17,19 @@ export const Hero = () => {
   const [selectedTitle, setSelectedTitle] = useState("SEO");
   const titles = ["SEO", "Web", "Content", "Growth", "CRO", "AI"];
   const texts = ["#HireMeHuman", "Tudor Stanescu"];
+
+  const { data: settings } = useQuery({
+    queryKey: ["homepageSettings"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("homepage_settings")
+        .select("*")
+        .single();
+
+      if (error) throw error;
+      return data;
+    },
+  });
 
   const roleContent: RoleContent = {
     "SEO": "Increased organic traffic by up to 300% and improved conversion rates by 40% through advanced SEO strategies.",
@@ -37,13 +52,18 @@ export const Hero = () => {
     window.location.hash = role;
   };
 
+  const heroImageUrl = settings?.hero_image || '/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png';
+
   return (
     <section 
       id="hero"
       className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark pt-20 md:pt-0"
     >
       <ScrollIndicator />
-      <div className="absolute inset-0 bg-[url('/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.webp')] bg-cover bg-center opacity-30" />
+      <div 
+        className="absolute inset-0 bg-cover bg-center opacity-30"
+        style={{ backgroundImage: `url('${heroImageUrl}')` }}
+      />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
       <div className="relative z-10 text-center px-4 w-full max-w-7xl mx-auto">

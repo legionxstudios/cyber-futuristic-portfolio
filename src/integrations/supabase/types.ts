@@ -87,6 +87,27 @@ export type Database = {
         }
         Relationships: []
       }
+      homepage_settings: {
+        Row: {
+          created_at: string | null
+          hero_image: string | null
+          id: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          hero_image?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          hero_image?: string | null
+          id?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
       profiles: {
         Row: {
           created_at: string | null
