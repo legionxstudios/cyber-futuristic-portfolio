@@ -73,7 +73,7 @@ export const Hero = () => {
           </span>
         </div>
         
-        <h1 className="mt-8 mb-8 text-4xl md:text-6xl font-bold text-white font-mono">
+        <h1 className="mt-8 mb-8 text-4xl md:text-6xl font-bold font-mono">
           <TypeWriter texts={texts} />
         </h1>
 
