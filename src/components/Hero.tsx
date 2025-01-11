@@ -84,14 +84,14 @@ export const Hero = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
-      <div className="relative z-10 text-center px-2 sm:px-4 w-full max-w-7xl mx-auto">
+      <div className="relative z-10 text-center px-1 sm:px-4 w-full max-w-7xl mx-auto">
         <div className="transform-gpu">
           <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink">
             Available for hire
           </span>
         </div>
         
-        <h1 className="mt-6 mb-6 text-3xl sm:text-4xl md:text-6xl font-bold font-mono min-h-[2.5em] sm:min-h-0">
+        <h1 className="mt-6 mb-6 text-4xl sm:text-4xl md:text-6xl font-bold font-mono min-h-[2.5em] sm:min-h-0">
           <TypeWriter texts={texts} />
         </h1>
 
@@ -103,7 +103,7 @@ export const Hero = () => {
           />
         </div>
         
-        <p className="mt-4 text-lg sm:text-xl text-gray-300 max-w-[95%] sm:max-w-2xl mx-auto bg-black/30 p-4 rounded-lg transform-gpu will-change-transform">
+        <p className="mt-4 text-xl sm:text-xl text-gray-300 max-w-[98%] sm:max-w-2xl mx-auto bg-black/30 p-4 rounded-lg transform-gpu will-change-transform">
           {roleContent[selectedTitle]}
         </p>
 
