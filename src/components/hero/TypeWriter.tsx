@@ -55,7 +55,7 @@ export const TypeWriter = ({ texts }: TypeWriterProps) => {
   return (
     <span className="inline-block">
       <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyberpink to-cybercyan">
-        >_ {displayText}
+        {'>_'} {displayText}
         <span className={`${showCursor ? 'opacity-100' : 'opacity-0'} transition-opacity duration-75`}>|</span>
       </span>
     </span>
