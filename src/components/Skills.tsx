@@ -21,7 +21,6 @@ import {
   PieChart,
   Workflow,
   Settings,
-  Tool,
   Lightbulb,
   type LucideIcon 
 } from "lucide-react";
@@ -45,7 +44,6 @@ export const ICON_MAP: Record<string, LucideIcon> = {
   PieChart,
   Workflow,
   Settings,
-  Tool,
   Lightbulb
 };
 
