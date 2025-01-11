@@ -2,7 +2,17 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Progress } from "./ui/progress";
-import * as Icons from "lucide-react";
+import * as LucideIcons from "lucide-react";
+import { LucideIcon } from "lucide-react";
+
+interface Skill {
+  id: string;
+  title: string;
+  description: string;
+  focus?: string;
+  proficiency: number;
+  icon: keyof typeof LucideIcons;
+}
 
 const Skills = () => {
   const { data: skills, isLoading } = useQuery({
@@ -20,7 +30,7 @@ const Skills = () => {
       }
       
       console.log('Fetched skills:', data);
-      return data;
+      return data as Skill[];
     },
   });
 
@@ -46,7 +56,7 @@ const Skills = () => {
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {skills?.map((skill, index) => {
-            const IconComponent = Icons[skill.icon as keyof typeof Icons];
+            const Icon: LucideIcon = LucideIcons[skill.icon];
             
             return (
               <motion.div
@@ -57,13 +67,13 @@ const Skills = () => {
                 className="glass-card p-6 hover-glow h-full"
               >
                 <div className="flex flex-col items-center text-center h-full">
-                  {IconComponent && (
-                    <IconComponent className={`w-8 h-8 ${
+                  <Icon 
+                    className={`w-8 h-8 ${
                       index % 3 === 0 ? 'text-cyberpink' :
                       index % 3 === 1 ? 'text-cybercyan' :
                       'text-cyberamber'
-                    }`} />
-                  )}
+                    }`}
+                  />
                   <h3 className="mt-4 text-xl font-semibold text-white">{skill.title}</h3>
                   <p className="mt-2 text-gray-400">{skill.description}</p>
                   <p className="mt-2 text-sm text-gray-500 flex-grow">{skill.focus}</p>
