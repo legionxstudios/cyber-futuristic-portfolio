@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { CaseStudyForm } from "@/components/admin/CaseStudyForm";
 import { CaseStudyList } from "@/components/admin/CaseStudyList";
 import { HomepageSettings } from "@/components/admin/HomepageSettings";
+import { TestimonialsManager } from "@/components/admin/TestimonialsManager";
+import { SkillsManager } from "@/components/admin/SkillsManager";
+import { WorkExperienceManager } from "@/components/admin/WorkExperienceManager";
 import {
   Dialog,
   DialogContent,
@@ -64,6 +67,15 @@ const AdminDashboard = () => {
             <TabsTrigger value="case-studies" className="data-[state=active]:bg-cyberpink">
               Case Studies
             </TabsTrigger>
+            <TabsTrigger value="testimonials" className="data-[state=active]:bg-cyberpink">
+              Testimonials
+            </TabsTrigger>
+            <TabsTrigger value="skills" className="data-[state=active]:bg-cyberpink">
+              Skills
+            </TabsTrigger>
+            <TabsTrigger value="experience" className="data-[state=active]:bg-cyberpink">
+              Experience
+            </TabsTrigger>
             <TabsTrigger value="homepage" className="data-[state=active]:bg-cyberpink">
               Homepage
             </TabsTrigger>
@@ -71,6 +83,18 @@ const AdminDashboard = () => {
 
           <TabsContent value="case-studies">
             <CaseStudyList caseStudies={caseStudies || []} onCaseStudyChange={refetch} />
+          </TabsContent>
+
+          <TabsContent value="testimonials">
+            <TestimonialsManager />
+          </TabsContent>
+
+          <TabsContent value="skills">
+            <SkillsManager />
+          </TabsContent>
+
+          <TabsContent value="experience">
+            <WorkExperienceManager />
           </TabsContent>
 
           <TabsContent value="homepage">

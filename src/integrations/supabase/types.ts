@@ -126,6 +126,105 @@ export type Database = {
         }
         Relationships: []
       }
+      skills: {
+        Row: {
+          created_at: string | null
+          description: string
+          focus: string | null
+          icon: string
+          id: string
+          proficiency: number
+          title: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          description: string
+          focus?: string | null
+          icon: string
+          id?: string
+          proficiency: number
+          title: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          description?: string
+          focus?: string | null
+          icon?: string
+          id?: string
+          proficiency?: number
+          title?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      testimonials: {
+        Row: {
+          author: string
+          created_at: string | null
+          id: string
+          linkedin_url: string | null
+          quote: string
+          relationship: string
+          updated_at: string | null
+        }
+        Insert: {
+          author: string
+          created_at?: string | null
+          id?: string
+          linkedin_url?: string | null
+          quote: string
+          relationship: string
+          updated_at?: string | null
+        }
+        Update: {
+          author?: string
+          created_at?: string | null
+          id?: string
+          linkedin_url?: string | null
+          quote?: string
+          relationship?: string
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
+      work_experience: {
+        Row: {
+          company: string
+          created_at: string | null
+          date_range: string
+          description: string[]
+          id: string
+          location: string
+          role: string
+          updated_at: string | null
+          website: string | null
+        }
+        Insert: {
+          company: string
+          created_at?: string | null
+          date_range: string
+          description?: string[]
+          id?: string
+          location: string
+          role: string
+          updated_at?: string | null
+          website?: string | null
+        }
+        Update: {
+          company?: string
+          created_at?: string | null
+          date_range?: string
+          description?: string[]
+          id?: string
+          location?: string
+          role?: string
+          updated_at?: string | null
+          website?: string | null
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
