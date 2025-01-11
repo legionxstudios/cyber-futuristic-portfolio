@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Mail, Linkedin } from "lucide-react";
 import { InlineWidget } from "react-calendly";
 
-export const Contact = () => {
+const Contact = () => {
   return (
     <section id="contact" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cyberblue/5 to-transparent" />
@@ -77,3 +77,5 @@ export const Contact = () => {
     </section>
   );
 };
+
+export default Contact;

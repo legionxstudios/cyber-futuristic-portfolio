@@ -62,7 +62,7 @@ const experiences = [
   }
 ];
 
-export const Experience = () => {
+const Experience = () => {
   return (
     <section id="experience" className="py-20 relative">
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-cybercyan/5 to-transparent" />
@@ -163,3 +163,5 @@ export const Experience = () => {
     </section>
   );
 };
+
+export default Experience;
