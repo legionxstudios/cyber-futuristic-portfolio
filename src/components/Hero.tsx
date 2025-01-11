@@ -15,6 +15,7 @@ type RoleContent = {
 
 export const Hero = () => {
   const [selectedTitle, setSelectedTitle] = useState("SEO");
+  const [imageLoaded, setImageLoaded] = useState(false);
   const titles = ["SEO", "Web", "Content", "Growth", "CRO", "AI"];
   const texts = ["#HireMeHuman", "Tudor Stanescu"];
 
@@ -52,7 +53,19 @@ export const Hero = () => {
     window.location.hash = role;
   };
 
-  const heroImageUrl = settings?.hero_image || '/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.png';
+  // Convert image URL to WebP if it's a PNG
+  const heroImageUrl = settings?.hero_image 
+    ? settings.hero_image.replace(/\.png$/, '.webp')
+    : '/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.webp';
+
+  // Preload the image
+  useEffect(() => {
+    if (heroImageUrl) {
+      const img = new Image();
+      img.src = heroImageUrl;
+      img.onload = () => setImageLoaded(true);
+    }
+  }, [heroImageUrl]);
 
   return (
     <section 
@@ -61,8 +74,13 @@ export const Hero = () => {
     >
       <ScrollIndicator />
       <div 
-        className="absolute inset-0 bg-cover bg-center opacity-30"
-        style={{ backgroundImage: `url('${heroImageUrl}')` }}
+        className={`absolute inset-0 bg-cover bg-center transition-opacity duration-500 ${
+          imageLoaded ? 'opacity-30' : 'opacity-0'
+        }`}
+        style={{ 
+          backgroundImage: `url('${heroImageUrl}')`,
+          willChange: 'opacity'
+        }}
       />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
