@@ -1,4 +1,6 @@
 import { useState, useEffect } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { supabase } from "@/integrations/supabase/client";
 import {
   Carousel,
   CarouselContent,
@@ -9,37 +11,29 @@ import {
 import { Quote, Linkedin, ArrowUpRight } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
 
-const testimonials = [
-  {
-    text: "Tudor's ability to blend technical expertise with thoughtful leadership is inspiring. A systems builder at heart, he's always innovating, leading his team to success, and staying ahead of SEO and website trends. His consistently high leadership scores say it all.",
-    author: "Solange Messier",
-    role: "former colleague @Vendasta",
-    linkedin: "https://www.linkedin.com/in/solange-messier/",
-  },
-  {
-    text: "Tudor was a pivotal leader at Vendasta, driving website management and SEO strategy. He built a high-performing team of developers, SEO experts, and designers, consistently delivering innovative results. His servant leadership style fostered exceptional team engagement and satisfaction.",
-    author: "Brittany Wong",
-    role: "former manager @Vendasta",
-    linkedin: "https://www.linkedin.com/in/brittanywong/",
-  },
-  {
-    text: "Tudor is a rare SEO & Web Director who combines technical expertise, design acumen, and content strategy insight. He bridges technical SEO with broader marketing seamlessly, identifying pipeline issues and delivering clear, actionable solutions. His data-driven approach fosters trust, collaboration, and alignment with brand goals, making him a game-changer for any team.",
-    author: "Brandon Moore",
-    role: "former colleague @Vendasta",
-    linkedin: "https://www.linkedin.com/in/brandon-moore-616b1336/",
-  },
-  {
-    text: "Working on Tudor's team was an incredible experience. He consistently went above and beyond to create an environment built on collaboration, trust, and growth. Under his direction, our team successfully brought numerous innovative projects to life. He encouraged us to push design boundaries, explore creative possibilities, and continually raise the standard of what we could achieve with our website.",
-    author: "Lua Stee",
-    role: "former team member @Vendasta",
-    linkedin: "https://www.linkedin.com/in/lua-stee",
-  },
-];
-
 export const TestimonialCarousel = () => {
   const [api, setApi] = useState<any>();
   const [current, setCurrent] = useState(0);
   const isMobile = useIsMobile();
+
+  const { data: testimonials, isLoading } = useQuery({
+    queryKey: ['testimonials'],
+    queryFn: async () => {
+      console.log('Fetching testimonials...');
+      const { data, error } = await supabase
+        .from('testimonials')
+        .select('*')
+        .order('created_at', { ascending: false });
+      
+      if (error) {
+        console.error('Error fetching testimonials:', error);
+        throw error;
+      }
+      
+      console.log('Fetched testimonials:', data);
+      return data;
+    },
+  });
 
   useEffect(() => {
     if (!api) {
@@ -50,6 +44,10 @@ export const TestimonialCarousel = () => {
       setCurrent(api.selectedScrollSnap());
     });
   }, [api]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="w-full max-w-[calc(100vw-2rem)] md:max-w-6xl mx-auto mt-20">
@@ -62,25 +60,27 @@ export const TestimonialCarousel = () => {
         setApi={setApi}
       >
         <CarouselContent className="-ml-2 md:-ml-4">
-          {testimonials.map((testimonial, index) => (
-            <CarouselItem key={index} className="pl-2 md:pl-4 md:basis-1/2">
+          {testimonials?.map((testimonial, index) => (
+            <CarouselItem key={testimonial.id} className="pl-2 md:pl-4 md:basis-1/2">
               <div className="glass-card p-4 md:p-6 h-full flex flex-col gap-4">
                 <Quote className="text-cyberpink w-6 h-6 md:w-8 md:h-8" />
-                <p className="text-gray-300 flex-grow text-sm md:text-base">{testimonial.text}</p>
+                <p className="text-gray-300 flex-grow text-sm md:text-base">{testimonial.quote}</p>
                 <div>
                   <div className="flex items-center justify-center gap-2">
                     <p className="text-cyberpink font-semibold">{testimonial.author}</p>
-                    <a 
-                      href={testimonial.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-cyberpink transition-colors inline-flex items-center gap-0.5"
-                    >
-                      <Linkedin className="w-4 h-4" />
-                      <ArrowUpRight className="w-3 h-3" />
-                    </a>
+                    {testimonial.linkedin_url && (
+                      <a 
+                        href={testimonial.linkedin_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-gray-400 hover:text-cyberpink transition-colors inline-flex items-center gap-0.5"
+                      >
+                        <Linkedin className="w-4 h-4" />
+                        <ArrowUpRight className="w-3 h-3" />
+                      </a>
+                    )}
                   </div>
-                  <p className="text-sm text-gray-400">{testimonial.role}</p>
+                  <p className="text-sm text-gray-400">{testimonial.relationship}</p>
                 </div>
               </div>
             </CarouselItem>
@@ -94,7 +94,7 @@ export const TestimonialCarousel = () => {
           </>
         )}
 
-        {isMobile && (
+        {isMobile && testimonials && (
           <div className="flex justify-center gap-2 mt-4">
             {testimonials.map((_, index) => (
               <button
