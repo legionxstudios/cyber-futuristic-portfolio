@@ -69,10 +69,11 @@ export const TestimonialForm = ({ testimonialId, onSuccess }: TestimonialFormPro
   }, [testimonialId, form]);
 
   const onSubmit = async (values: TestimonialFormValues) => {
-    const { linkedin_url, ...rest } = values;
     const testimonialData = {
-      ...rest,
-      linkedin_url: linkedin_url || null,
+      quote: values.quote,
+      author: values.author,
+      linkedin_url: values.linkedin_url || null,
+      relationship: values.relationship,
     };
 
     if (testimonialId) {

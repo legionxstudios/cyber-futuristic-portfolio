@@ -75,11 +75,13 @@ export const WorkExperienceForm = ({ experienceId, onSuccess }: WorkExperienceFo
   }, [experienceId, form]);
 
   const onSubmit = async (values: WorkExperienceFormValues) => {
-    const { website, description, ...rest } = values;
     const experienceData = {
-      ...rest,
-      website: website || null,
-      description: description.split("\n").filter(Boolean),
+      company: values.company,
+      role: values.role,
+      date_range: values.date_range,
+      location: values.location,
+      website: values.website || null,
+      description: values.description.split("\n").filter(Boolean),
     };
 
     if (experienceId) {

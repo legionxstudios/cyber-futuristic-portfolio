@@ -75,10 +75,12 @@ export const SkillForm = ({ skillId, onSuccess }: SkillFormProps) => {
   }, [skillId, form]);
 
   const onSubmit = async (values: SkillFormValues) => {
-    const { focus, ...rest } = values;
     const skillData = {
-      ...rest,
-      focus: focus || null,
+      title: values.title,
+      description: values.description,
+      focus: values.focus || null,
+      proficiency: values.proficiency,
+      icon: values.icon,
     };
 
     if (skillId) {
