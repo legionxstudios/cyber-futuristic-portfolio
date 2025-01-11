@@ -1,10 +1,12 @@
 import { Helmet } from 'react-helmet-async';
+import { Suspense, lazy, useEffect } from 'react';
 import { Hero } from "@/components/Hero";
-import { Skills } from "@/components/Skills";
-import { Projects } from "@/components/Projects";
-import { Contact } from "@/components/Contact";
-import { Experience } from "@/components/Experience";
-import { useEffect } from "react";
+
+// Lazy load below-the-fold components
+const Skills = lazy(() => import("@/components/Skills"));
+const Experience = lazy(() => import("@/components/Experience"));
+const Projects = lazy(() => import("@/components/Projects"));
+const Contact = lazy(() => import("@/components/Contact"));
 
 const Index = () => {
   useEffect(() => {
@@ -66,10 +68,18 @@ const Index = () => {
       </Helmet>
       <main className="bg-cyberdark min-h-screen relative">
         <Hero />
-        <Skills />
-        <Experience />
-        <Projects />
-        <Contact />
+        <Suspense fallback={<div className="h-screen" />}>
+          <Skills />
+        </Suspense>
+        <Suspense fallback={<div className="h-screen" />}>
+          <Experience />
+        </Suspense>
+        <Suspense fallback={<div className="h-screen" />}>
+          <Projects />
+        </Suspense>
+        <Suspense fallback={<div className="h-screen" />}>
+          <Contact />
+        </Suspense>
       </main>
     </>
   );

@@ -1,10 +1,56 @@
+import { memo } from "react";
 import { motion } from "framer-motion";
 import { ExternalLink } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Link } from "react-router-dom";
 
-export const Projects = () => {
+const ProjectCard = memo(({ study, index }: { study: any; index: number }) => (
+  <motion.div
+    initial={{ opacity: 0, y: 20 }}
+    whileInView={{ opacity: 1, y: 0 }}
+    transition={{ duration: 0.5, delay: index * 0.1 }}
+  >
+    <Link
+      to={`/${study.slug}`}
+      className="block glass-card overflow-hidden group hover-glow"
+    >
+      <div className="relative h-48 overflow-hidden">
+        <img
+          src={`${study.cover_image}?auto=format&fit=crop&w=600&h=192&q=80`}
+          alt={study.title}
+          className="w-full h-48 object-cover object-top transform transition-transform duration-500 group-hover:scale-110"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
+      </div>
+      <div className="p-6">
+        <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>
+        <p className="text-gray-400 mb-4">{study.subtitle}</p>
+        <div className="flex flex-wrap gap-2 mb-4">
+          {Array.isArray(study.tools_used) && study.tools_used.map((tool: string, tagIndex: number) => (
+            <span
+              key={tagIndex}
+              className="px-3 py-1 text-sm rounded-full bg-cyberdark text-cyberpink border border-cyberpink/20"
+            >
+              {tool}
+            </span>
+          ))}
+        </div>
+        <div className="flex gap-4">
+          <span className="flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
+            <ExternalLink className="w-5 h-5" />
+            View Case Study
+          </span>
+        </div>
+      </div>
+    </Link>
+  </motion.div>
+));
+
+ProjectCard.displayName = 'ProjectCard';
+
+const Projects = () => {
   const { data: caseStudies, isLoading } = useQuery({
     queryKey: ['featured-case-studies'],
     queryFn: async () => {
@@ -46,47 +92,7 @@ export const Projects = () => {
             <p className="text-white">Loading case studies...</p>
           ) : (
             caseStudies?.map((study, index) => (
-              <motion.div
-                key={study.id}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-              >
-                <Link
-                  to={`/${study.slug}`}
-                  className="block glass-card overflow-hidden group hover-glow"
-                >
-                  <div className="relative h-48 overflow-hidden">
-                    <img
-                      src={`${study.cover_image}?auto=format&fit=crop&w=600&h=192&q=80`}
-                      alt={study.title}
-                      className="w-full h-48 object-cover object-top transform transition-transform duration-500 group-hover:scale-110"
-                      loading="lazy"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
-                  </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>
-                    <p className="text-gray-400 mb-4">{study.subtitle}</p>
-                    <div className="flex flex-wrap gap-2 mb-4">
-                      {Array.isArray(study.tools_used) && study.tools_used.map((tool: string, tagIndex: number) => (
-                        <span
-                          key={tagIndex}
-                          className="px-3 py-1 text-sm rounded-full bg-cyberdark text-cyberpink border border-cyberpink/20"
-                        >
-                          {tool}
-                        </span>
-                      ))}
-                    </div>
-                    <div className="flex gap-4">
-                      <span className="flex items-center gap-2 text-gray-400 group-hover:text-white transition-colors">
-                        <ExternalLink className="w-5 h-5" />
-                        View Case Study
-                      </span>
-                    </div>
-                  </div>
-                </Link>
-              </motion.div>
+              <ProjectCard key={study.id} study={study} index={index} />
             ))
           )}
         </div>
@@ -94,3 +100,5 @@ export const Projects = () => {
     </section>
   );
 };
+
+export default Projects;
