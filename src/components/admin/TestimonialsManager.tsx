@@ -13,7 +13,6 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
@@ -26,12 +25,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
+import { useDragOrder } from "@/hooks/use-drag-order";
 
 export const TestimonialsManager = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const { toast } = useToast();
 
   const { data: testimonials, refetch } = useQuery({
     queryKey: ["testimonials"],
@@ -53,6 +51,12 @@ export const TestimonialsManager = () => {
     })
   );
 
+  const { handleDragEnd } = useDragOrder({
+    items: testimonials,
+    tableName: 'testimonials',
+    refetch,
+  });
+
   const handleDelete = async (id: string) => {
     const { error } = await supabase
       .from("testimonials")
@@ -61,72 +65,10 @@ export const TestimonialsManager = () => {
 
     if (error) {
       console.error("Error deleting testimonial:", error);
-      toast({
-        title: "Error",
-        description: "Failed to delete testimonial",
-        variant: "destructive",
-      });
       return;
     }
 
     refetch();
-    toast({
-      title: "Success",
-      description: "Testimonial deleted successfully",
-    });
-  };
-
-  const handleDragEnd = async (event: any) => {
-    const { active, over } = event;
-    
-    if (!active || !over || active.id === over.id) {
-      return;
-    }
-
-    const oldIndex = testimonials?.findIndex((testimonial) => testimonial.id === active.id);
-    const newIndex = testimonials?.findIndex((testimonial) => testimonial.id === over.id);
-
-    if (oldIndex === undefined || newIndex === undefined || !testimonials) {
-      return;
-    }
-
-    const newTestimonials = arrayMove(testimonials, oldIndex, newIndex);
-    
-    // Update each testimonial's display order individually
-    const updatePromises = newTestimonials.map((testimonial, index) => 
-      supabase
-        .from('testimonials')
-        .update({ display_order: index })
-        .eq('id', testimonial.id)
-    );
-
-    try {
-      const results = await Promise.all(updatePromises);
-      const errors = results.filter(result => result.error);
-      
-      if (errors.length > 0) {
-        console.error('Errors updating testimonial order:', errors);
-        toast({
-          title: "Error",
-          description: "Failed to update testimonial order",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      refetch();
-      toast({
-        title: "Success",
-        description: "Testimonial order updated successfully",
-      });
-    } catch (error) {
-      console.error('Error updating testimonial order:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update testimonial order",
-        variant: "destructive",
-      });
-    }
   };
 
   return (

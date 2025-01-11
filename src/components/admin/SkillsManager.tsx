@@ -13,7 +13,6 @@ import {
   useSensors,
 } from '@dnd-kit/core';
 import {
-  arrayMove,
   SortableContext,
   sortableKeyboardCoordinates,
   verticalListSortingStrategy,
@@ -26,12 +25,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useToast } from "@/components/ui/use-toast";
+import { useDragOrder } from "@/hooks/use-drag-order";
 
 export const SkillsManager = () => {
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | null>(null);
-  const { toast } = useToast();
 
   const { data: skills, refetch } = useQuery({
     queryKey: ["skills"],
@@ -53,6 +51,12 @@ export const SkillsManager = () => {
     })
   );
 
+  const { handleDragEnd } = useDragOrder({
+    items: skills,
+    tableName: 'skills',
+    refetch,
+  });
+
   const handleDelete = async (id: string) => {
     const { error } = await supabase
       .from("skills")
@@ -61,72 +65,10 @@ export const SkillsManager = () => {
 
     if (error) {
       console.error("Error deleting skill:", error);
-      toast({
-        title: "Error",
-        description: "Failed to delete skill",
-        variant: "destructive",
-      });
       return;
     }
 
     refetch();
-    toast({
-      title: "Success",
-      description: "Skill deleted successfully",
-    });
-  };
-
-  const handleDragEnd = async (event: any) => {
-    const { active, over } = event;
-    
-    if (!active || !over || active.id === over.id) {
-      return;
-    }
-
-    const oldIndex = skills?.findIndex((skill) => skill.id === active.id);
-    const newIndex = skills?.findIndex((skill) => skill.id === over.id);
-
-    if (oldIndex === undefined || newIndex === undefined || !skills) {
-      return;
-    }
-
-    const newSkills = arrayMove(skills, oldIndex, newIndex);
-    
-    // Update each skill's display order individually
-    const updatePromises = newSkills.map((skill, index) => 
-      supabase
-        .from('skills')
-        .update({ display_order: index })
-        .eq('id', skill.id)
-    );
-
-    try {
-      const results = await Promise.all(updatePromises);
-      const errors = results.filter(result => result.error);
-      
-      if (errors.length > 0) {
-        console.error('Errors updating skill order:', errors);
-        toast({
-          title: "Error",
-          description: "Failed to update skill order",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      refetch();
-      toast({
-        title: "Success",
-        description: "Skill order updated successfully",
-      });
-    } catch (error) {
-      console.error('Error updating skill order:', error);
-      toast({
-        title: "Error",
-        description: "Failed to update skill order",
-        variant: "destructive",
-      });
-    }
   };
 
   return (
