@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { Progress } from "./ui/progress";
+import { SkillCard } from "./skills/SkillCard";
 import { 
   Database, 
   ChartLine, 
@@ -12,11 +13,21 @@ import {
   ArrowUp,
   ArrowLeft,
   ArrowRight,
+  Code2,
+  Brain,
+  Search,
+  LineChart,
+  BarChart,
+  PieChart,
+  Workflow,
+  Settings,
+  Tool,
+  Lightbulb,
   type LucideIcon 
 } from "lucide-react";
 
 // Create a map of allowed icons
-const ICON_MAP: Record<string, LucideIcon> = {
+export const ICON_MAP: Record<string, LucideIcon> = {
   Database,
   ChartLine,
   Users,
@@ -25,10 +36,20 @@ const ICON_MAP: Record<string, LucideIcon> = {
   ArrowDown,
   ArrowUp,
   ArrowLeft,
-  ArrowRight
+  ArrowRight,
+  Code2,
+  Brain,
+  Search,
+  LineChart,
+  BarChart,
+  PieChart,
+  Workflow,
+  Settings,
+  Tool,
+  Lightbulb
 };
 
-interface Skill {
+export interface Skill {
   id: string;
   title: string;
   description: string;
@@ -78,50 +99,13 @@ const Skills = () => {
         </motion.h2>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {skills?.map((skill, index) => {
-            const Icon = ICON_MAP[skill.icon];
-            
-            if (!Icon) {
-              console.warn(`Icon "${skill.icon}" not found in icon map`);
-              return null;
-            }
-            
-            return (
-              <motion.div
-                key={skill.id}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="glass-card p-6 hover-glow h-full"
-              >
-                <div className="flex flex-col items-center text-center h-full">
-                  <Icon 
-                    className={`w-8 h-8 ${
-                      index % 3 === 0 ? 'text-cyberpink' :
-                      index % 3 === 1 ? 'text-cybercyan' :
-                      'text-cyberamber'
-                    }`}
-                  />
-                  <h3 className="mt-4 text-xl font-semibold text-white">{skill.title}</h3>
-                  <p className="mt-2 text-gray-400">{skill.description}</p>
-                  <p className="mt-2 text-sm text-gray-500 flex-grow">{skill.focus}</p>
-                  <div className="w-full space-y-2 mt-4">
-                    <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">Proficiency</span>
-                      <span className="text-cyberpink">{skill.proficiency}%</span>
-                    </div>
-                    <motion.div
-                      initial={{ width: 0 }}
-                      whileInView={{ width: "100%" }}
-                      transition={{ duration: 1, delay: index * 0.2 }}
-                    >
-                      <Progress value={skill.proficiency} className="h-2" />
-                    </motion.div>
-                  </div>
-                </div>
-              </motion.div>
-            );
-          })}
+          {skills?.map((skill, index) => (
+            <SkillCard 
+              key={skill.id} 
+              skill={skill} 
+              index={index} 
+            />
+          ))}
         </div>
       </div>
     </section>
