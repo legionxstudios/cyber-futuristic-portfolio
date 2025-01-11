@@ -17,15 +17,17 @@ export const TypeWriter = ({ texts }: TypeWriterProps) => {
       handleType();
     }, typingSpeed);
 
+    return () => clearTimeout(timer);
+  }, [displayText, isDeleting, currentIndex]);
+
+  // Separate useEffect for cursor animation to keep it independent
+  useEffect(() => {
     const cursorInterval = setInterval(() => {
       setShowCursor(prev => !prev);
     }, 530);
 
-    return () => {
-      clearTimeout(timer);
-      clearInterval(cursorInterval);
-    };
-  }, [displayText, isDeleting, currentIndex]);
+    return () => clearInterval(cursorInterval);
+  }, []); // Empty dependency array ensures cursor keeps blinking consistently
 
   const handleType = () => {
     const i = loopNum % texts.length;
