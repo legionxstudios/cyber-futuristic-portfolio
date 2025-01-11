@@ -91,7 +91,7 @@ export const Hero = () => {
           </span>
         </div>
         
-        <h1 className="mt-6 mb-6 text-4xl sm:text-4xl md:text-6xl font-bold font-mono min-h-[2.5em] sm:min-h-0">
+        <h1 className="mt-6 mb-3 text-4xl sm:text-4xl md:text-6xl font-bold font-mono min-h-[2.5em] sm:min-h-0">
           <TypeWriter texts={texts} />
         </h1>
 
