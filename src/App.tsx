@@ -11,6 +11,7 @@ import { CookieConsent } from "@/components/CookieConsent";
 import { SocialProofPopup } from "@/components/SocialProofPopup";
 import Index from "./pages/Index";
 import CaseStudy from "./pages/CaseStudy";
+import CaseStudies from "./pages/CaseStudies";
 import Auth from "./pages/Auth";
 import AdminDashboard from "./pages/AdminDashboard";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
@@ -45,6 +46,7 @@ const App = () => (
             />
             <Route path="/privacy-policy" element={<PrivacyPolicy />} />
             <Route path="/terms" element={<Terms />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
             <Route
               path="/:slug"
               element={

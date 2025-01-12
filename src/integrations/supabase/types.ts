@@ -13,6 +13,7 @@ export type Database = {
         Row: {
           budget_efficiency: string | null
           budget_heading: string | null
+          business_type: string | null
           challenge: string[] | null
           client: string | null
           cover_image: string | null
@@ -20,6 +21,8 @@ export type Database = {
           created_by: string | null
           graph_image: string | null
           id: string
+          industry: string | null
+          is_featured: boolean | null
           key_takeaways: Json | null
           lead_generation: string | null
           leads_heading: string | null
@@ -38,6 +41,7 @@ export type Database = {
         Insert: {
           budget_efficiency?: string | null
           budget_heading?: string | null
+          business_type?: string | null
           challenge?: string[] | null
           client?: string | null
           cover_image?: string | null
@@ -45,6 +49,8 @@ export type Database = {
           created_by?: string | null
           graph_image?: string | null
           id?: string
+          industry?: string | null
+          is_featured?: boolean | null
           key_takeaways?: Json | null
           lead_generation?: string | null
           leads_heading?: string | null
@@ -63,6 +69,7 @@ export type Database = {
         Update: {
           budget_efficiency?: string | null
           budget_heading?: string | null
+          business_type?: string | null
           challenge?: string[] | null
           client?: string | null
           cover_image?: string | null
@@ -70,6 +77,8 @@ export type Database = {
           created_by?: string | null
           graph_image?: string | null
           id?: string
+          industry?: string | null
+          is_featured?: boolean | null
           key_takeaways?: Json | null
           lead_generation?: string | null
           leads_heading?: string | null
