@@ -10,12 +10,14 @@ import CaseStudyFilters from "@/components/case-studies/CaseStudyFilters";
 const CaseStudies = () => {
   const [selectedIndustry, setSelectedIndustry] = useState("All");
   const [selectedBusinessType, setSelectedBusinessType] = useState("All");
+  const [selectedChannel, setSelectedChannel] = useState("All");
   const isMobile = useIsMobile();
 
+  // Fetch case studies with filters
   const { data: caseStudies, isLoading } = useQuery({
-    queryKey: ["case-studies", selectedIndustry, selectedBusinessType],
+    queryKey: ["case-studies", selectedIndustry, selectedBusinessType, selectedChannel],
     queryFn: async () => {
-      console.log("Fetching case studies with filters:", { selectedIndustry, selectedBusinessType });
+      console.log("Fetching case studies with filters:", { selectedIndustry, selectedBusinessType, selectedChannel });
       let query = supabase
         .from("case_studies")
         .select("*")
@@ -27,6 +29,9 @@ const CaseStudies = () => {
       }
       if (selectedBusinessType !== "All") {
         query = query.eq("business_type", selectedBusinessType);
+      }
+      if (selectedChannel !== "All") {
+        query = query.eq("channel", selectedChannel);
       }
 
       const { data, error } = await query;
@@ -41,21 +46,42 @@ const CaseStudies = () => {
     },
   });
 
-  // Extract unique industries and business types from the data
-  const { industries, businessTypes } = useMemo(() => {
-    const uniqueIndustries = new Set(["All"]);
-    const uniqueBusinessTypes = new Set(["All"]);
+  // Fetch all available filters
+  const { data: businessTypes } = useQuery({
+    queryKey: ["business-types"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("business_types")
+        .select("name")
+        .order("name");
+      if (error) throw error;
+      return ["All", ...(data?.map(type => type.name) || [])];
+    },
+  });
 
-    caseStudies?.forEach(study => {
-      if (study.industry) uniqueIndustries.add(study.industry);
-      if (study.business_type) uniqueBusinessTypes.add(study.business_type);
-    });
+  const { data: industries } = useQuery({
+    queryKey: ["industries"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("industries")
+        .select("name")
+        .order("name");
+      if (error) throw error;
+      return ["All", ...(data?.map(industry => industry.name) || [])];
+    },
+  });
 
-    return {
-      industries: Array.from(uniqueIndustries),
-      businessTypes: Array.from(uniqueBusinessTypes),
-    };
-  }, [caseStudies]);
+  const { data: channels } = useQuery({
+    queryKey: ["channels"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("channels")
+        .select("name")
+        .order("name");
+      if (error) throw error;
+      return ["All", ...(data?.map(channel => channel.name) || [])];
+    },
+  });
 
   const featuredStudy = caseStudies?.find(study => study.is_featured);
   const regularStudies = caseStudies?.filter(study => !study.is_featured);
@@ -78,8 +104,11 @@ const CaseStudies = () => {
               setSelectedIndustry={setSelectedIndustry}
               selectedBusinessType={selectedBusinessType}
               setSelectedBusinessType={setSelectedBusinessType}
-              industries={industries}
-              businessTypes={businessTypes}
+              selectedChannel={selectedChannel}
+              setSelectedChannel={setSelectedChannel}
+              industries={industries || []}
+              businessTypes={businessTypes || []}
+              channels={channels || []}
             />
           )}
 
@@ -91,8 +120,11 @@ const CaseStudies = () => {
                 setSelectedIndustry={setSelectedIndustry}
                 selectedBusinessType={selectedBusinessType}
                 setSelectedBusinessType={setSelectedBusinessType}
-                industries={industries}
-                businessTypes={businessTypes}
+                selectedChannel={selectedChannel}
+                setSelectedChannel={setSelectedChannel}
+                industries={industries || []}
+                businessTypes={businessTypes || []}
+                channels={channels || []}
               />
             )}
 
@@ -100,6 +132,10 @@ const CaseStudies = () => {
             <div className="flex-1">
               {isLoading ? (
                 <div className="text-center py-12">Loading case studies...</div>
+              ) : caseStudies?.length === 0 ? (
+                <div className="text-center py-12 text-gray-400">
+                  No case studies found matching your filters.
+                </div>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {featuredStudy && (

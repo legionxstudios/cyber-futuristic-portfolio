@@ -14,8 +14,11 @@ interface CaseStudyFiltersProps {
   setSelectedIndustry: (value: string) => void;
   selectedBusinessType: string;
   setSelectedBusinessType: (value: string) => void;
+  selectedChannel: string;
+  setSelectedChannel: (value: string) => void;
   industries: string[];
   businessTypes: string[];
+  channels: string[];
 }
 
 const CaseStudyFilters = ({
@@ -23,8 +26,11 @@ const CaseStudyFilters = ({
   setSelectedIndustry,
   selectedBusinessType,
   setSelectedBusinessType,
+  selectedChannel,
+  setSelectedChannel,
   industries,
   businessTypes,
+  channels,
 }: CaseStudyFiltersProps) => {
   const isMobile = useIsMobile();
 
@@ -87,6 +93,37 @@ const CaseStudyFilters = ({
                   onClick={() => setSelectedIndustry(industry)}
                 >
                   {industry}
+                </Button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div>
+          <h3 className="text-sm font-medium mb-2">Channel</h3>
+          {isMobile ? (
+            <Select value={selectedChannel} onValueChange={setSelectedChannel}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select channel" />
+              </SelectTrigger>
+              <SelectContent>
+                {channels.map((channel) => (
+                  <SelectItem key={channel} value={channel}>
+                    {channel}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <div className="space-y-2">
+              {channels.map((channel) => (
+                <Button
+                  key={channel}
+                  variant={selectedChannel === channel ? "default" : "ghost"}
+                  className="w-full justify-start"
+                  onClick={() => setSelectedChannel(channel)}
+                >
+                  {channel}
                 </Button>
               ))}
             </div>
