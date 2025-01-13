@@ -9,6 +9,7 @@ import { HomepageSettings } from "@/components/admin/HomepageSettings";
 import { TestimonialsManager } from "@/components/admin/TestimonialsManager";
 import { SkillsManager } from "@/components/admin/SkillsManager";
 import { WorkExperienceManager } from "@/components/admin/WorkExperienceManager";
+import { BusinessSettingsManager } from "@/components/admin/BusinessSettingsManager";
 import {
   Dialog,
   DialogContent,
@@ -67,6 +68,9 @@ const AdminDashboard = () => {
             <TabsTrigger value="case-studies" className="data-[state=active]:bg-cyberpink">
               Case Studies
             </TabsTrigger>
+            <TabsTrigger value="business-settings" className="data-[state=active]:bg-cyberpink">
+              Business Settings
+            </TabsTrigger>
             <TabsTrigger value="testimonials" className="data-[state=active]:bg-cyberpink">
               Testimonials
             </TabsTrigger>
@@ -83,6 +87,10 @@ const AdminDashboard = () => {
 
           <TabsContent value="case-studies">
             <CaseStudyList caseStudies={caseStudies || []} onCaseStudyChange={refetch} />
+          </TabsContent>
+
+          <TabsContent value="business-settings">
+            <BusinessSettingsManager />
           </TabsContent>
 
           <TabsContent value="testimonials">
