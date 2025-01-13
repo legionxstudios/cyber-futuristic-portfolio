@@ -35,12 +35,25 @@ export const CaseStudyFormFields = ({ form }: CaseStudyFormFieldsProps) => {
     }
   });
 
+  const { data: channels } = useQuery({
+    queryKey: ["channels"],
+    queryFn: async () => {
+      const { data, error } = await supabase
+        .from("channels")
+        .select("name")
+        .order("name");
+      if (error) throw error;
+      return data.map(channel => channel.name);
+    }
+  });
+
   return (
     <>
       <BasicInfoFields 
         form={form} 
         businessTypes={businessTypes || []} 
         industries={industries || []} 
+        channels={channels || []}
       />
       <ContentFields form={form} />
       <MetricsFields form={form} />

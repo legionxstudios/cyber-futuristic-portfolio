@@ -8,9 +8,10 @@ interface BasicInfoFieldsProps {
   form: UseFormReturn<any>;
   businessTypes: string[];
   industries: string[];
+  channels: string[];
 }
 
-export const BasicInfoFields = ({ form, businessTypes, industries }: BasicInfoFieldsProps) => {
+export const BasicInfoFields = ({ form, businessTypes, industries, channels }: BasicInfoFieldsProps) => {
   return (
     <>
       <FormField
@@ -96,6 +97,31 @@ export const BasicInfoFields = ({ form, businessTypes, industries }: BasicInfoFi
                 {industries.map((industry) => (
                   <SelectItem key={industry} value={industry}>
                     {industry}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <FormMessage />
+          </FormItem>
+        )}
+      />
+
+      <FormField
+        control={form.control}
+        name="channel"
+        render={({ field }) => (
+          <FormItem>
+            <FormLabel>Channel</FormLabel>
+            <Select onValueChange={field.onChange} value={field.value}>
+              <FormControl>
+                <SelectTrigger className="bg-cyberdark border-cyberblue">
+                  <SelectValue placeholder="Select channel" />
+                </SelectTrigger>
+              </FormControl>
+              <SelectContent>
+                {channels.map((channel) => (
+                  <SelectItem key={channel} value={channel}>
+                    {channel}
                   </SelectItem>
                 ))}
               </SelectContent>

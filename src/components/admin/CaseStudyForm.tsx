@@ -37,6 +37,10 @@ export const CaseStudyForm = ({ initialData, onSuccess }: CaseStudyFormProps) =>
       visitors_heading: "Visitor Engagement",
       leads_heading: "Lead Generation",
       budget_heading: "Budget Efficiency",
+      channel: "",
+      business_type: "",
+      industry: "",
+      is_featured: false,
     },
   });
 

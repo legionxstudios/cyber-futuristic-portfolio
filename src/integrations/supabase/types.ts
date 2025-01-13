@@ -36,6 +36,7 @@ export type Database = {
           budget_heading: string | null
           business_type: string | null
           challenge: string[] | null
+          channel: string | null
           client: string | null
           cover_image: string | null
           created_at: string | null
@@ -64,6 +65,7 @@ export type Database = {
           budget_heading?: string | null
           business_type?: string | null
           challenge?: string[] | null
+          channel?: string | null
           client?: string | null
           cover_image?: string | null
           created_at?: string | null
@@ -92,6 +94,7 @@ export type Database = {
           budget_heading?: string | null
           business_type?: string | null
           challenge?: string[] | null
+          channel?: string | null
           client?: string | null
           cover_image?: string | null
           created_at?: string | null
@@ -114,6 +117,35 @@ export type Database = {
           unique_visitors?: string | null
           updated_at?: string | null
           visitors_heading?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "case_studies_channel_fkey"
+            columns: ["channel"]
+            isOneToOne: false
+            referencedRelation: "channels"
+            referencedColumns: ["name"]
+          },
+        ]
+      }
+      channels: {
+        Row: {
+          created_at: string | null
+          id: string
+          name: string
+          updated_at: string | null
+        }
+        Insert: {
+          created_at?: string | null
+          id?: string
+          name: string
+          updated_at?: string | null
+        }
+        Update: {
+          created_at?: string | null
+          id?: string
+          name?: string
+          updated_at?: string | null
         }
         Relationships: []
       }

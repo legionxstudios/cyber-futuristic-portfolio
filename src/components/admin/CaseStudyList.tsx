@@ -56,7 +56,7 @@ export const CaseStudyList = ({
                 {caseStudy.title}
               </h3>
               <p className="text-gray-400">{caseStudy.subtitle}</p>
-              <div className="mt-2 flex gap-2">
+              <div className="mt-2 flex gap-2 flex-wrap">
                 {caseStudy.business_type && (
                   <span className="text-sm text-gray-400">
                     Business Type: {caseStudy.business_type}
@@ -65,6 +65,11 @@ export const CaseStudyList = ({
                 {caseStudy.industry && (
                   <span className="text-sm text-gray-400">
                     Industry: {caseStudy.industry}
+                  </span>
+                )}
+                {caseStudy.channel && (
+                  <span className="text-sm text-gray-400">
+                    Channel: {caseStudy.channel}
                   </span>
                 )}
               </div>
