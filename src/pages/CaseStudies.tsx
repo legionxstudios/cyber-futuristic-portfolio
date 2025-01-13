@@ -7,16 +7,8 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 
-const INDUSTRIES = [
-  "All",
-  "Media",
-  "SaaS",
-  "Finance",
-  "Travel",
-  "Hospitality"
-];
-
-const BUSINESS_TYPES = ["All", "B2B", "B2C"];
+const INDUSTRIES = ["All"];
+const BUSINESS_TYPES = ["All"];
 
 const CaseStudies = () => {
   const [selectedIndustry, setSelectedIndustry] = useState("All");
@@ -58,6 +50,12 @@ const CaseStudies = () => {
       <Navigation />
       <main className="min-h-screen bg-cyberdark pt-24">
         <div className="container mx-auto px-4">
+          <h1 className="text-4xl md:text-5xl font-bold text-center mb-16">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-cybercyan to-cyberamber">
+              Case Studies
+            </span>
+          </h1>
+          
           <div className="flex gap-8">
             {/* Filters Sidebar */}
             <aside className="w-64 space-y-8">
@@ -123,18 +121,6 @@ const CaseStudies = () => {
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
                         <div className="absolute bottom-0 left-0 right-0 p-8">
-                          <div className="mb-4">
-                            {featuredStudy.business_type && (
-                              <span className="px-3 py-1 text-sm rounded-full bg-cyberdark text-cyberpink border border-cyberpink/20 mr-2">
-                                {featuredStudy.business_type}
-                              </span>
-                            )}
-                            {featuredStudy.industry && (
-                              <span className="px-3 py-1 text-sm rounded-full bg-cyberdark text-cybercyan border border-cybercyan/20">
-                                {featuredStudy.industry}
-                              </span>
-                            )}
-                          </div>
                           <h2 className="text-3xl font-bold mb-2">{featuredStudy.title}</h2>
                           <p className="text-xl text-gray-300">{featuredStudy.subtitle}</p>
                         </div>
@@ -159,18 +145,6 @@ const CaseStudies = () => {
                           <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
                         </div>
                         <div className="p-6">
-                          <div className="mb-4">
-                            {study.business_type && (
-                              <span className="px-3 py-1 text-sm rounded-full bg-cyberdark text-cyberpink border border-cyberpink/20 mr-2">
-                                {study.business_type}
-                              </span>
-                            )}
-                            {study.industry && (
-                              <span className="px-3 py-1 text-sm rounded-full bg-cyberdark text-cybercyan border border-cybercyan/20">
-                                {study.industry}
-                              </span>
-                            )}
-                          </div>
                           <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>
                           <p className="text-gray-400">{study.subtitle}</p>
                         </div>
