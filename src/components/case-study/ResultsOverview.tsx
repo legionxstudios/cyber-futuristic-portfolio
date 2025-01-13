@@ -10,6 +10,10 @@ interface ResultsOverviewProps {
     unique_visitors: string;
     lead_generation: string;
     budget_efficiency: string;
+    traffic_heading?: string;
+    visitors_heading?: string;
+    leads_heading?: string;
+    budget_heading?: string;
   };
 }
 
@@ -30,7 +34,7 @@ const ResultsOverview = ({ caseStudy }: ResultsOverviewProps) => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <TrendingUp className="text-cyberpink" />
-                  Traffic Growth
+                  {caseStudy.traffic_heading || 'Traffic Growth'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -60,7 +64,7 @@ const ResultsOverview = ({ caseStudy }: ResultsOverviewProps) => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Users className="text-cybercyan" />
-                  Visitors
+                  {caseStudy.visitors_heading || 'Visitors'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -80,7 +84,7 @@ const ResultsOverview = ({ caseStudy }: ResultsOverviewProps) => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <Target className="text-cyberamber" />
-                  Lead Generation
+                  {caseStudy.leads_heading || 'Lead Generation'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
@@ -100,7 +104,7 @@ const ResultsOverview = ({ caseStudy }: ResultsOverviewProps) => {
               <CardHeader>
                 <CardTitle className="flex items-center gap-2">
                   <DollarSign className="text-cyberpink" />
-                  Development Time
+                  {caseStudy.budget_heading || 'Development Time'}
                 </CardTitle>
               </CardHeader>
               <CardContent>
