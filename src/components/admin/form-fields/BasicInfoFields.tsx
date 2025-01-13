@@ -6,17 +6,11 @@ import { UseFormReturn } from "react-hook-form";
 
 interface BasicInfoFieldsProps {
   form: UseFormReturn<any>;
+  businessTypes: string[];
+  industries: string[];
 }
 
-const INDUSTRIES = [
-  "Media",
-  "SaaS",
-  "Finance",
-  "Travel",
-  "Hospitality"
-];
-
-export const BasicInfoFields = ({ form }: BasicInfoFieldsProps) => {
+export const BasicInfoFields = ({ form, businessTypes, industries }: BasicInfoFieldsProps) => {
   return (
     <>
       <FormField
@@ -74,8 +68,11 @@ export const BasicInfoFields = ({ form }: BasicInfoFieldsProps) => {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                <SelectItem value="B2B">B2B</SelectItem>
-                <SelectItem value="B2C">B2C</SelectItem>
+                {businessTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
               </SelectContent>
             </Select>
             <FormMessage />
@@ -96,7 +93,7 @@ export const BasicInfoFields = ({ form }: BasicInfoFieldsProps) => {
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {INDUSTRIES.map((industry) => (
+                {industries.map((industry) => (
                   <SelectItem key={industry} value={industry}>
                     {industry}
                   </SelectItem>
