@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import { ArrowRight } from "lucide-react";
 import { Button } from "./ui/button";
+import { Badge } from "./ui/badge";
 
 export default function Projects() {
   const { data: caseStudies, isLoading } = useQuery({
@@ -51,7 +52,33 @@ export default function Projects() {
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>
-                    <p className="text-gray-400">{study.subtitle}</p>
+                    <p className="text-gray-400 mb-4">{study.subtitle}</p>
+                    <div className="flex flex-wrap gap-2">
+                      {study.business_type && (
+                        <Badge 
+                          variant="outline" 
+                          className="border-cyberpink text-cyberpink hover:bg-cyberpink/10"
+                        >
+                          {study.business_type}
+                        </Badge>
+                      )}
+                      {study.industry && (
+                        <Badge 
+                          variant="outline" 
+                          className="border-cybercyan text-cybercyan hover:bg-cybercyan/10"
+                        >
+                          {study.industry}
+                        </Badge>
+                      )}
+                      {study.channel && (
+                        <Badge 
+                          variant="outline" 
+                          className="border-cyberamber text-cyberamber hover:bg-cyberamber/10"
+                        >
+                          {study.channel}
+                        </Badge>
+                      )}
+                    </div>
                   </div>
                 </Link>
               ))}
