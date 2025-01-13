@@ -38,13 +38,13 @@ export default function Projects() {
                   to={`/${study.slug}`}
                   className="block glass-card overflow-hidden group hover:scale-105 transform transition-all duration-300"
                 >
-                  <div className="relative h-48">
+                  <div className="relative h-48 overflow-hidden">
                     <img
                       src={study.cover_image}
                       alt={study.title}
                       className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60 transform transition-transform duration-500 group-hover:scale-110" />
                   </div>
                   <div className="p-6">
                     <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>

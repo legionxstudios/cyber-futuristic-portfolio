@@ -25,13 +25,13 @@ const CaseStudyCard = ({ study, isFeatured = false }: CaseStudyCardProps) => {
         to={`/${study.slug}`}
         className="block glass-card overflow-hidden group hover:scale-105 transform transition-all duration-300"
       >
-        <div className="relative h-48">
+        <div className="relative h-48 overflow-hidden">
           <img
             src={study.cover_image}
             alt={study.title}
             className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60 transform transition-transform duration-500 group-hover:scale-110" />
           {isFeatured && (
             <div className="absolute top-4 left-4">
               <Badge 
@@ -109,13 +109,13 @@ const CaseStudyCard = ({ study, isFeatured = false }: CaseStudyCardProps) => {
           </div>
         </div>
 
-        <div className="w-full md:w-1/2 relative">
+        <div className="w-full md:w-1/2 relative overflow-hidden">
           <img
             src={study.cover_image}
             alt={study.title}
-            className="w-full h-full object-cover"
+            className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-cyberdark/80 via-transparent to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-cyberdark/80 via-transparent to-transparent transform transition-transform duration-500 group-hover:scale-110" />
         </div>
       </div>
     </Link>
