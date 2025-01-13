@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useState } from "react";
+import { useState, useMemo } from "react";
 import { Filter, TrendingUp, Users, Target, PiggyBank } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Navigation } from "@/components/Navigation";
@@ -7,14 +7,19 @@ import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
-
-// We'll populate these arrays with unique values from the database
-const INDUSTRIES = ["All", "E-commerce", "SaaS", "Healthcare", "Education"];
-const BUSINESS_TYPES = ["All", "B2B", "B2C", "D2C", "Enterprise"];
+import { useIsMobile } from "@/hooks/use-mobile";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 const CaseStudies = () => {
   const [selectedIndustry, setSelectedIndustry] = useState("All");
   const [selectedBusinessType, setSelectedBusinessType] = useState("All");
+  const isMobile = useIsMobile();
 
   const { data: caseStudies, isLoading } = useQuery({
     queryKey: ["case-studies", selectedIndustry, selectedBusinessType],
@@ -44,13 +49,96 @@ const CaseStudies = () => {
     },
   });
 
+  // Extract unique industries and business types from the data
+  const { industries, businessTypes } = useMemo(() => {
+    const uniqueIndustries = new Set(["All"]);
+    const uniqueBusinessTypes = new Set(["All"]);
+
+    caseStudies?.forEach(study => {
+      if (study.industry) uniqueIndustries.add(study.industry);
+      if (study.business_type) uniqueBusinessTypes.add(study.business_type);
+    });
+
+    return {
+      industries: Array.from(uniqueIndustries),
+      businessTypes: Array.from(uniqueBusinessTypes),
+    };
+  }, [caseStudies]);
+
   const featuredStudy = caseStudies?.find(study => study.is_featured);
   const regularStudies = caseStudies?.filter(study => !study.is_featured);
 
-  // Format traffic numbers for display
   const formatTraffic = (initial: number, final: number) => {
     return `${initial.toLocaleString()} → ${final.toLocaleString()}`;
   };
+
+  const FiltersContent = () => (
+    <>
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-sm font-medium mb-2">Business Type</h3>
+          {isMobile ? (
+            <Select value={selectedBusinessType} onValueChange={setSelectedBusinessType}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select business type" />
+              </SelectTrigger>
+              <SelectContent>
+                {businessTypes.map((type) => (
+                  <SelectItem key={type} value={type}>
+                    {type}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <div className="space-y-2">
+              {businessTypes.map((type) => (
+                <Button
+                  key={type}
+                  variant={selectedBusinessType === type ? "default" : "ghost"}
+                  className="w-full justify-start"
+                  onClick={() => setSelectedBusinessType(type)}
+                >
+                  {type}
+                </Button>
+              ))}
+            </div>
+          )}
+        </div>
+
+        <div>
+          <h3 className="text-sm font-medium mb-2">Industry</h3>
+          {isMobile ? (
+            <Select value={selectedIndustry} onValueChange={setSelectedIndustry}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select industry" />
+              </SelectTrigger>
+              <SelectContent>
+                {industries.map((industry) => (
+                  <SelectItem key={industry} value={industry}>
+                    {industry}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          ) : (
+            <div className="space-y-2">
+              {industries.map((industry) => (
+                <Button
+                  key={industry}
+                  variant={selectedIndustry === industry ? "default" : "ghost"}
+                  className="w-full justify-start"
+                  onClick={() => setSelectedIndustry(industry)}
+                >
+                  {industry}
+                </Button>
+              ))}
+            </div>
+          )}
+        </div>
+      </div>
+    </>
+  );
 
   return (
     <>
@@ -63,50 +151,32 @@ const CaseStudies = () => {
             </span>
           </h1>
           
-          <div className="flex gap-8">
-            {/* Filters Sidebar */}
-            <aside className="w-64 space-y-8">
-              <div className="glass-card p-6 space-y-6">
-                <h2 className="text-xl font-semibold flex items-center gap-2">
+          {/* Mobile Filters */}
+          {isMobile && (
+            <div className="mb-8">
+              <div className="glass-card p-6">
+                <h2 className="text-xl font-semibold flex items-center gap-2 mb-4">
                   <Filter className="w-5 h-5" />
                   Filters
                 </h2>
-
-                <div className="space-y-4">
-                  <div>
-                    <h3 className="text-sm font-medium mb-2">Business Type</h3>
-                    <div className="space-y-2">
-                      {BUSINESS_TYPES.map((type) => (
-                        <Button
-                          key={type}
-                          variant={selectedBusinessType === type ? "default" : "ghost"}
-                          className="w-full justify-start"
-                          onClick={() => setSelectedBusinessType(type)}
-                        >
-                          {type}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-
-                  <div>
-                    <h3 className="text-sm font-medium mb-2">Industry</h3>
-                    <div className="space-y-2">
-                      {INDUSTRIES.map((industry) => (
-                        <Button
-                          key={industry}
-                          variant={selectedIndustry === industry ? "default" : "ghost"}
-                          className="w-full justify-start"
-                          onClick={() => setSelectedIndustry(industry)}
-                        >
-                          {industry}
-                        </Button>
-                      ))}
-                    </div>
-                  </div>
-                </div>
+                <FiltersContent />
               </div>
-            </aside>
+            </div>
+          )}
+
+          <div className="flex gap-8">
+            {/* Desktop Filters Sidebar */}
+            {!isMobile && (
+              <aside className="w-64 space-y-8">
+                <div className="glass-card p-6 space-y-6">
+                  <h2 className="text-xl font-semibold flex items-center gap-2">
+                    <Filter className="w-5 h-5" />
+                    Filters
+                  </h2>
+                  <FiltersContent />
+                </div>
+              </aside>
+            )}
 
             {/* Main Content */}
             <div className="flex-1 space-y-12">
