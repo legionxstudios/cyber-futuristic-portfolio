@@ -112,52 +112,65 @@ const CaseStudies = () => {
                   {featuredStudy && (
                     <Link
                       to={`/${featuredStudy.slug}`}
-                      className="block glass-card overflow-hidden group hover:scale-105 transform transition-all duration-300 hover:shadow-2xl hover:shadow-cyberpink/20"
+                      className="block overflow-hidden group hover:scale-105 transform transition-all duration-300"
                     >
                       <div className="relative h-[500px]">
+                        {/* Dark overlay for better readability */}
+                        <div className="absolute inset-0 bg-gradient-to-b from-cyberdark/80 via-cyberdark/60 to-cyberdark/90 z-10" />
+                        
+                        {/* Background image */}
                         <img
                           src={featuredStudy.cover_image}
                           alt={featuredStudy.title}
-                          className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                          className="absolute inset-0 w-full h-full object-cover object-top transform transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-cyberdark/50 to-transparent" />
-                        <div className="absolute bottom-0 left-0 right-0 p-12">
+
+                        {/* Content overlay */}
+                        <div className="absolute inset-x-0 bottom-0 z-20 p-12 bg-gradient-to-t from-cyberdark via-cyberdark/95 to-transparent">
                           <Badge 
                             variant="outline" 
-                            className="mb-6 px-4 py-2 text-lg bg-cyberdark/80 backdrop-blur-sm border-cyberpink text-cyberpink animate-pulse"
+                            className="mb-6 px-4 py-2 text-lg bg-cyberdark/90 backdrop-blur-sm border-cyberpink text-cyberpink animate-pulse"
                           >
                             Featured Case Study
                           </Badge>
-                          <h2 className="text-4xl font-bold mb-4 text-white">{featuredStudy.title}</h2>
-                          <p className="text-2xl text-gray-200 mb-8">{featuredStudy.subtitle}</p>
+
+                          {/* Title and subtitle with enhanced contrast */}
+                          <div className="bg-cyberdark/80 p-6 rounded-lg backdrop-blur-sm border border-white/10 mb-8">
+                            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                              {featuredStudy.title}
+                            </h2>
+                            <p className="text-2xl text-gray-300">
+                              {featuredStudy.subtitle}
+                            </p>
+                          </div>
                           
-                          {/* Key Wins Grid */}
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
-                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                          {/* Key Wins Grid with improved contrast */}
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cyberpink/20 hover:border-cyberpink/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <TrendingUp className="w-5 h-5 text-cyberpink" />
-                                <span className="text-sm text-gray-400">Traffic Growth</span>
+                                <span className="text-sm text-gray-300">Traffic Growth</span>
                               </div>
                               <p className="text-xl font-bold text-white">{featuredStudy.traffic_final}%</p>
                             </div>
-                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cybercyan/20 hover:border-cybercyan/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <Users className="w-5 h-5 text-cybercyan" />
-                                <span className="text-sm text-gray-400">Visitor Engagement</span>
+                                <span className="text-sm text-gray-300">Visitor Engagement</span>
                               </div>
                               <p className="text-xl font-bold text-white">{featuredStudy.unique_visitors}</p>
                             </div>
-                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cyberamber/20 hover:border-cyberamber/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <Target className="w-5 h-5 text-cyberamber" />
-                                <span className="text-sm text-gray-400">Lead Generation</span>
+                                <span className="text-sm text-gray-300">Lead Generation</span>
                               </div>
                               <p className="text-xl font-bold text-white">{featuredStudy.lead_generation}</p>
                             </div>
-                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cyberblue/20 hover:border-cyberblue/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <PiggyBank className="w-5 h-5 text-cyberblue" />
-                                <span className="text-sm text-gray-400">Budget Efficiency</span>
+                                <span className="text-sm text-gray-300">Budget Efficiency</span>
                               </div>
                               <p className="text-xl font-bold text-white">{featuredStudy.budget_efficiency}</p>
                             </div>
