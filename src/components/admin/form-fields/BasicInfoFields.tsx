@@ -112,7 +112,7 @@ export const BasicInfoFields = ({ form }: BasicInfoFieldsProps) => {
         control={form.control}
         name="is_featured"
         render={({ field }) => (
-          <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4">
+          <FormItem className="flex flex-row items-center justify-between rounded-lg border border-cyberpink p-4">
             <div className="space-y-0.5">
               <FormLabel className="text-base">Featured Case Study</FormLabel>
               <div className="text-sm text-muted-foreground">
@@ -123,6 +123,7 @@ export const BasicInfoFields = ({ form }: BasicInfoFieldsProps) => {
               <Switch
                 checked={field.value}
                 onCheckedChange={field.onChange}
+                className="data-[state=checked]:bg-cyberpink"
               />
             </FormControl>
           </FormItem>

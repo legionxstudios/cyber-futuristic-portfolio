@@ -6,6 +6,7 @@ import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/badge";
 
 const INDUSTRIES = ["All"];
 const BUSINESS_TYPES = ["All"];
@@ -102,7 +103,7 @@ const CaseStudies = () => {
             </aside>
 
             {/* Main Content */}
-            <div className="flex-1 space-y-8">
+            <div className="flex-1 space-y-12">
               {isLoading ? (
                 <div className="text-center py-12">Loading case studies...</div>
               ) : (
@@ -111,18 +112,24 @@ const CaseStudies = () => {
                   {featuredStudy && (
                     <Link
                       to={`/${featuredStudy.slug}`}
-                      className="block glass-card overflow-hidden group hover-glow"
+                      className="block glass-card overflow-hidden group hover:scale-105 transform transition-all duration-300 hover:shadow-2xl hover:shadow-cyberpink/20"
                     >
-                      <div className="relative h-96">
+                      <div className="relative h-[500px]">
                         <img
                           src={featuredStudy.cover_image}
                           alt={featuredStudy.title}
                           className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                         />
-                        <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
-                        <div className="absolute bottom-0 left-0 right-0 p-8">
-                          <h2 className="text-3xl font-bold mb-2">{featuredStudy.title}</h2>
-                          <p className="text-xl text-gray-300">{featuredStudy.subtitle}</p>
+                        <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-cyberdark/50 to-transparent" />
+                        <div className="absolute bottom-0 left-0 right-0 p-12">
+                          <Badge 
+                            variant="outline" 
+                            className="mb-6 px-4 py-2 text-lg bg-cyberdark/80 backdrop-blur-sm border-cyberpink text-cyberpink animate-pulse"
+                          >
+                            Featured Case Study
+                          </Badge>
+                          <h2 className="text-4xl font-bold mb-4 text-white">{featuredStudy.title}</h2>
+                          <p className="text-2xl text-gray-200">{featuredStudy.subtitle}</p>
                         </div>
                       </div>
                     </Link>
@@ -134,7 +141,7 @@ const CaseStudies = () => {
                       <Link
                         key={study.id}
                         to={`/${study.slug}`}
-                        className="block glass-card overflow-hidden group hover-glow"
+                        className="block glass-card overflow-hidden group hover:scale-105 transform transition-all duration-300"
                       >
                         <div className="relative h-48">
                           <img
