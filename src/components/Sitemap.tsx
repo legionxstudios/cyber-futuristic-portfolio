@@ -30,6 +30,12 @@ export const generateSitemap = async () => {
     </url>
     
     <url>
+        <loc>${baseUrl}/case-studies</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+    
+    <url>
         <loc>${baseUrl}/privacy-policy</loc>
         <changefreq>monthly</changefreq>
         <priority>0.3</priority>
