@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Filter } from "lucide-react";
+import { Filter, ArrowLeft } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -51,6 +51,16 @@ const CaseStudies = () => {
       <Navigation />
       <main className="min-h-screen bg-cyberdark pt-24">
         <div className="container mx-auto px-4">
+          <div className="flex items-center gap-4 mb-8">
+            <Link 
+              to="/"
+              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 transition-colors"
+            >
+              <ArrowLeft className="w-4 h-4" />
+              Back to Home
+            </Link>
+          </div>
+
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-16">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cybercyan to-cyberamber">
               Case Studies
@@ -118,7 +128,7 @@ const CaseStudies = () => {
                         <img
                           src={featuredStudy.cover_image}
                           alt={featuredStudy.title}
-                          className="w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+                          className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-cyberdark/50 to-transparent" />
                         <div className="absolute bottom-0 left-0 right-0 p-12">
@@ -147,7 +157,7 @@ const CaseStudies = () => {
                           <img
                             src={study.cover_image}
                             alt={study.title}
-                            className="w-full h-48 object-cover transform transition-transform duration-500 group-hover:scale-110"
+                            className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
                           />
                           <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
                         </div>
