@@ -38,12 +38,19 @@ export const CaseStudyFormFields = ({ form }: CaseStudyFormFieldsProps) => {
   const { data: channels } = useQuery({
     queryKey: ["channels"],
     queryFn: async () => {
+      console.log("Fetching channels...");
       const { data, error } = await supabase
         .from("channels")
         .select("name")
         .order("name");
-      if (error) throw error;
-      return data.map(channel => channel.name);
+      if (error) {
+        console.error("Error fetching channels:", error);
+        throw error;
+      }
+      console.log("Channels data:", data);
+      const channelNames = data.map(channel => channel.name);
+      console.log("Mapped channel names:", channelNames);
+      return channelNames;
     }
   });
 
