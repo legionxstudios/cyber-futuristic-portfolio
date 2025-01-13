@@ -8,8 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/badge";
 
-const INDUSTRIES = ["All"];
-const BUSINESS_TYPES = ["All"];
+// We'll populate these arrays with unique values from the database
+const INDUSTRIES = ["All", "E-commerce", "SaaS", "Healthcare", "Education"];
+const BUSINESS_TYPES = ["All", "B2B", "B2C", "D2C", "Enterprise"];
 
 const CaseStudies = () => {
   const [selectedIndustry, setSelectedIndustry] = useState("All");
@@ -45,6 +46,11 @@ const CaseStudies = () => {
 
   const featuredStudy = caseStudies?.find(study => study.is_featured);
   const regularStudies = caseStudies?.filter(study => !study.is_featured);
+
+  // Format traffic numbers for display
+  const formatTraffic = (initial: number, final: number) => {
+    return `${initial.toLocaleString()} → ${final.toLocaleString()}`;
+  };
 
   return (
     <>
@@ -140,7 +146,9 @@ const CaseStudies = () => {
                                 <TrendingUp className="w-5 h-5 text-cyberpink" />
                                 <span className="text-sm text-gray-300">Traffic Growth</span>
                               </div>
-                              <p className="text-xl font-bold text-white">{featuredStudy.traffic_final}%</p>
+                              <p className="text-xl font-bold text-white">
+                                {formatTraffic(featuredStudy.traffic_initial || 0, featuredStudy.traffic_final || 0)}
+                              </p>
                             </div>
                             <div className="bg-cyberdark p-4 rounded-lg border border-cybercyan/20 hover:border-cybercyan/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
