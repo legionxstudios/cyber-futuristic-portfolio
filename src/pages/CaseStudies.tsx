@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Filter, ArrowLeft } from "lucide-react";
+import { Filter, TrendingUp, Users, Target, PiggyBank } from "lucide-react";
 import { supabase } from "@/integrations/supabase/client";
 import { Navigation } from "@/components/Navigation";
 import { Footer } from "@/components/Footer";
@@ -48,19 +48,9 @@ const CaseStudies = () => {
 
   return (
     <>
-      <Navigation />
+      <Navigation showBack={true} />
       <main className="min-h-screen bg-cyberdark pt-24">
         <div className="container mx-auto px-4">
-          <div className="flex items-center gap-4 mb-8">
-            <Link 
-              to="/"
-              className="flex items-center gap-2 px-4 py-2 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 transition-colors"
-            >
-              <ArrowLeft className="w-4 h-4" />
-              Back to Home
-            </Link>
-          </div>
-
           <h1 className="text-4xl md:text-5xl font-bold text-center mb-16">
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cybercyan to-cyberamber">
               Case Studies
@@ -139,7 +129,39 @@ const CaseStudies = () => {
                             Featured Case Study
                           </Badge>
                           <h2 className="text-4xl font-bold mb-4 text-white">{featuredStudy.title}</h2>
-                          <p className="text-2xl text-gray-200">{featuredStudy.subtitle}</p>
+                          <p className="text-2xl text-gray-200 mb-8">{featuredStudy.subtitle}</p>
+                          
+                          {/* Key Wins Grid */}
+                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mt-6">
+                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                              <div className="flex items-center gap-2 mb-2">
+                                <TrendingUp className="w-5 h-5 text-cyberpink" />
+                                <span className="text-sm text-gray-400">Traffic Growth</span>
+                              </div>
+                              <p className="text-xl font-bold text-white">{featuredStudy.traffic_final}%</p>
+                            </div>
+                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Users className="w-5 h-5 text-cybercyan" />
+                                <span className="text-sm text-gray-400">Visitor Engagement</span>
+                              </div>
+                              <p className="text-xl font-bold text-white">{featuredStudy.unique_visitors}</p>
+                            </div>
+                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                              <div className="flex items-center gap-2 mb-2">
+                                <Target className="w-5 h-5 text-cyberamber" />
+                                <span className="text-sm text-gray-400">Lead Generation</span>
+                              </div>
+                              <p className="text-xl font-bold text-white">{featuredStudy.lead_generation}</p>
+                            </div>
+                            <div className="glass-card p-4 backdrop-blur-sm border border-white/10">
+                              <div className="flex items-center gap-2 mb-2">
+                                <PiggyBank className="w-5 h-5 text-cyberblue" />
+                                <span className="text-sm text-gray-400">Budget Efficiency</span>
+                              </div>
+                              <p className="text-xl font-bold text-white">{featuredStudy.budget_efficiency}</p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </Link>
