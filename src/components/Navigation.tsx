@@ -3,7 +3,7 @@ import { ArrowLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import React, { useState, useEffect } from 'react';
 
-export const Navigation = ({ showBack = false }: { showBack?: boolean }) => {
+export const Navigation = ({ showBack = false, backUrl = "/" }: { showBack?: boolean, backUrl?: string }) => {
   const [displayText, setDisplayText] = useState("");
   const [showCursor, setShowCursor] = useState(true);
 
@@ -30,7 +30,7 @@ export const Navigation = ({ showBack = false }: { showBack?: boolean }) => {
           </Link>
           {showBack && (
             <Link 
-              to="/"
+              to={backUrl}
               className="flex items-center gap-2 px-4 py-2 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white hover:bg-white/10 transition-colors"
             >
               <ArrowLeft className="w-4 h-4" />

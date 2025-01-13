@@ -14,7 +14,7 @@ interface CaseStudyHeroProps {
 const CaseStudyHero = ({ caseStudy }: CaseStudyHeroProps) => {
   return (
     <>
-      <Navigation showBack={true} />
+      <Navigation showBack={true} backUrl="/case-studies" />
       <motion.section 
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
