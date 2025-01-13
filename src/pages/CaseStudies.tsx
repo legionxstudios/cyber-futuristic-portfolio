@@ -112,62 +112,51 @@ const CaseStudies = () => {
                   {featuredStudy && (
                     <Link
                       to={`/${featuredStudy.slug}`}
-                      className="block overflow-hidden group hover:scale-105 transform transition-all duration-300"
+                      className="block overflow-hidden group hover:scale-[1.02] transform transition-all duration-300"
                     >
-                      <div className="relative h-[500px]">
-                        {/* Dark overlay for better readability */}
-                        <div className="absolute inset-0 bg-gradient-to-b from-cyberdark/80 via-cyberdark/60 to-cyberdark/90 z-10" />
-                        
-                        {/* Background image */}
-                        <img
-                          src={featuredStudy.cover_image}
-                          alt={featuredStudy.title}
-                          className="absolute inset-0 w-full h-full object-cover object-top transform transition-transform duration-500 group-hover:scale-110"
-                        />
-
-                        {/* Content overlay */}
-                        <div className="absolute inset-x-0 bottom-0 z-20 p-12 bg-gradient-to-t from-cyberdark via-cyberdark/95 to-transparent">
+                      <div className="flex bg-cyberdark/90 rounded-lg overflow-hidden border border-white/10">
+                        {/* Content Side */}
+                        <div className="w-1/2 p-8 space-y-6">
                           <Badge 
                             variant="outline" 
-                            className="mb-6 px-4 py-2 text-lg bg-cyberdark/90 backdrop-blur-sm border-cyberpink text-cyberpink animate-pulse"
+                            className="px-4 py-2 text-lg border-cyberpink text-cyberpink animate-pulse"
                           >
                             Featured Case Study
                           </Badge>
 
-                          {/* Title and subtitle with enhanced contrast */}
-                          <div className="bg-cyberdark/80 p-6 rounded-lg backdrop-blur-sm border border-white/10 mb-8">
-                            <h2 className="text-4xl font-bold mb-4 bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                          <div className="space-y-4">
+                            <h2 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
                               {featuredStudy.title}
                             </h2>
-                            <p className="text-2xl text-gray-300">
+                            <p className="text-xl text-gray-300">
                               {featuredStudy.subtitle}
                             </p>
                           </div>
                           
-                          {/* Key Wins Grid with improved contrast */}
-                          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cyberpink/20 hover:border-cyberpink/40 transition-colors">
+                          {/* Key Wins Grid */}
+                          <div className="grid grid-cols-2 gap-4 mt-8">
+                            <div className="bg-cyberdark p-4 rounded-lg border border-cyberpink/20 hover:border-cyberpink/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <TrendingUp className="w-5 h-5 text-cyberpink" />
                                 <span className="text-sm text-gray-300">Traffic Growth</span>
                               </div>
                               <p className="text-xl font-bold text-white">{featuredStudy.traffic_final}%</p>
                             </div>
-                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cybercyan/20 hover:border-cybercyan/40 transition-colors">
+                            <div className="bg-cyberdark p-4 rounded-lg border border-cybercyan/20 hover:border-cybercyan/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <Users className="w-5 h-5 text-cybercyan" />
                                 <span className="text-sm text-gray-300">Visitor Engagement</span>
                               </div>
                               <p className="text-xl font-bold text-white">{featuredStudy.unique_visitors}</p>
                             </div>
-                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cyberamber/20 hover:border-cyberamber/40 transition-colors">
+                            <div className="bg-cyberdark p-4 rounded-lg border border-cyberamber/20 hover:border-cyberamber/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <Target className="w-5 h-5 text-cyberamber" />
                                 <span className="text-sm text-gray-300">Lead Generation</span>
                               </div>
                               <p className="text-xl font-bold text-white">{featuredStudy.lead_generation}</p>
                             </div>
-                            <div className="bg-cyberdark/90 p-4 rounded-lg backdrop-blur-sm border border-cyberblue/20 hover:border-cyberblue/40 transition-colors">
+                            <div className="bg-cyberdark p-4 rounded-lg border border-cyberblue/20 hover:border-cyberblue/40 transition-colors">
                               <div className="flex items-center gap-2 mb-2">
                                 <PiggyBank className="w-5 h-5 text-cyberblue" />
                                 <span className="text-sm text-gray-300">Budget Efficiency</span>
@@ -175,6 +164,16 @@ const CaseStudies = () => {
                               <p className="text-xl font-bold text-white">{featuredStudy.budget_efficiency}</p>
                             </div>
                           </div>
+                        </div>
+
+                        {/* Image Side */}
+                        <div className="w-1/2 relative">
+                          <img
+                            src={featuredStudy.cover_image}
+                            alt={featuredStudy.title}
+                            className="w-full h-full object-cover"
+                          />
+                          <div className="absolute inset-0 bg-gradient-to-r from-cyberdark/80 via-transparent to-transparent" />
                         </div>
                       </div>
                     </Link>
