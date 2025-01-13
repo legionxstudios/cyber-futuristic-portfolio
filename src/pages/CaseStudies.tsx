@@ -140,6 +140,104 @@ const CaseStudies = () => {
     </>
   );
 
+  const CaseStudyCard = ({ study, isFeatured = false }: { study: any, isFeatured?: boolean }) => (
+    <Link
+      to={`/${study.slug}`}
+      className={`block glass-card overflow-hidden group hover:scale-105 transform transition-all duration-300 ${
+        isFeatured && !isMobile ? 'md:col-span-2' : ''
+      }`}
+    >
+      {isFeatured && !isMobile ? (
+        <div className="flex flex-col md:flex-row bg-cyberdark/90 rounded-lg overflow-hidden">
+          <div className="w-full md:w-1/2 p-8 space-y-6">
+            <Badge 
+              variant="outline" 
+              className="px-4 py-2 text-lg border-cyberpink text-cyberpink animate-pulse"
+            >
+              Featured Case Study
+            </Badge>
+
+            <div className="space-y-4">
+              <h2 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
+                {study.title}
+              </h2>
+              <p className="text-xl text-gray-300">
+                {study.subtitle}
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 mt-8">
+              <div className="bg-cyberdark p-4 rounded-lg border border-cyberpink/20 hover:border-cyberpink/40 transition-colors">
+                <div className="flex items-center gap-2 mb-2">
+                  <TrendingUp className="w-5 h-5 text-cyberpink" />
+                  <span className="text-sm text-gray-300">Traffic Growth</span>
+                </div>
+                <p className="text-xl font-bold text-white">
+                  {formatTraffic(study.traffic_initial || 0, study.traffic_final || 0)}
+                </p>
+              </div>
+              <div className="bg-cyberdark p-4 rounded-lg border border-cybercyan/20 hover:border-cybercyan/40 transition-colors">
+                <div className="flex items-center gap-2 mb-2">
+                  <Users className="w-5 h-5 text-cybercyan" />
+                  <span className="text-sm text-gray-300">Visitor Engagement</span>
+                </div>
+                <p className="text-xl font-bold text-white">{study.unique_visitors}</p>
+              </div>
+              <div className="bg-cyberdark p-4 rounded-lg border border-cyberamber/20 hover:border-cyberamber/40 transition-colors">
+                <div className="flex items-center gap-2 mb-2">
+                  <Target className="w-5 h-5 text-cyberamber" />
+                  <span className="text-sm text-gray-300">Lead Generation</span>
+                </div>
+                <p className="text-xl font-bold text-white">{study.lead_generation}</p>
+              </div>
+              <div className="bg-cyberdark p-4 rounded-lg border border-cyberblue/20 hover:border-cyberblue/40 transition-colors">
+                <div className="flex items-center gap-2 mb-2">
+                  <PiggyBank className="w-5 h-5 text-cyberblue" />
+                  <span className="text-sm text-gray-300">Budget Efficiency</span>
+                </div>
+                <p className="text-xl font-bold text-white">{study.budget_efficiency}</p>
+              </div>
+            </div>
+          </div>
+
+          <div className="w-full md:w-1/2 relative">
+            <img
+              src={study.cover_image}
+              alt={study.title}
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-cyberdark/80 via-transparent to-transparent" />
+          </div>
+        </div>
+      ) : (
+        <>
+          <div className="relative h-48">
+            <img
+              src={study.cover_image}
+              alt={study.title}
+              className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
+            {isFeatured && (
+              <div className="absolute top-4 left-4">
+                <Badge 
+                  variant="outline" 
+                  className="px-3 py-1 text-sm border-cyberpink text-cyberpink animate-pulse"
+                >
+                  Featured
+                </Badge>
+              </div>
+            )}
+          </div>
+          <div className="p-6">
+            <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>
+            <p className="text-gray-400">{study.subtitle}</p>
+          </div>
+        </>
+      )}
+    </Link>
+  );
+
   return (
     <>
       <Navigation showBack={true} />
@@ -179,108 +277,18 @@ const CaseStudies = () => {
             )}
 
             {/* Main Content */}
-            <div className="flex-1 space-y-12">
+            <div className="flex-1">
               {isLoading ? (
                 <div className="text-center py-12">Loading case studies...</div>
               ) : (
-                <>
-                  {/* Featured Case Study */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                   {featuredStudy && (
-                    <Link
-                      to={`/${featuredStudy.slug}`}
-                      className="block overflow-hidden group hover:scale-[1.02] transform transition-all duration-300"
-                    >
-                      <div className="flex bg-cyberdark/90 rounded-lg overflow-hidden border border-white/10">
-                        {/* Content Side */}
-                        <div className="w-1/2 p-8 space-y-6">
-                          <Badge 
-                            variant="outline" 
-                            className="px-4 py-2 text-lg border-cyberpink text-cyberpink animate-pulse"
-                          >
-                            Featured Case Study
-                          </Badge>
-
-                          <div className="space-y-4">
-                            <h2 className="text-4xl font-bold bg-gradient-to-r from-white to-gray-300 bg-clip-text text-transparent">
-                              {featuredStudy.title}
-                            </h2>
-                            <p className="text-xl text-gray-300">
-                              {featuredStudy.subtitle}
-                            </p>
-                          </div>
-                          
-                          {/* Key Wins Grid */}
-                          <div className="grid grid-cols-2 gap-4 mt-8">
-                            <div className="bg-cyberdark p-4 rounded-lg border border-cyberpink/20 hover:border-cyberpink/40 transition-colors">
-                              <div className="flex items-center gap-2 mb-2">
-                                <TrendingUp className="w-5 h-5 text-cyberpink" />
-                                <span className="text-sm text-gray-300">Traffic Growth</span>
-                              </div>
-                              <p className="text-xl font-bold text-white">
-                                {formatTraffic(featuredStudy.traffic_initial || 0, featuredStudy.traffic_final || 0)}
-                              </p>
-                            </div>
-                            <div className="bg-cyberdark p-4 rounded-lg border border-cybercyan/20 hover:border-cybercyan/40 transition-colors">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Users className="w-5 h-5 text-cybercyan" />
-                                <span className="text-sm text-gray-300">Visitor Engagement</span>
-                              </div>
-                              <p className="text-xl font-bold text-white">{featuredStudy.unique_visitors}</p>
-                            </div>
-                            <div className="bg-cyberdark p-4 rounded-lg border border-cyberamber/20 hover:border-cyberamber/40 transition-colors">
-                              <div className="flex items-center gap-2 mb-2">
-                                <Target className="w-5 h-5 text-cyberamber" />
-                                <span className="text-sm text-gray-300">Lead Generation</span>
-                              </div>
-                              <p className="text-xl font-bold text-white">{featuredStudy.lead_generation}</p>
-                            </div>
-                            <div className="bg-cyberdark p-4 rounded-lg border border-cyberblue/20 hover:border-cyberblue/40 transition-colors">
-                              <div className="flex items-center gap-2 mb-2">
-                                <PiggyBank className="w-5 h-5 text-cyberblue" />
-                                <span className="text-sm text-gray-300">Budget Efficiency</span>
-                              </div>
-                              <p className="text-xl font-bold text-white">{featuredStudy.budget_efficiency}</p>
-                            </div>
-                          </div>
-                        </div>
-
-                        {/* Image Side */}
-                        <div className="w-1/2 relative">
-                          <img
-                            src={featuredStudy.cover_image}
-                            alt={featuredStudy.title}
-                            className="w-full h-full object-cover"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-r from-cyberdark/80 via-transparent to-transparent" />
-                        </div>
-                      </div>
-                    </Link>
+                    <CaseStudyCard study={featuredStudy} isFeatured={true} />
                   )}
-
-                  {/* Regular Case Studies Grid */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {regularStudies?.map((study) => (
-                      <Link
-                        key={study.id}
-                        to={`/${study.slug}`}
-                        className="block glass-card overflow-hidden group hover:scale-105 transform transition-all duration-300"
-                      >
-                        <div className="relative h-48">
-                          <img
-                            src={study.cover_image}
-                            alt={study.title}
-                            className="absolute inset-0 w-full h-full object-cover transform transition-transform duration-500 group-hover:scale-110"
-                          />
-                          <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60" />
-                        </div>
-                        <div className="p-6">
-                          <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>
-                          <p className="text-gray-400">{study.subtitle}</p>
-                        </div>
-                      </Link>
-                    ))}
-                  </div>
-                </>
+                  {regularStudies?.map((study) => (
+                    <CaseStudyCard key={study.id} study={study} />
+                  ))}
+                </div>
               )}
             </div>
           </div>
