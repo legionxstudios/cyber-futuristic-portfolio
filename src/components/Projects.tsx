@@ -50,7 +50,7 @@ export default function Projects() {
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-cyberdark to-transparent opacity-60 transform transition-transform duration-500 group-hover:scale-110" />
                   </div>
-                  <div className="p-6">
+                  <div className="p-6 flex flex-col h-[calc(100%-12rem)]">
                     <div className="flex flex-wrap gap-2 mb-4">
                       {study.business_type && (
                         <Badge 
@@ -79,7 +79,7 @@ export default function Projects() {
                     </div>
                     <h3 className="text-xl font-semibold text-white mb-2">{study.title}</h3>
                     <p className="text-gray-400 mb-4">{study.subtitle}</p>
-                    <div className="text-cyberpink hover:text-cyberamber transition-colors flex items-center gap-2 mt-auto">
+                    <div className="mt-auto text-cyberpink hover:text-cyberamber transition-colors flex items-center gap-2">
                       Read Case Study
                       <ArrowRight className="w-4 h-4" />
                     </div>
