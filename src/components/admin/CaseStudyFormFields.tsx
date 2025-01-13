@@ -19,7 +19,8 @@ export const CaseStudyFormFields = ({ form }: CaseStudyFormFieldsProps) => {
         .select("name")
         .order("name");
       if (error) throw error;
-      return data?.map(type => type.name) || [];
+      // Transform the data to match the expected format
+      return data?.map(type => ({ name: type.name })) || [];
     }
   });
 
@@ -31,7 +32,8 @@ export const CaseStudyFormFields = ({ form }: CaseStudyFormFieldsProps) => {
         .select("name")
         .order("name");
       if (error) throw error;
-      return data?.map(industry => industry.name) || [];
+      // Transform the data to match the expected format
+      return data?.map(industry => ({ name: industry.name })) || [];
     }
   });
 
@@ -48,10 +50,10 @@ export const CaseStudyFormFields = ({ form }: CaseStudyFormFieldsProps) => {
         throw error;
       }
       console.log("Channels data:", data);
-      // Ensure we're only passing the name strings
-      const channelNames = data?.map(channel => channel.name) || [];
-      console.log("Mapped channel names:", channelNames);
-      return channelNames;
+      // Transform the data to match the expected format
+      const formattedChannels = data?.map(channel => ({ name: channel.name })) || [];
+      console.log("Formatted channels:", formattedChannels);
+      return formattedChannels;
     }
   });
 
