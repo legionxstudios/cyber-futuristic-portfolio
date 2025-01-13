@@ -19,7 +19,8 @@ const CaseStudies = () => {
       let query = supabase
         .from("case_studies")
         .select("*")
-        .order("is_featured", { ascending: false });
+        .order('is_featured', { ascending: false })
+        .order('created_at', { ascending: false });
 
       if (selectedIndustry !== "All") {
         query = query.eq("industry", selectedIndustry);

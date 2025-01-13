@@ -11,9 +11,12 @@ export default function Projects() {
       const { data, error } = await supabase
         .from("case_studies")
         .select("*")
+        .order('is_featured', { ascending: false })
+        .order('created_at', { ascending: false })
         .limit(3);
       
       if (error) throw error;
+      console.log("Fetched case studies:", data);
       return data;
     },
   });
