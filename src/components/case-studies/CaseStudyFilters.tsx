@@ -19,6 +19,7 @@ interface CaseStudyFiltersProps {
   industries: string[];
   businessTypes: string[];
   channels: string[];
+  activeChannels: string[]; // New prop for channels that are actually used
 }
 
 const CaseStudyFilters = ({
@@ -31,6 +32,7 @@ const CaseStudyFilters = ({
   industries,
   businessTypes,
   channels,
+  activeChannels,
 }: CaseStudyFiltersProps) => {
   const isMobile = useIsMobile();
 
@@ -107,25 +109,29 @@ const CaseStudyFilters = ({
                 <SelectValue placeholder="Select channel" />
               </SelectTrigger>
               <SelectContent>
-                {channels.map((channel) => (
-                  <SelectItem key={channel} value={channel}>
-                    {channel}
-                  </SelectItem>
-                ))}
+                {channels
+                  .filter(channel => activeChannels.includes(channel))
+                  .map((channel) => (
+                    <SelectItem key={channel} value={channel}>
+                      {channel}
+                    </SelectItem>
+                  ))}
               </SelectContent>
             </Select>
           ) : (
             <div className="space-y-2">
-              {channels.map((channel) => (
-                <Button
-                  key={channel}
-                  variant={selectedChannel === channel ? "default" : "ghost"}
-                  className="w-full justify-start"
-                  onClick={() => setSelectedChannel(channel)}
-                >
-                  {channel}
-                </Button>
-              ))}
+              {channels
+                .filter(channel => activeChannels.includes(channel))
+                .map((channel) => (
+                  <Button
+                    key={channel}
+                    variant={selectedChannel === channel ? "default" : "ghost"}
+                    className="w-full justify-start"
+                    onClick={() => setSelectedChannel(channel)}
+                  >
+                    {channel}
+                  </Button>
+                ))}
             </div>
           )}
         </div>
@@ -148,7 +154,7 @@ const CaseStudyFilters = ({
   }
 
   return (
-    <aside className="w-64 space-y-8">
+    <aside className="w-64 sticky top-24">
       <div className="glass-card p-6 space-y-6">
         <h2 className="text-xl font-semibold flex items-center gap-2">
           <Filter className="w-5 h-5" />

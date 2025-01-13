@@ -46,6 +46,13 @@ const CaseStudies = () => {
     },
   });
 
+  // Get unique active channels from case studies
+  const activeChannels = useMemo(() => {
+    if (!caseStudies) return ["All"];
+    const channels = new Set(caseStudies.map(study => study.channel).filter(Boolean));
+    return ["All", ...Array.from(channels)];
+  }, [caseStudies]);
+
   // Fetch all available filters
   const { data: businessTypes } = useQuery({
     queryKey: ["business-types"],
@@ -109,6 +116,7 @@ const CaseStudies = () => {
               industries={industries || []}
               businessTypes={businessTypes || []}
               channels={channels || []}
+              activeChannels={activeChannels}
             />
           )}
 
@@ -125,6 +133,7 @@ const CaseStudies = () => {
                 industries={industries || []}
                 businessTypes={businessTypes || []}
                 channels={channels || []}
+                activeChannels={activeChannels}
               />
             )}
 
