@@ -6,12 +6,20 @@ import { UseFormReturn } from "react-hook-form";
 
 interface BasicInfoFieldsProps {
   form: UseFormReturn<any>;
-  businessTypes: string[];
-  industries: string[];
-  channels: string[];
+  businessTypes: { name: string }[];
+  industries: { name: string }[];
+  channels: { name: string }[];
 }
 
 export const BasicInfoFields = ({ form, businessTypes, industries, channels }: BasicInfoFieldsProps) => {
+  // Map the arrays to just the name strings
+  const businessTypeNames = businessTypes?.map(type => type.name) || [];
+  const industryNames = industries?.map(industry => industry.name) || [];
+  const channelNames = channels?.map(channel => channel.name) || [];
+
+  console.log('Mapped channel names:', channelNames);
+  console.log('Channels data:', channels);
+
   return (
     <>
       <FormField
@@ -69,7 +77,7 @@ export const BasicInfoFields = ({ form, businessTypes, industries, channels }: B
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {businessTypes.map((type) => (
+                {businessTypeNames.map((type) => (
                   <SelectItem key={type} value={type}>
                     {type}
                   </SelectItem>
@@ -94,7 +102,7 @@ export const BasicInfoFields = ({ form, businessTypes, industries, channels }: B
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {industries.map((industry) => (
+                {industryNames.map((industry) => (
                   <SelectItem key={industry} value={industry}>
                     {industry}
                   </SelectItem>
@@ -119,7 +127,7 @@ export const BasicInfoFields = ({ form, businessTypes, industries, channels }: B
                 </SelectTrigger>
               </FormControl>
               <SelectContent>
-                {channels.map((channel) => (
+                {channelNames.map((channel) => (
                   <SelectItem key={channel} value={channel}>
                     {channel}
                   </SelectItem>
