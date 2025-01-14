@@ -152,20 +152,41 @@ export type Database = {
       homepage_settings: {
         Row: {
           created_at: string | null
+          cta_primary_link: string | null
+          cta_primary_text: string | null
+          cta_secondary_link: string | null
+          cta_secondary_text: string | null
           hero_image: string | null
           id: string
+          main_heading: string | null
+          role_content: Json | null
+          sub_heading: string | null
           updated_at: string | null
         }
         Insert: {
           created_at?: string | null
+          cta_primary_link?: string | null
+          cta_primary_text?: string | null
+          cta_secondary_link?: string | null
+          cta_secondary_text?: string | null
           hero_image?: string | null
           id?: string
+          main_heading?: string | null
+          role_content?: Json | null
+          sub_heading?: string | null
           updated_at?: string | null
         }
         Update: {
           created_at?: string | null
+          cta_primary_link?: string | null
+          cta_primary_text?: string | null
+          cta_secondary_link?: string | null
+          cta_secondary_text?: string | null
           hero_image?: string | null
           id?: string
+          main_heading?: string | null
+          role_content?: Json | null
+          sub_heading?: string | null
           updated_at?: string | null
         }
         Relationships: []
