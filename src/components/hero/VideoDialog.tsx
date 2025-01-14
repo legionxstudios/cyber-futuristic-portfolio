@@ -30,7 +30,7 @@ export const VideoDialog = () => {
     return (match && match[2].length === 11) ? match[2] : "";
   };
 
-  const videoId = settings?.cta_primary_link ? getYouTubeId(settings.cta_primary_link) : "dQw4w9WgXcQ";
+  const videoId = settings?.cta_primary_link ? getYouTubeId(settings.cta_primary_link) : "";
 
   return (
     <Dialog>
@@ -43,13 +43,14 @@ export const VideoDialog = () => {
       </DialogTrigger>
       <DialogContent className="max-w-3xl bg-cyberdark p-0 border-cyberpink/20">
         <div className="aspect-video">
-          <LiteYouTubeEmbed 
-            id={videoId}
-            title="#HireMeHuman Movie"
-            poster="maxresdefault"
-            noCookie={true}
-            params="autoplay=1"
-          />
+          {videoId && (
+            <LiteYouTubeEmbed 
+              id={videoId}
+              title="#HireMeHuman Movie"
+              noCookie={true}
+              params="autoplay=1&controls=1"
+            />
+          )}
         </div>
       </DialogContent>
     </Dialog>
