@@ -10,6 +10,18 @@ import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
 
+type HomepageSettings = {
+  id: string;
+  hero_image?: string;
+  main_heading?: string;
+  sub_heading?: string;
+  cta_primary_text?: string;
+  cta_primary_link?: string;
+  cta_secondary_text?: string;
+  cta_secondary_link?: string;
+  role_content?: Record<string, string>;
+}
+
 export const HomepageSettings = () => {
   const [isUpdating, setIsUpdating] = useState(false);
   const { toast } = useToast();
@@ -23,7 +35,7 @@ export const HomepageSettings = () => {
         .single();
 
       if (error) throw error;
-      return data;
+      return data as HomepageSettings;
     },
   });
 
@@ -54,7 +66,7 @@ export const HomepageSettings = () => {
     }
   };
 
-  const handleSettingUpdate = async (updates: Partial<typeof settings>) => {
+  const handleSettingUpdate = async (updates: Partial<HomepageSettings>) => {
     try {
       setIsUpdating(true);
       const { error } = await supabase
