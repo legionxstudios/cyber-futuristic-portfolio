@@ -17,7 +17,6 @@ export const Hero = () => {
   const [selectedTitle, setSelectedTitle] = useState("SEO");
   const [imageLoaded, setImageLoaded] = useState(false);
   const titles = ["SEO", "Web", "Content", "Growth", "CRO", "AI"];
-  const texts = ["#HireMeHuman", "Tudor Stanescu"];
 
   const { data: settings } = useQuery({
     queryKey: ["homepageSettings"],
@@ -31,15 +30,6 @@ export const Hero = () => {
       return data;
     },
   });
-
-  const roleContent: RoleContent = {
-    "SEO": "Increased organic traffic by up to 300% and improved conversion rates by 40% through advanced SEO strategies.",
-    "Web": "Enhanced website performance with 25% higher organic sessions and 30% boost in lead conversions.",
-    "Content": "Led content strategies generating 50% YoY organic growth with scalable, data-driven production systems.",
-    "Growth": "Scaled businesses with 2x traffic growth and 75% reduced CAC through a unique ad video framework.",
-    "CRO": "Improved conversion rates by 39% with A/B testing and holistic experimentation frameworks.",
-    "AI": "Developed AI-powered SEO tools driving 18% higher conversions and scaling content production by 50%."
-  };
 
   useEffect(() => {
     const hash = window.location.hash.slice(1);
@@ -66,6 +56,11 @@ export const Hero = () => {
       img.onload = () => setImageLoaded(true);
     }
   }, [heroImageUrl]);
+
+  const texts = [
+    settings?.main_heading || "#HireMeHuman",
+    settings?.sub_heading || "Tudor Stanescu"
+  ];
 
   return (
     <section 
@@ -104,17 +99,17 @@ export const Hero = () => {
         </div>
         
         <p className="mt-4 text-xl sm:text-xl text-gray-300 max-w-[98%] sm:max-w-2xl mx-auto bg-black/30 p-4 rounded-lg transform-gpu will-change-transform">
-          {roleContent[selectedTitle]}
+          {settings?.role_content?.[selectedTitle] || "Loading..."}
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-8">
           <VideoDialog />
 
           <a 
-            href="#contact"
+            href={settings?.cta_secondary_link || "#contact"}
             className="px-8 py-3 rounded-lg bg-glass backdrop-blur-sm border border-white/10 text-white font-medium hover:bg-white/10 transition-colors hover:shadow-lg hover:shadow-white/20 inline-block transform-gpu"
           >
-            Contact Me
+            {settings?.cta_secondary_text || "Contact Me"}
           </a>
         </div>
 
