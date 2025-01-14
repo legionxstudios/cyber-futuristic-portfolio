@@ -37,9 +37,15 @@ export const HomepageSettings = () => {
 
       if (error) throw error;
       
+      // Convert the JSON role_content to Record<string, string>
+      const formattedData = {
+        ...data,
+        role_content: data.role_content as Record<string, string>
+      };
+      
       // Initialize form data with fetched settings
-      setFormData(data);
-      return data as HomepageSettings;
+      setFormData(formattedData);
+      return formattedData as HomepageSettings;
     },
   });
 
