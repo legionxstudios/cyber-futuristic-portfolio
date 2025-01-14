@@ -21,6 +21,21 @@ export const VideoDialog = () => {
     },
   });
 
+  // Convert YouTube URL to embed format
+  const getEmbedUrl = (url: string | null | undefined) => {
+    if (!url) return '';
+    
+    // Handle different YouTube URL formats
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    
+    if (match && match[2].length === 11) {
+      return `https://www.youtube.com/embed/${match[2]}`;
+    }
+    
+    return url; // Return original URL if not a YouTube URL
+  };
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -33,7 +48,7 @@ export const VideoDialog = () => {
       <DialogContent className="max-w-4xl bg-cyberdark p-0 border-cyberpink/20">
         <div className="aspect-video w-full">
           <iframe
-            src={settings?.cta_primary_link}
+            src={getEmbedUrl(settings?.cta_primary_link)}
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen
             className="w-full h-full"
