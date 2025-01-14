@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2 } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
 
 type HomepageSettings = {
   id: string;
@@ -24,6 +24,7 @@ type HomepageSettings = {
 
 export const HomepageSettings = () => {
   const [isUpdating, setIsUpdating] = useState(false);
+  const [formData, setFormData] = useState<Partial<HomepageSettings>>({});
   const { toast } = useToast();
 
   const { data: settings, refetch } = useQuery({
@@ -35,6 +36,9 @@ export const HomepageSettings = () => {
         .single();
 
       if (error) throw error;
+      
+      // Initialize form data with fetched settings
+      setFormData(data);
       return data as HomepageSettings;
     },
   });
@@ -66,12 +70,32 @@ export const HomepageSettings = () => {
     }
   };
 
-  const handleSettingUpdate = async (updates: Partial<HomepageSettings>) => {
+  const handleInputChange = (
+    key: keyof HomepageSettings,
+    value: string
+  ) => {
+    setFormData(prev => ({
+      ...prev,
+      [key]: value
+    }));
+  };
+
+  const handleRoleContentChange = (role: string, content: string) => {
+    setFormData(prev => ({
+      ...prev,
+      role_content: {
+        ...(prev.role_content || {}),
+        [role]: content
+      }
+    }));
+  };
+
+  const handleSubmit = async () => {
     try {
       setIsUpdating(true);
       const { error } = await supabase
         .from("homepage_settings")
-        .update(updates)
+        .update(formData)
         .eq("id", settings?.id);
 
       if (error) throw error;
@@ -93,17 +117,6 @@ export const HomepageSettings = () => {
     }
   };
 
-  const handleRoleContentUpdate = async (role: string, content: string) => {
-    if (!settings?.role_content) return;
-    
-    const updatedContent = {
-      ...settings.role_content,
-      [role]: content,
-    };
-
-    await handleSettingUpdate({ role_content: updatedContent });
-  };
-
   if (!settings) {
     return (
       <div className="flex items-center justify-center p-8">
@@ -114,8 +127,20 @@ export const HomepageSettings = () => {
 
   return (
     <Card className="bg-cyberdark border-cyberblue">
-      <CardHeader>
+      <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="text-white">Homepage Settings</CardTitle>
+        <Button 
+          onClick={handleSubmit} 
+          disabled={isUpdating}
+          className="bg-cyberpink hover:bg-cyberpink/80"
+        >
+          {isUpdating ? (
+            <Loader2 className="h-4 w-4 animate-spin mr-2" />
+          ) : (
+            <Save className="h-4 w-4 mr-2" />
+          )}
+          Save Changes
+        </Button>
       </CardHeader>
       <CardContent className="space-y-8">
         {/* Hero Image Section */}
@@ -142,8 +167,8 @@ export const HomepageSettings = () => {
               <Label htmlFor="main_heading">Main Heading</Label>
               <Input
                 id="main_heading"
-                value={settings.main_heading || ''}
-                onChange={(e) => handleSettingUpdate({ main_heading: e.target.value })}
+                value={formData.main_heading || ''}
+                onChange={(e) => handleInputChange('main_heading', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
             </div>
@@ -151,8 +176,8 @@ export const HomepageSettings = () => {
               <Label htmlFor="sub_heading">Sub Heading</Label>
               <Input
                 id="sub_heading"
-                value={settings.sub_heading || ''}
-                onChange={(e) => handleSettingUpdate({ sub_heading: e.target.value })}
+                value={formData.sub_heading || ''}
+                onChange={(e) => handleInputChange('sub_heading', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
             </div>
@@ -167,8 +192,8 @@ export const HomepageSettings = () => {
               <Label htmlFor="cta_primary_text">Primary CTA Text</Label>
               <Input
                 id="cta_primary_text"
-                value={settings.cta_primary_text || ''}
-                onChange={(e) => handleSettingUpdate({ cta_primary_text: e.target.value })}
+                value={formData.cta_primary_text || ''}
+                onChange={(e) => handleInputChange('cta_primary_text', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
             </div>
@@ -176,8 +201,8 @@ export const HomepageSettings = () => {
               <Label htmlFor="cta_primary_link">Primary CTA Link</Label>
               <Input
                 id="cta_primary_link"
-                value={settings.cta_primary_link || ''}
-                onChange={(e) => handleSettingUpdate({ cta_primary_link: e.target.value })}
+                value={formData.cta_primary_link || ''}
+                onChange={(e) => handleInputChange('cta_primary_link', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
             </div>
@@ -185,8 +210,8 @@ export const HomepageSettings = () => {
               <Label htmlFor="cta_secondary_text">Secondary CTA Text</Label>
               <Input
                 id="cta_secondary_text"
-                value={settings.cta_secondary_text || ''}
-                onChange={(e) => handleSettingUpdate({ cta_secondary_text: e.target.value })}
+                value={formData.cta_secondary_text || ''}
+                onChange={(e) => handleInputChange('cta_secondary_text', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
             </div>
@@ -194,8 +219,8 @@ export const HomepageSettings = () => {
               <Label htmlFor="cta_secondary_link">Secondary CTA Link</Label>
               <Input
                 id="cta_secondary_link"
-                value={settings.cta_secondary_link || ''}
-                onChange={(e) => handleSettingUpdate({ cta_secondary_link: e.target.value })}
+                value={formData.cta_secondary_link || ''}
+                onChange={(e) => handleInputChange('cta_secondary_link', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
             </div>
@@ -211,8 +236,8 @@ export const HomepageSettings = () => {
                 <Label htmlFor={`role_${role}`}>{role} Role Description</Label>
                 <Textarea
                   id={`role_${role}`}
-                  value={content}
-                  onChange={(e) => handleRoleContentUpdate(role, e.target.value)}
+                  value={formData.role_content?.[role] || content}
+                  onChange={(e) => handleRoleContentChange(role, e.target.value)}
                   className="bg-cyberdark border-cyberblue/20 min-h-[100px]"
                 />
               </div>
