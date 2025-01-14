@@ -1,5 +1,4 @@
 import { Play } from "lucide-react";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import {
@@ -22,16 +21,6 @@ export const VideoDialog = () => {
     },
   });
 
-  // Extract video ID from YouTube URL
-  const getYouTubeId = (url: string) => {
-    if (!url) return "";
-    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
-    const match = url.match(regExp);
-    return (match && match[2].length === 11) ? match[2] : "";
-  };
-
-  const videoId = settings?.cta_primary_link ? getYouTubeId(settings.cta_primary_link) : "";
-
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -41,16 +30,14 @@ export const VideoDialog = () => {
           <span className="relative z-10">{settings?.cta_primary_text || "Watch the #HireMeHuman movie"}</span>
         </button>
       </DialogTrigger>
-      <DialogContent className="max-w-3xl bg-cyberdark p-0 border-cyberpink/20">
-        <div className="aspect-video">
-          {videoId && (
-            <LiteYouTubeEmbed 
-              id={videoId}
-              title="#HireMeHuman Movie"
-              noCookie={true}
-              params="autoplay=1&controls=1"
-            />
-          )}
+      <DialogContent className="max-w-4xl bg-cyberdark p-0 border-cyberpink/20">
+        <div className="aspect-video w-full">
+          <iframe
+            src={settings?.cta_primary_link}
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen
+            className="w-full h-full"
+          />
         </div>
       </DialogContent>
     </Dialog>
