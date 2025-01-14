@@ -22,6 +22,16 @@ export const VideoDialog = () => {
     },
   });
 
+  // Extract video ID from YouTube URL
+  const getYouTubeId = (url: string) => {
+    if (!url) return "";
+    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|&v=)([^#&?]*).*/;
+    const match = url.match(regExp);
+    return (match && match[2].length === 11) ? match[2] : "";
+  };
+
+  const videoId = settings?.cta_primary_link ? getYouTubeId(settings.cta_primary_link) : "dQw4w9WgXcQ";
+
   return (
     <Dialog>
       <DialogTrigger asChild>
@@ -34,9 +44,11 @@ export const VideoDialog = () => {
       <DialogContent className="max-w-3xl bg-cyberdark p-0 border-cyberpink/20">
         <div className="aspect-video">
           <LiteYouTubeEmbed 
-            id="dQw4w9WgXcQ"
+            id={videoId}
             title="#HireMeHuman Movie"
             poster="maxresdefault"
+            noCookie={true}
+            params="autoplay=1"
           />
         </div>
       </DialogContent>
