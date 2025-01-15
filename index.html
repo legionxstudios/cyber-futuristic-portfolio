@@ -5,15 +5,21 @@
     <link rel="dns-prefetch" href="https://mllbiuikcwhaxwzqgpap.supabase.co">
     <link rel="preconnect" href="https://mllbiuikcwhaxwzqgpap.supabase.co" crossorigin>
     
+    <!-- Set referrer policy -->
+    <meta name="referrer" content="strict-origin-when-cross-origin">
+    
     <!-- Google Tag Manager with enhanced settings -->
     <script>
     (function(w,d,s,l,i){
       w[l]=w[l]||[];
-      // Add dataLayer initialization for better referral tracking
+      // Add enhanced dataLayer initialization for better referral tracking
       w[l].push({
         'gtm.start': new Date().getTime(),
         event: 'gtm.js',
-        'gtm.referrer': document.referrer
+        'gtm.referrer': document.referrer,
+        'page_referrer': document.referrer,
+        'page_location': window.location.href,
+        'page_path': window.location.pathname
       });
       var f=d.getElementsByTagName(s)[0],
       j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';
