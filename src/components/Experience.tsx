@@ -2,9 +2,10 @@ import { motion } from "framer-motion";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
 import ExperienceTimelineItem from "./experience/ExperienceTimelineItem";
+import { Skeleton } from "@/components/ui/skeleton";
 
 const Experience = () => {
-  const { data: experiences, isLoading } = useQuery({
+  const { data: experiences, isLoading, error } = useQuery({
     queryKey: ['work-experience'],
     queryFn: async () => {
       console.log('Fetching work experience...');
@@ -23,8 +24,13 @@ const Experience = () => {
     },
   });
 
-  if (isLoading) {
-    return <div>Loading...</div>;
+  if (error) {
+    console.error('Error in Experience component:', error);
+    return (
+      <div className="py-20 text-center text-red-500">
+        Failed to load experience data. Please try again later.
+      </div>
+    );
   }
 
   return (
@@ -48,20 +54,42 @@ const Experience = () => {
           <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-px bg-gradient-to-b from-cyberpink via-cybercyan to-cyberamber hidden md:block" />
 
           <div className="space-y-12">
-            {experiences?.map((exp, index) => (
-              <ExperienceTimelineItem 
-                key={exp.id} 
-                experience={{
-                  date: exp.date_range,
-                  company: exp.company,
-                  website: exp.website || '',
-                  location: exp.location,
-                  role: exp.role,
-                  description: exp.description
-                }}
-                index={index} 
-              />
-            ))}
+            {isLoading ? (
+              // Loading skeletons
+              Array(3).fill(null).map((_, index) => (
+                <div key={index} className="relative grid grid-cols-1 md:grid-cols-2 gap-8">
+                  <div className={`glass-card p-6 w-full ${
+                    index % 2 === 0 
+                      ? 'md:col-start-1 md:mr-auto' 
+                      : 'md:col-start-2 md:ml-auto'
+                  }`}>
+                    <Skeleton className="h-6 w-3/4 mb-4" />
+                    <Skeleton className="h-4 w-1/2 mb-2" />
+                    <Skeleton className="h-4 w-1/3 mb-4" />
+                    <div className="space-y-2">
+                      <Skeleton className="h-3 w-full" />
+                      <Skeleton className="h-3 w-5/6" />
+                      <Skeleton className="h-3 w-4/6" />
+                    </div>
+                  </div>
+                </div>
+              ))
+            ) : (
+              experiences?.map((exp, index) => (
+                <ExperienceTimelineItem 
+                  key={exp.id} 
+                  experience={{
+                    date: exp.date_range,
+                    company: exp.company,
+                    website: exp.website || '',
+                    location: exp.location,
+                    role: exp.role,
+                    description: exp.description
+                  }}
+                  index={index} 
+                />
+              ))
+            )}
           </div>
         </div>
       </div>
