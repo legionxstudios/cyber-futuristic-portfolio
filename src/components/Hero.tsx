@@ -65,7 +65,7 @@ export const Hero = () => {
   return (
     <section 
       id="hero"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark pt-20 md:pt-0"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-cyberdark"
     >
       <ScrollIndicator />
       <div 
@@ -79,7 +79,7 @@ export const Hero = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
-      <div className="relative z-10 text-center px-1 sm:px-4 w-full max-w-7xl mx-auto">
+      <div className="relative z-10 text-center px-1 sm:px-4 w-full max-w-7xl mx-auto pt-24 md:pt-0">
         <div className="transform-gpu">
           <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink">
             Available for hire
