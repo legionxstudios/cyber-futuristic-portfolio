@@ -43,12 +43,10 @@ export const Hero = () => {
     window.location.hash = role;
   };
 
-  // Convert image URL to WebP if it's a PNG
   const heroImageUrl = settings?.hero_image 
     ? settings.hero_image.replace(/\.png$/, '.webp')
     : '/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.webp';
 
-  // Preload the image
   useEffect(() => {
     if (heroImageUrl) {
       const img = new Image();
@@ -79,7 +77,7 @@ export const Hero = () => {
       />
       <div className="absolute inset-0 bg-gradient-to-t from-cyberdark via-transparent to-transparent" />
       
-      <div className="relative z-10 text-center px-1 sm:px-4 w-full max-w-7xl mx-auto pt-24 md:pt-0">
+      <div className="relative z-10 text-center px-1 sm:px-4 w-full max-w-7xl mx-auto pt-32 md:pt-40">
         <div className="transform-gpu">
           <span className="inline-block px-3 py-1.5 rounded-full text-sm font-medium bg-glass backdrop-blur-sm border border-cyberpink/20 text-cyberpink">
             Available for hire
