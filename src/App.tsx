@@ -18,6 +18,7 @@ import AdminDashboard from "./pages/AdminDashboard";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import Terms from "./pages/Terms";
 import MetaImage from "./pages/MetaImage";
+import NotFound from "./pages/NotFound";
 import Sitemap from "@/components/Sitemap";
 
 const queryClient = new QueryClient();
@@ -93,6 +94,7 @@ const App = () => (
                 </AuthGuard>
               }
             />
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </TooltipProvider>
       </QueryClientProvider>
