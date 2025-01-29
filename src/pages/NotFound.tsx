@@ -4,9 +4,12 @@ import { supabase } from "@/integrations/supabase/client";
 import { TypeWriter } from "@/components/hero/TypeWriter";
 
 const NotFound = () => {
-  const { data: settings } = useQuery({
+  console.log("NotFound component rendering"); // Debug log
+
+  const { data: settings, isLoading, error } = useQuery({
     queryKey: ["homepageSettings"],
     queryFn: async () => {
+      console.log("Fetching homepage settings"); // Debug log
       const { data, error } = await supabase
         .from("homepage_settings")
         .select("*")
@@ -22,12 +25,24 @@ const NotFound = () => {
     },
   });
 
+  if (isLoading) {
+    console.log("Loading state"); // Debug log
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.log("Error state:", error); // Debug log
+    return <div>Error loading page</div>;
+  }
+
   const heroImageUrl = settings?.hero_image 
     ? settings.hero_image.replace(/\.png$/, '.webp')
     : '/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.webp';
 
+  console.log("Using hero image:", heroImageUrl); // Debug log
+
   return (
-    <main className="min-h-screen flex flex-col items-center justify-center relative bg-cyberdark">
+    <main className="min-h-screen flex flex-col items-center justify-center relative bg-cyberdark text-white">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-30"
