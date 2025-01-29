@@ -12,7 +12,12 @@ const NotFound = () => {
         .select("*")
         .single();
 
-      if (error) throw error;
+      if (error) {
+        console.error("Error fetching homepage settings:", error);
+        throw error;
+      }
+      
+      console.log("Fetched homepage settings:", data);
       return data;
     },
   });
