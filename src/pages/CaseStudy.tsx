@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Navigate } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { Helmet } from 'react-helmet-async';
 import { supabase } from "@/integrations/supabase/client";
@@ -18,15 +18,20 @@ type CaseStudy = Tables<"case_studies">;
 const CaseStudy = () => {
   const { slug } = useParams();
   
-  const { data: caseStudy, isLoading } = useQuery({
+  const { data: caseStudy, isLoading, error } = useQuery({
     queryKey: ['case-study', slug],
     queryFn: async () => {
       console.log('Fetching case study for slug:', slug);
+      if (!slug) {
+        console.error('No slug provided');
+        return null;
+      }
+
       const { data, error } = await supabase
         .from('case_studies')
         .select('*')
         .eq('slug', slug)
-        .single();
+        .maybeSingle();
       
       if (error) {
         console.error('Error fetching case study:', error);
@@ -36,11 +41,17 @@ const CaseStudy = () => {
       console.log('Fetched case study:', data);
       return data;
     },
+    enabled: !!slug, // Only run query if slug exists
   });
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // If no slug is provided, redirect to case studies page
+  if (!slug) {
+    return <Navigate to="/case-studies" replace />;
+  }
 
   if (isLoading) {
     return <div className="min-h-screen bg-cyberdark text-white flex items-center justify-center">
@@ -48,10 +59,8 @@ const CaseStudy = () => {
     </div>;
   }
 
-  if (!caseStudy) {
-    return <div className="min-h-screen bg-cyberdark text-white flex items-center justify-center">
-      Case study not found
-    </div>;
+  if (error || !caseStudy) {
+    return <Navigate to="/404" replace />;
   }
 
   const metaDescription = `${caseStudy.subtitle || ''} Learn how we achieved ${caseStudy.traffic_final?.toLocaleString()} monthly visits and ${caseStudy.lead_generation} leads for ${caseStudy.client}.`;
