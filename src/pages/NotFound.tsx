@@ -27,7 +27,7 @@ const NotFound = () => {
     : '/lovable-uploads/7258cc15-bf02-4def-8f58-16354b60a865.webp';
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center relative">
+    <main className="min-h-screen flex flex-col items-center justify-center relative bg-cyberdark">
       {/* Background Image */}
       <div 
         className="absolute inset-0 bg-cover bg-center opacity-30"
@@ -48,7 +48,7 @@ const NotFound = () => {
           Return Home
         </Link>
       </div>
-    </div>
+    </main>
   );
 };
 
