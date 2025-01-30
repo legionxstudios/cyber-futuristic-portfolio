@@ -40,7 +40,7 @@ const RouteTracker = () => {
       page_referrer: document.referrer
     });
     
-    console.log('Route changed, pushed to dataLayer:', {
+    console.log('Route changed:', {
       event: 'session_start',
       page_path: location.pathname + location.search,
       page_title: document.title
@@ -64,6 +64,9 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/meta-image" element={<MetaImage />} />
             <Route path="/sitemap.xml" element={<Sitemap />} />
+            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
+            <Route path="/terms" element={<Terms />} />
+            <Route path="/case-studies" element={<CaseStudies />} />
             <Route
               path="/"
               element={
@@ -74,9 +77,14 @@ const App = () => (
                 </>
               }
             />
-            <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-            <Route path="/terms" element={<Terms />} />
-            <Route path="/case-studies" element={<CaseStudies />} />
+            <Route
+              path="/admin"
+              element={
+                <AuthGuard requireAdmin>
+                  <AdminDashboard />
+                </AuthGuard>
+              }
+            />
             <Route
               path="/:slug"
               element={
@@ -84,14 +92,6 @@ const App = () => (
                   <CaseStudy />
                   <Footer />
                 </>
-              }
-            />
-            <Route
-              path="/admin"
-              element={
-                <AuthGuard requireAdmin>
-                  <AdminDashboard />
-                </AuthGuard>
               }
             />
             <Route path="*" element={<NotFound />} />
