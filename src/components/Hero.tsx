@@ -101,7 +101,18 @@ export const Hero = () => {
         </p>
 
         <div className="mt-8 flex flex-col sm:flex-row justify-center items-center gap-8">
-          <VideoDialog />
+          {settings?.cta_primary_link ? (
+            <a 
+              href={settings.cta_primary_link}
+              target={settings.cta_primary_new_tab ? "_blank" : undefined}
+              rel={settings.cta_primary_new_tab ? "noopener noreferrer" : undefined}
+              className="px-8 py-3 rounded-lg bg-cyberpink text-white font-medium hover:bg-cyberpink/80 transition-colors hover:shadow-lg hover:shadow-cyberpink/20 inline-block transform-gpu"
+            >
+              {settings.cta_primary_text || "Watch Video"}
+            </a>
+          ) : (
+            <VideoDialog />
+          )}
 
           <a 
             href={settings?.cta_secondary_link || "#contact"}
