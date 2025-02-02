@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Loader2, Save } from "lucide-react";
+import { Loader2, Save, Upload, FileText } from "lucide-react";
 
 type HomepageSettings = {
   id: string;
@@ -17,12 +17,14 @@ type HomepageSettings = {
   sub_heading?: string;
   cta_primary_text?: string;
   cta_primary_link?: string;
+  cta_primary_file?: string;
   cta_secondary_text?: string;
   cta_secondary_link?: string;
   role_content?: Record<string, string>;
 }
 
 export const HomepageSettings = () => {
+  const [isUploading, setIsUploading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [formData, setFormData] = useState<Partial<HomepageSettings>>({});
   const { toast } = useToast();
@@ -37,13 +39,11 @@ export const HomepageSettings = () => {
 
       if (error) throw error;
       
-      // Convert the JSON role_content to Record<string, string>
       const formattedData = {
         ...data,
         role_content: data.role_content as Record<string, string>
       };
       
-      // Initialize form data with fetched settings
       setFormData(formattedData);
       return formattedData as HomepageSettings;
     },
@@ -73,6 +73,67 @@ export const HomepageSettings = () => {
       });
     } finally {
       setIsUpdating(false);
+    }
+  };
+
+  const handlePdfUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
+    try {
+      setIsUploading(true);
+      const file = event.target.files?.[0];
+      if (!file) return;
+
+      // Validate file type
+      if (file.type !== 'application/pdf') {
+        toast({
+          title: "Error",
+          description: "Please upload a PDF file",
+          variant: "destructive",
+        });
+        return;
+      }
+
+      // Create a unique file name
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
+      const filePath = `pdfs/${fileName}`;
+
+      // Upload file to Supabase storage
+      const { error: uploadError, data } = await supabase.storage
+        .from('homepage-files')
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      // Get the public URL
+      const { data: { publicUrl } } = supabase.storage
+        .from('homepage-files')
+        .getPublicUrl(filePath);
+
+      // Update the homepage settings with the new file URL
+      const { error: updateError } = await supabase
+        .from("homepage_settings")
+        .update({ 
+          cta_primary_file: publicUrl,
+          cta_primary_link: publicUrl 
+        })
+        .eq("id", settings?.id);
+
+      if (updateError) throw updateError;
+
+      await refetch();
+      toast({
+        title: "Success!",
+        description: "PDF uploaded and linked successfully.",
+      });
+    } catch (error: any) {
+      console.error("Error uploading PDF:", error);
+      toast({
+        title: "Error",
+        description: error.message,
+        variant: "destructive",
+      });
+    } finally {
+      setIsUploading(false);
     }
   };
 
@@ -165,6 +226,50 @@ export const HomepageSettings = () => {
           )}
         </div>
 
+        {/* PDF Upload Section */}
+        <div className="space-y-4">
+          <h3 className="text-lg font-semibold text-white">Primary CTA PDF</h3>
+          <div className="space-y-2">
+            <Label htmlFor="pdf-upload">Upload PDF File</Label>
+            <div className="flex items-center gap-4">
+              <Button
+                type="button"
+                variant="outline"
+                className="bg-cyberdark border-cyberblue"
+                disabled={isUploading}
+              >
+                <label className="cursor-pointer flex items-center">
+                  {isUploading ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Upload className="mr-2 h-4 w-4" />
+                  )}
+                  Upload PDF
+                  <input
+                    id="pdf-upload"
+                    type="file"
+                    className="hidden"
+                    accept="application/pdf"
+                    onChange={handlePdfUpload}
+                    disabled={isUploading}
+                  />
+                </label>
+              </Button>
+              {settings.cta_primary_file && (
+                <a 
+                  href={settings.cta_primary_file}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-2 text-cyberpink hover:text-cyberpink/80"
+                >
+                  <FileText className="h-4 w-4" />
+                  View Current PDF
+                </a>
+              )}
+            </div>
+          </div>
+        </div>
+
         {/* Main Headings Section */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-white">Main Headings</h3>
@@ -200,15 +305,6 @@ export const HomepageSettings = () => {
                 id="cta_primary_text"
                 value={formData.cta_primary_text || ''}
                 onChange={(e) => handleInputChange('cta_primary_text', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cta_primary_link">Primary CTA Link</Label>
-              <Input
-                id="cta_primary_link"
-                value={formData.cta_primary_link || ''}
-                onChange={(e) => handleInputChange('cta_primary_link', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
             </div>

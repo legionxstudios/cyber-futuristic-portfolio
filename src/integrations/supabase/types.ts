@@ -152,6 +152,7 @@ export type Database = {
       homepage_settings: {
         Row: {
           created_at: string | null
+          cta_primary_file: string | null
           cta_primary_link: string | null
           cta_primary_text: string | null
           cta_secondary_link: string | null
@@ -165,6 +166,7 @@ export type Database = {
         }
         Insert: {
           created_at?: string | null
+          cta_primary_file?: string | null
           cta_primary_link?: string | null
           cta_primary_text?: string | null
           cta_secondary_link?: string | null
@@ -178,6 +180,7 @@ export type Database = {
         }
         Update: {
           created_at?: string | null
+          cta_primary_file?: string | null
           cta_primary_link?: string | null
           cta_primary_text?: string | null
           cta_secondary_link?: string | null
