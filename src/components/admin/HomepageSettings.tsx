@@ -1,15 +1,14 @@
 import { useState } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { supabase } from "@/integrations/supabase/client";
-import { ImageUpload } from "./ImageUpload";
 import { useToast } from "@/components/ui/use-toast";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Loader2, Save, Upload, FileText } from "lucide-react";
+import { Loader2, Save } from "lucide-react";
+import { HeroSection } from "./homepage/HeroSection";
+import { PrimaryCtaSection } from "./homepage/PrimaryCtaSection";
+import { SecondaryCtaSection } from "./homepage/SecondaryCtaSection";
+import { RoleContentSection } from "./homepage/RoleContentSection";
 
 type HomepageSettings = {
   id: string;
@@ -26,7 +25,6 @@ type HomepageSettings = {
 }
 
 export const HomepageSettings = () => {
-  const [isUploading, setIsUploading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
   const [formData, setFormData] = useState<Partial<HomepageSettings>>({});
   const { toast } = useToast();
@@ -75,70 +73,6 @@ export const HomepageSettings = () => {
       });
     } finally {
       setIsUpdating(false);
-    }
-  };
-
-  const handlePdfUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
-    try {
-      setIsUploading(true);
-      const file = event.target.files?.[0];
-      if (!file) return;
-
-      if (file.type !== 'application/pdf') {
-        toast({
-          title: "Error",
-          description: "Please upload a PDF file",
-          variant: "destructive",
-        });
-        return;
-      }
-
-      const fileExt = file.name.split('.').pop();
-      const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
-      const filePath = `pdfs/${fileName}`;
-
-      const { error: uploadError, data } = await supabase.storage
-        .from('homepage-files')
-        .upload(filePath, file);
-
-      if (uploadError) throw uploadError;
-
-      const { data: { publicUrl } } = supabase.storage
-        .from('homepage-files')
-        .getPublicUrl(filePath);
-
-      const { error: updateError } = await supabase
-        .from("homepage_settings")
-        .update({ 
-          cta_primary_file: publicUrl,
-          cta_primary_link: publicUrl 
-        })
-        .eq("id", settings?.id);
-
-      if (updateError) throw updateError;
-
-      await refetch();
-      toast({
-        title: "Success!",
-        description: "PDF uploaded and linked successfully.",
-      });
-
-      // Update form data
-      setFormData(prev => ({
-        ...prev,
-        cta_primary_file: publicUrl,
-        cta_primary_link: publicUrl
-      }));
-
-    } catch (error: any) {
-      console.error("Error uploading PDF:", error);
-      toast({
-        title: "Error",
-        description: error.message,
-        variant: "destructive",
-      });
-    } finally {
-      setIsUploading(false);
     }
   };
 
@@ -216,173 +150,34 @@ export const HomepageSettings = () => {
         </Button>
       </CardHeader>
       <CardContent className="space-y-8">
-        {/* Hero Image Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Hero Image</h3>
-          <ImageUpload
-            label="Hero Background Image"
-            onImageUploaded={handleImageUpload}
-          />
-          {settings.hero_image && (
-            <img
-              src={settings.hero_image}
-              alt="Hero background preview"
-              className="mt-4 max-w-md rounded border border-cyberblue/20"
-            />
-          )}
-        </div>
+        <HeroSection
+          heroImage={formData.hero_image}
+          mainHeading={formData.main_heading}
+          subHeading={formData.sub_heading}
+          onImageUploaded={handleImageUpload}
+          onInputChange={handleInputChange}
+        />
 
-        {/* PDF Upload Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Primary CTA PDF</h3>
-          <div className="space-y-4">
-            <div className="space-y-2">
-              <Label htmlFor="pdf-upload">Upload PDF File</Label>
-              <div className="flex items-center gap-4">
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="bg-cyberdark border-cyberblue"
-                  disabled={isUploading}
-                >
-                  <label className="cursor-pointer flex items-center">
-                    {isUploading ? (
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    ) : (
-                      <Upload className="mr-2 h-4 w-4" />
-                    )}
-                    Upload PDF
-                    <input
-                      id="pdf-upload"
-                      type="file"
-                      className="hidden"
-                      accept="application/pdf"
-                      onChange={handlePdfUpload}
-                      disabled={isUploading}
-                    />
-                  </label>
-                </Button>
-                {formData.cta_primary_file && (
-                  <a 
-                    href={formData.cta_primary_file}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="flex items-center gap-2 text-cyberpink hover:text-cyberpink/80"
-                  >
-                    <FileText className="h-4 w-4" />
-                    View Current PDF
-                  </a>
-                )}
-              </div>
-            </div>
+        <PrimaryCtaSection
+          ctaPrimaryText={formData.cta_primary_text}
+          ctaPrimaryLink={formData.cta_primary_link}
+          ctaPrimaryFile={formData.cta_primary_file}
+          ctaPrimaryNewTab={formData.cta_primary_new_tab}
+          settingsId={settings.id}
+          onInputChange={handleInputChange}
+          refetch={refetch}
+        />
 
-            <div className="space-y-2">
-              <Label htmlFor="cta_primary_link">Primary CTA Link</Label>
-              <Input
-                id="cta_primary_link"
-                value={formData.cta_primary_link || ''}
-                onChange={(e) => handleInputChange('cta_primary_link', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-                placeholder="Enter URL or upload a PDF"
-              />
-            </div>
+        <SecondaryCtaSection
+          ctaSecondaryText={formData.cta_secondary_text}
+          ctaSecondaryLink={formData.cta_secondary_link}
+          onInputChange={handleInputChange}
+        />
 
-            <div className="space-y-2">
-              <Label htmlFor="cta_primary_text">Primary CTA Text</Label>
-              <Input
-                id="cta_primary_text"
-                value={formData.cta_primary_text || ''}
-                onChange={(e) => handleInputChange('cta_primary_text', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-              />
-            </div>
-
-            <div className="flex items-center space-x-2">
-              <Checkbox
-                id="cta_primary_new_tab"
-                checked={formData.cta_primary_new_tab}
-                onCheckedChange={(checked) => 
-                  handleInputChange('cta_primary_new_tab', checked as boolean)
-                }
-                className="data-[state=checked]:bg-cyberpink data-[state=checked]:border-cyberpink"
-              />
-              <Label 
-                htmlFor="cta_primary_new_tab"
-                className="text-sm text-gray-300"
-              >
-                Open link in new tab
-              </Label>
-            </div>
-          </div>
-        </div>
-
-        {/* Main Headings Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Main Headings</h3>
-          <div className="grid gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="main_heading">Main Heading</Label>
-              <Input
-                id="main_heading"
-                value={formData.main_heading || ''}
-                onChange={(e) => handleInputChange('main_heading', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="sub_heading">Sub Heading</Label>
-              <Input
-                id="sub_heading"
-                value={formData.sub_heading || ''}
-                onChange={(e) => handleInputChange('sub_heading', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* CTAs Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Call to Actions</h3>
-          <div className="grid gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="cta_secondary_text">Secondary CTA Text</Label>
-              <Input
-                id="cta_secondary_text"
-                value={formData.cta_secondary_text || ''}
-                onChange={(e) => handleInputChange('cta_secondary_text', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="cta_secondary_link">Secondary CTA Link</Label>
-              <Input
-                id="cta_secondary_link"
-                value={formData.cta_secondary_link || ''}
-                onChange={(e) => handleInputChange('cta_secondary_link', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-              />
-            </div>
-          </div>
-        </div>
-
-        {/* Role Content Section */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold text-white">Role Descriptions</h3>
-          <div className="grid gap-4">
-            {settings.role_content && Object.entries(settings.role_content).map(([role, content]) => (
-              <div key={role} className="space-y-2">
-                <Label htmlFor={`role_${role}`}>{role} Role Description</Label>
-                <Textarea
-                  id={`role_${role}`}
-                  value={formData.role_content?.[role] || content}
-                  onChange={(e) => handleRoleContentChange(role, e.target.value)}
-                  className="bg-cyberdark border-cyberblue/20 min-h-[100px]"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
+        <RoleContentSection
+          roleContent={formData.role_content}
+          onRoleContentChange={handleRoleContentChange}
+        />
       </CardContent>
     </Card>
   );
