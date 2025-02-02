@@ -8,6 +8,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
+import { Checkbox } from "@/components/ui/checkbox";
 import { Loader2, Save, Upload, FileText } from "lucide-react";
 
 type HomepageSettings = {
@@ -21,6 +22,7 @@ type HomepageSettings = {
   cta_secondary_text?: string;
   cta_secondary_link?: string;
   role_content?: Record<string, string>;
+  cta_primary_new_tab?: boolean;
 }
 
 export const HomepageSettings = () => {
@@ -82,7 +84,6 @@ export const HomepageSettings = () => {
       const file = event.target.files?.[0];
       if (!file) return;
 
-      // Validate file type
       if (file.type !== 'application/pdf') {
         toast({
           title: "Error",
@@ -92,24 +93,20 @@ export const HomepageSettings = () => {
         return;
       }
 
-      // Create a unique file name
       const fileExt = file.name.split('.').pop();
       const fileName = `${Math.random().toString(36).substring(2)}.${fileExt}`;
       const filePath = `pdfs/${fileName}`;
 
-      // Upload file to Supabase storage
       const { error: uploadError, data } = await supabase.storage
         .from('homepage-files')
         .upload(filePath, file);
 
       if (uploadError) throw uploadError;
 
-      // Get the public URL
       const { data: { publicUrl } } = supabase.storage
         .from('homepage-files')
         .getPublicUrl(filePath);
 
-      // Update the homepage settings with the new file URL
       const { error: updateError } = await supabase
         .from("homepage_settings")
         .update({ 
@@ -147,7 +144,7 @@ export const HomepageSettings = () => {
 
   const handleInputChange = (
     key: keyof HomepageSettings,
-    value: string
+    value: string | boolean
   ) => {
     setFormData(prev => ({
       ...prev,
@@ -297,6 +294,22 @@ export const HomepageSettings = () => {
                 onChange={(e) => handleInputChange('cta_primary_text', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
               />
+            </div>
+
+            <div className="flex items-center space-x-2">
+              <Checkbox
+                id="cta_primary_new_tab"
+                checked={formData.cta_primary_new_tab}
+                onCheckedChange={(checked) => 
+                  handleInputChange('cta_primary_new_tab', checked)
+                }
+              />
+              <Label 
+                htmlFor="cta_primary_new_tab"
+                className="text-sm text-gray-300"
+              >
+                Open link in new tab
+              </Label>
             </div>
           </div>
         </div>
