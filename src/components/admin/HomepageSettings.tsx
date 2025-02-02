@@ -125,6 +125,14 @@ export const HomepageSettings = () => {
         title: "Success!",
         description: "PDF uploaded and linked successfully.",
       });
+
+      // Update form data
+      setFormData(prev => ({
+        ...prev,
+        cta_primary_file: publicUrl,
+        cta_primary_link: publicUrl
+      }));
+
     } catch (error: any) {
       console.error("Error uploading PDF:", error);
       toast({
@@ -229,43 +237,66 @@ export const HomepageSettings = () => {
         {/* PDF Upload Section */}
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-white">Primary CTA PDF</h3>
-          <div className="space-y-2">
-            <Label htmlFor="pdf-upload">Upload PDF File</Label>
-            <div className="flex items-center gap-4">
-              <Button
-                type="button"
-                variant="outline"
-                className="bg-cyberdark border-cyberblue"
-                disabled={isUploading}
-              >
-                <label className="cursor-pointer flex items-center">
-                  {isUploading ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <Upload className="mr-2 h-4 w-4" />
-                  )}
-                  Upload PDF
-                  <input
-                    id="pdf-upload"
-                    type="file"
-                    className="hidden"
-                    accept="application/pdf"
-                    onChange={handlePdfUpload}
-                    disabled={isUploading}
-                  />
-                </label>
-              </Button>
-              {settings.cta_primary_file && (
-                <a 
-                  href={settings.cta_primary_file}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 text-cyberpink hover:text-cyberpink/80"
+          <div className="space-y-4">
+            <div className="space-y-2">
+              <Label htmlFor="pdf-upload">Upload PDF File</Label>
+              <div className="flex items-center gap-4">
+                <Button
+                  type="button"
+                  variant="outline"
+                  className="bg-cyberdark border-cyberblue"
+                  disabled={isUploading}
                 >
-                  <FileText className="h-4 w-4" />
-                  View Current PDF
-                </a>
-              )}
+                  <label className="cursor-pointer flex items-center">
+                    {isUploading ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Upload className="mr-2 h-4 w-4" />
+                    )}
+                    Upload PDF
+                    <input
+                      id="pdf-upload"
+                      type="file"
+                      className="hidden"
+                      accept="application/pdf"
+                      onChange={handlePdfUpload}
+                      disabled={isUploading}
+                    />
+                  </label>
+                </Button>
+                {formData.cta_primary_file && (
+                  <a 
+                    href={formData.cta_primary_file}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex items-center gap-2 text-cyberpink hover:text-cyberpink/80"
+                  >
+                    <FileText className="h-4 w-4" />
+                    View Current PDF
+                  </a>
+                )}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="cta_primary_link">Primary CTA Link (PDF URL)</Label>
+              <Input
+                id="cta_primary_link"
+                value={formData.cta_primary_link || ''}
+                onChange={(e) => handleInputChange('cta_primary_link', e.target.value)}
+                className="bg-cyberdark border-cyberblue/20"
+                placeholder="Enter PDF URL manually or upload a file"
+              />
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="cta_primary_text">Primary CTA Text</Label>
+              <Input
+                id="cta_primary_text"
+                value={formData.cta_primary_text || ''}
+                onChange={(e) => handleInputChange('cta_primary_text', e.target.value)}
+                className="bg-cyberdark border-cyberblue/20"
+              />
             </div>
           </div>
         </div>
