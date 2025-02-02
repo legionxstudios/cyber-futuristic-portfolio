@@ -154,6 +154,7 @@ export type Database = {
           created_at: string | null
           cta_primary_file: string | null
           cta_primary_link: string | null
+          cta_primary_new_tab: boolean | null
           cta_primary_text: string | null
           cta_secondary_link: string | null
           cta_secondary_text: string | null
@@ -168,6 +169,7 @@ export type Database = {
           created_at?: string | null
           cta_primary_file?: string | null
           cta_primary_link?: string | null
+          cta_primary_new_tab?: boolean | null
           cta_primary_text?: string | null
           cta_secondary_link?: string | null
           cta_secondary_text?: string | null
@@ -182,6 +184,7 @@ export type Database = {
           created_at?: string | null
           cta_primary_file?: string | null
           cta_primary_link?: string | null
+          cta_primary_new_tab?: boolean | null
           cta_primary_text?: string | null
           cta_secondary_link?: string | null
           cta_secondary_text?: string | null

@@ -165,6 +165,7 @@ export const HomepageSettings = () => {
   const handleSubmit = async () => {
     try {
       setIsUpdating(true);
+      console.log('Submitting form data:', formData);
       const { error } = await supabase
         .from("homepage_settings")
         .update(formData)
@@ -276,13 +277,13 @@ export const HomepageSettings = () => {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="cta_primary_link">Primary CTA Link (PDF URL)</Label>
+              <Label htmlFor="cta_primary_link">Primary CTA Link</Label>
               <Input
                 id="cta_primary_link"
                 value={formData.cta_primary_link || ''}
                 onChange={(e) => handleInputChange('cta_primary_link', e.target.value)}
                 className="bg-cyberdark border-cyberblue/20"
-                placeholder="Enter PDF URL manually or upload a file"
+                placeholder="Enter URL or upload a PDF"
               />
             </div>
 
@@ -301,8 +302,9 @@ export const HomepageSettings = () => {
                 id="cta_primary_new_tab"
                 checked={formData.cta_primary_new_tab}
                 onCheckedChange={(checked) => 
-                  handleInputChange('cta_primary_new_tab', checked)
+                  handleInputChange('cta_primary_new_tab', checked as boolean)
                 }
+                className="data-[state=checked]:bg-cyberpink data-[state=checked]:border-cyberpink"
               />
               <Label 
                 htmlFor="cta_primary_new_tab"
@@ -343,15 +345,6 @@ export const HomepageSettings = () => {
         <div className="space-y-4">
           <h3 className="text-lg font-semibold text-white">Call to Actions</h3>
           <div className="grid gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="cta_primary_text">Primary CTA Text</Label>
-              <Input
-                id="cta_primary_text"
-                value={formData.cta_primary_text || ''}
-                onChange={(e) => handleInputChange('cta_primary_text', e.target.value)}
-                className="bg-cyberdark border-cyberblue/20"
-              />
-            </div>
             <div className="space-y-2">
               <Label htmlFor="cta_secondary_text">Secondary CTA Text</Label>
               <Input
